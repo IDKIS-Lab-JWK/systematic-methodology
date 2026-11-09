@@ -1,0 +1,4 @@
+{
+  "parameters": {"epochs": 20, "learning_rate": 0.0001, "weight_decay": 0, "lora_rank": 4, "lora_alpha": 1.0},
+  "assets": {"upstream_root": "../assets/3DINO/source", "upstream_revision": "REPLACE_WITH_SUPPORTED_UPSTREAM_REVISION", "checkpoint": "../assets/3DINO/checkpoint.pth"}
+}

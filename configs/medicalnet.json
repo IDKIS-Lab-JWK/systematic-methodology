@@ -1,0 +1,4 @@
+{
+  "parameters": {"epochs": 20, "learning_rate": 0.0001},
+  "assets": {"checkpoint": "../assets/MedicalNet/resnet_18_23dataset.pth"}
+}

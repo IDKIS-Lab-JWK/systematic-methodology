@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "model": "COLIPRI",
+  "method": "PoolingOptimisedLinearProbe",
+  "method_id": "pooling_optimised_linear_probe",
+  "parameter_source": "default",
+  "profile_type": "practical_fixed_profile",
+  "parameters": {
+    "pooling": "max",
+    "learning_rate": 0.03,
+    "optimizer": "sgd",
+    "momentum": 0.95,
+    "weight_decay": 0.0,
+    "scheduler": "cosine",
+    "max_steps": 12500,
+    "effective_batch_size": 16,
+    "embed_dim": 864,
+    "attention_heads": 12,
+    "num_classes": 5,
+    "loss": "weighted_multiclass_cross_entropy_effective_number",
+    "class_weight_beta": 0.999
+  },
+  "warning": "This fixed max-pooling/LR choice is a practical default, not a publication-reported winning configuration. Use parameter_source=publication for reportable experiments."
+}

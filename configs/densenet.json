@@ -1,0 +1,10 @@
+{
+  "classes": ["class_a", "class_b"],
+  "parameters": {
+    "epochs": 20,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "canvas_xyz": [128, 128, 128]
+  },
+  "assets": {}
+}

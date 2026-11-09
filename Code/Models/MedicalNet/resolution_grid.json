@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "model": "MedicalNet",
+  "method": "FullFineTune",
+  "parameter_source": "grid",
+  "parameter_selection": "grid",
+  "# provenance": {
+    "backbone": "Official MedicalNet 23-dataset ResNet18, shortcut A, pinned source and audited local checkpoint. Publication described 8-dataset pretraining; the 23-dataset release is official-code-backed.",
+    "optimizer_lr": "Med3D section 4.2: Adam, initial learning rate 0.001 for pretrained transfer, including classification.",
+    "budget": "200 epoch cap follows official setting.py demo; validation stopping at patience 10 is project-adapted.",
+    "weight_decay": "0.0 is an explicit Adam-default choice because transfer weight decay is not specified in the paper.",
+    "geometry": "Med3D training-median spacing and nnU-Net geometry/memory planning principles. Max-extent coarsening to a 256-cube is a task adaptation. Validation/test keep fitted spacing unchanged; larger scans expand the padded canvas.",
+    "intensity": "Med3D LiTS [-200,250] HU precedent; mapping to [0,1] and use for five-class/DenseNet classification are adaptations.",
+    "imbalance": "Effective-number weighted CE (Cui et al. CVPR 2019); beta=0.999 from existing systematic adapters, computed on fold training labels only.",
+    "batch_precision": "Effective batch 4, default microbatch 4, BF16/FP32 execution are measured resource adaptations; accumulation does not make BatchNorm batch sizes equivalent.",
+    "augmentation": "None: preserve laterality and coverage without lesion boxes. Not the original papers augmentation recipe.",
+    "selection": "Existing systematic score 0.7 macro-F1 + 0.3 balanced accuracy; five-fold grid uses mean-minus-SD. Refit uses median selected optimizer step, so full-development refit has fewer epoch equivalents than CV."
+  },
+  "# references": [
+    "https://arxiv.org/pdf/1904.00625",
+    "https://arxiv.org/pdf/1608.06993",
+    "https://doi.org/10.1038/s41592-020-01008-z",
+    "https://arxiv.org/abs/1901.05555"
+  ],
+  "fixed_parameters": {
+    "epochs": 200,
+    "effective_batch_size": 4,
+    "eval_batch_size": 1,
+    "validation_interval_epochs": 1,
+    "early_stopping_patience_epochs": 10,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0,
+    "augmentation": "none",
+    "canvas_xyz": [
+      256,
+      256,
+      256
+    ],
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "optimizer": "adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "scheduler": "constant"
+  },
+  "candidates": [
+    {
+      "canvas_xyz": [
+        192,
+        192,
+        192
+      ]
+    },
+    {
+      "canvas_xyz": [
+        256,
+        256,
+        256
+      ]
+    }
+  ],
+  "candidate_count": 2,
+  "# interpretation": "Predeclared resolution sensitivity; no held-out metrics used for selection. This is a project grid."
+}

@@ -1,0 +1,37 @@
+{
+  "# source (not executable)": "FlexiCT paper: https://arxiv.org/html/2605.21906. Downstream segmentation reports end-to-end AdamW with betas (0.9,0.98), learning rate 5e-5, weight decay 3e-5, and polynomial power-1 decay. Restricting adaptation to block 15 + final norm, adding a five-class head, and using a 10,000-step ceiling/validation stopping are explicit task adaptations.",
+  "schema_version": 1,
+  "model": "FlexiCT",
+  "method": "FinalBlockFineTune",
+  "parameter_source": "publication",
+  "parameter_selection": "fixed",
+  "publication_evidence": {
+    "optimizer_betas_learning_rate_weight_decay_scheduler": "publication_backed",
+    "final_block_scope_five_class_head_step_ceiling_early_stopping": "publication_adapted",
+    "effective_batch_class_weighting_and_gradient_clipping": "publication_adapted"
+  },
+  "parameters": {
+    "adaptation_scope": "final_block",
+    "optimizer": "adamw",
+    "encoder_learning_rate": 0.00005,
+    "head_learning_rate": 0.00005,
+    "weight_decay": 0.00003,
+    "head_weight_decay": 0.00003,
+    "betas": [0.9, 0.98],
+    "epsilon": 1e-8,
+    "scheduler": "polynomial",
+    "polynomial_power": 1.0,
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 10000,
+    "effective_batch_size": 4,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 100,
+    "early_stopping_patience_steps": 1000,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0
+  },
+  "candidate_count": 1
+}

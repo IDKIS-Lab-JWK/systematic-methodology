@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "method": "lora",
+  "profile_type": "related_study_code_adapted",
+  "source": {
+    "title": "Do Medical Foundation Models Generalize on the African Brain?",
+    "publication_url": "https://papers.miccai.org/miccai-2026-sat/AFRICAI_011.html",
+    "arxiv_doi": "10.48550/arXiv.2607.28771",
+    "code_url": "https://anonymous.4open.science/r/MFM-African-Brain-78C8/src/lora/lora.py",
+    "inspected_date": "2026-10-16",
+    "repository_displayed_source_commit_date": "2026-06-29",
+    "code_file_version_marker": "ac496fc9",
+    "provenance_note": "Released script defaults, not independently verified settings for every reported result. Paper says linear classifier; released code uses a BatchNorm/ReLU/dropout MLP. The file version marker is not a Git commit SHA."
+  },
+  "task_adaptations": {
+    "publication_exact": false,
+    "head": "1024 -> 128 -> 64 -> 5; BatchNorm, ReLU and dropout 0.3 after each hidden layer",
+    "loss": "Five-class unweighted cross-entropy replaces binary BCEWithLogitsLoss",
+    "preprocessing": "Existing CT RAS/percentile/prefix-cache/112-cubed crop and augmentation contract retained instead of the study's normalized 96-cubed MRI input",
+    "evaluation": "Existing five development folds, final-budget checkpoint per fold, development refit and separate held-out test; not the study's five random 50:50 splits",
+    "class_order": ["Appendicitis", "Cholezystitis", "Normal", "Perforation", "Sigmoid"]
+  },
+  "parameters": {
+    "lora_rank": 4,
+    "lora_alpha": 1.0,
+    "lora_dropout": 0.0,
+    "head_type": "study_mlp",
+    "head_dropout": 0.3,
+    "optimizer": "adam",
+    "lr": 0.0001,
+    "weight_decay": 0.0,
+    "batch_size": 4,
+    "grad_accum_steps": 1,
+    "drop_last": true,
+    "epochs": 50,
+    "max_iterations": 0,
+    "early_stopping_patience": 0,
+    "warmup_fraction": 0.0,
+    "scheduler": "none",
+    "max_grad_norm": 0.0,
+    "mixed_precision": true,
+    "autocast_dtype": "float16",
+    "gradient_checkpointing": false,
+    "loss": "cross_entropy",
+    "class_weighting": "none",
+    "seed": 42
+  }
+}

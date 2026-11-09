@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "Please cite this software and the upstream models used in your work."
+type: software
+title: "Systematic Methodology for Abdominal CT Benchmarking"
+authors:
+  - family-names: Khan
+    given-names: Sarmad Ahmad
+    website: https://github.com/SarmadAK
+version: 0.1.0
+date-released: 2026-11-09
+repository-code: https://github.com/IDKIS-Lab-JWK/systematic-methodology
+license: MIT
+keywords:
+  - computed tomography
+  - reproducibility
+  - foundation models
+  - medical image classification

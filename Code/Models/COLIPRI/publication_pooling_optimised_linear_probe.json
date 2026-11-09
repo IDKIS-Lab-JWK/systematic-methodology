@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "model": "COLIPRI",
+  "method": "PoolingOptimisedLinearProbe",
+  "method_id": "pooling_optimised_linear_probe",
+  "parameter_source": "publication",
+  "profile_type": "publication_adapted",
+  "publication_backed_grid": true,
+  "publication_exact": false,
+  "references": {
+    "paper": "https://arxiv.org/abs/2510.15042",
+    "paper_section": "Appendix C.2, Classification probing",
+    "official_model_and_code": "https://huggingface.co/microsoft/colipri",
+    "official_revision": "be872ebec5c62894cf183b09835ec6fd7be537f5"
+  },
+  "fixed_parameters": {
+    "optimizer": "sgd",
+    "momentum": 0.95,
+    "weight_decay": 0.0,
+    "scheduler": "cosine",
+    "max_steps": 12500,
+    "effective_batch_size": 16,
+    "embed_dim": 864,
+    "attention_heads": 12,
+    "num_classes": 5,
+    "loss": "weighted_multiclass_cross_entropy_effective_number",
+    "class_weight_beta": 0.999
+  },
+  "search_space": {
+    "pooling": [
+      "average",
+      "max",
+      "learned_attention",
+      "average_attention",
+      "multi_learned_attention"
+    ],
+    "learning_rate": [0.003, 0.01, 0.03, 0.1],
+    "candidate_count": 20
+  },
+  "selection": {
+    "primary": "mean five-fold macro one-vs-rest AUPRC",
+    "tie_breakers": [
+      "lower fold-to-fold macro-AUPRC standard deviation",
+      "higher mean Perforation recall",
+      "lower learning rate",
+      "stable pooling/candidate order"
+    ]
+  },
+  "adaptations": [
+    "The original 18-label multi-label classifier is replaced by one five-class head.",
+    "The publication does not report its probe loss; this project uses training-fold-only effective-number weighted multiclass cross-entropy (beta 0.999).",
+    "Five patient-grouped folds and the fixed held-out cohort replace the source datasets' original splits.",
+    "The complete five-pooling by four-learning-rate publication search is preserved."
+  ]
+}

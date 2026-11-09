@@ -1,0 +1,28 @@
+{
+  "# source (not executable)": "Practical project default retaining the published frozen one-head architecture and SGD family with 20 epochs and effective batch 16. It is not a publication claim.",
+  "schema_version": 1,
+  "model": "FlexiCT",
+  "method": "FrozenSingleHeadAttentionReadout",
+  "parameter_source": "default",
+  "parameters": {
+    "encoder_state": "frozen",
+    "attention_heads": 1,
+    "query_count": 1,
+    "optimizer": "sgd",
+    "head_learning_rate": 0.00125,
+    "weight_decay": 0.0,
+    "momentum": 0.9,
+    "nesterov": false,
+    "scheduler": "cosine",
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "epochs": 20,
+    "effective_batch_size": 16,
+    "eval_batch_size": 64,
+    "validation_interval_steps": 10,
+    "early_stopping_patience_steps": 0,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0
+  }
+}

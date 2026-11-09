@@ -1,0 +1,23 @@
+{
+  "adapter_lr": [5e-05, 0.0001, 0.0002],
+  "head_lr": [0.0001],
+  "image_layer_decay": [0.7],
+  "dropout_prob": [0.0],
+  "conv_lora_rank": [2],
+  "conv_lora_alpha": [2.0],
+  "train_image_projection": [false],
+  "encoder_weight_decay": [0.01],
+  "head_weight_decay": [0.01],
+  "exclude_norm_bias_from_weight_decay": [true],
+  "scheduler_step_unit": ["optimizer_update"],
+  "warmup_epochs": [0],
+  "min_lr_factor": [0.0],
+  "max_grad_norm": [0.0],
+  "batch_size": [2],
+  "grad_accum_steps": [8],
+  "epochs": [300],
+  "early_stopping_patience": [5],
+  "min_delta": [0.0],
+  "embedding_dim": [2048],
+  "gradient_checkpointing": [true]
+}

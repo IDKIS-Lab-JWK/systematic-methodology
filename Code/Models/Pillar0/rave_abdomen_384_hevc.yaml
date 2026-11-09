@@ -1,0 +1,38 @@
+# Pillar-0 abdomen CT preprocessing, publication-reference storage profile.
+# This mirrors YalaLab/pillar-pretrain commit
+# ab06083ac0d3706017780fb3e3facd23c4fbd0cd (configs/ct_abdomen.yaml).
+# It requires ffmpeg with libx265 and uses the upstream 10-bit HEVC exporter.
+# The repository's executable default remains rave_abdomen_384_lz4.yaml because
+# raw-HU LZ4 avoids video quantization and works in the audited local runtime.
+
+modality: CT
+anatomy: abdomen
+
+processing:
+  crop_pad:
+    size: [384, 384]
+  resampling:
+    target_spacing: [1.25, 1.25, 1.25]
+  conversion_backend: "sitk"
+  slice_selection:
+    enabled: true
+    slices: 384
+
+exporter:
+  compression: "video"
+  video:
+    codec: "libx265"
+    bit_depth: 10
+    crf: 6
+    gop_size: 128
+    hu_min: -1024
+    hu_max: 3071
+    preset: "ultrafast"
+    archive: false
+
+parallel:
+  workers: 32
+
+logging:
+  level: "INFO"
+  file: null

@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "prompt_set_id": "pillar0_qwen_findings_task_specific_v1",
+  "publication_demonstrated": false,
+  "display_name": "Pillar-0 Qwen findings-style task-specific prompts v1",
+  "method_source": {
+    "paper": "Pillar-0: A Strong Multimodal Foundation Model for Abdomen CT",
+    "paper_url": "https://arxiv.org/html/2511.17803v1",
+    "project_url": "https://yalalab.github.io/pillar-0/",
+    "official_pretraining_repository": "https://github.com/YalaLab/pillar-pretrain",
+    "pretraining_repository_revision": "ab06083ac0d3706017780fb3e3facd23c4fbd0cd",
+    "vision_checkpoint": "YalaLab/Pillar0-AbdomenCT",
+    "vision_checkpoint_revision": "d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8",
+    "text_encoder": "Qwen/Qwen3-Embedding-8B",
+    "text_encoder_revision": "1d8ad4ca9b3dd8059ad90a75d4983776a23d44af",
+    "publication_demonstrated": false,
+    "method": "Exploratory cosine similarity between Pillar image embeddings and findings-style Qwen embeddings passed through the matching trained Pillar text projection."
+  },
+  "capability_contract": {
+    "status": "capability_gated_experimental",
+    "required_checkpoint_capability": "The downloaded Pillar checkpoint must expose the trained text projection that maps 4096-dimensional Qwen embeddings into the same 1152-dimensional space as its image projection.",
+    "fail_closed": true,
+    "forbidden_fallback": "Do not compare raw Qwen embeddings directly with Pillar image features, do not insert a random projection, and do not report zero-shot metrics if the compatible trained text projection is unavailable.",
+    "resource_note": "Encode and cache the small fixed prompt bank first, release Qwen3-Embedding-8B, then load the 3-D vision encoder to fit a 24 GB GPU."
+  },
+  "text_embedding": {
+    "max_length": 512,
+    "padding": true,
+    "truncation": true,
+    "pooling": "attention_masked_mean_of_last_hidden_state",
+    "normalize_qwen_embedding_before_projection": true,
+    "normalize_projected_text_embedding": true,
+    "provenance": "Mirrors CachedTextEmbedding in the pinned official pillar-pretrain repository."
+  },
+  "scoring": {
+    "embedding_normalization": "L2 per image and per projected prompt",
+    "prompt_aggregation": "mean of individual prompt cosine similarities",
+    "five_class_rule": "argmax of the mean positive-prompt cosine similarity",
+    "author_binary_rule": "positive when mean positive-prompt cosine similarity exceeds mean negative-prompt cosine similarity",
+    "temperature_calibration": "none",
+    "threshold_tuning": "none"
+  },
+  "prompt_provenance": {
+    "source": "task_specific_findings_style",
+    "publication_exact_prompts": false,
+    "clinical_review_status": "not_recorded",
+    "development_labels_used_for_prompt_selection": false,
+    "heldout_labels_used_for_prompt_selection": false,
+    "selection": "Prompts are fixed and versioned before any held-out evaluation.",
+    "note": "The Pillar-0 study does not demonstrate or release a zero-shot classifier for these five labels. The semantic aliases follow the established repository task interpretation, while wording is adapted to radiology findings text because Pillar-0 aligned CT volumes with report Findings sections."
+  },
+  "class_order": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "author_binary_classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "class_assumptions": {
+    "Cholezystitis": "Dataset spelling is retained in outputs; prompt text uses the standard clinical spelling cholecystitis.",
+    "Perforation": "Interpreted as gastrointestinal or hollow-viscus perforation.",
+    "Sigmoid": "Interpreted as acute sigmoid diverticulitis."
+  },
+  "class_semantics_status": "Implementation assumptions approved for this workflow but not independently verified from original dataset provenance; zero-shot results remain exploratory until clinical review.",
+  "classes": {
+    "Appendicitis": {
+      "canonical_concept": "acute appendicitis",
+      "positive": [
+        "Findings demonstrate a dilated inflamed appendix with surrounding inflammatory change, consistent with acute appendicitis.",
+        "The appendix is enlarged with periappendiceal fat stranding, compatible with acute appendicitis.",
+        "There are CT findings of acute appendicitis in the right lower quadrant.",
+        "An acutely inflamed appendix is present."
+      ],
+      "negative": [
+        "The appendix is normal without periappendiceal inflammation.",
+        "There is no CT evidence of acute appendicitis.",
+        "No dilated or inflamed appendix is identified.",
+        "Findings are not consistent with acute appendicitis."
+      ]
+    },
+    "Cholezystitis": {
+      "canonical_concept": "acute cholecystitis",
+      "positive": [
+        "The gallbladder is distended with wall thickening and surrounding inflammatory change, consistent with acute cholecystitis.",
+        "Pericholecystic inflammation and gallbladder wall thickening indicate acute cholecystitis.",
+        "There are CT findings of acute cholecystitis.",
+        "Acute inflammation of the gallbladder is present."
+      ],
+      "negative": [
+        "The gallbladder is without acute inflammatory change.",
+        "There is no CT evidence of acute cholecystitis.",
+        "No gallbladder wall thickening or pericholecystic inflammation is identified.",
+        "Findings are not consistent with acute cholecystitis."
+      ]
+    },
+    "Normal": {
+      "canonical_concept": "no acute abdominal or pelvic abnormality",
+      "positive": [
+        "No acute abnormality is identified in the abdomen or pelvis.",
+        "The CT of the abdomen and pelvis is without acute pathology.",
+        "There is no acute intra-abdominal or pelvic disease.",
+        "No acute inflammatory, obstructive, or perforating process is present."
+      ],
+      "negative": [
+        "An acute abnormality is present in the abdomen or pelvis.",
+        "The CT demonstrates acute intra-abdominal pathology.",
+        "There is an acute inflammatory or perforating abdominal process.",
+        "Findings are abnormal with acute abdominal or pelvic disease."
+      ]
+    },
+    "Perforation": {
+      "canonical_concept": "gastrointestinal hollow-viscus perforation",
+      "positive": [
+        "Extraluminal gas and adjacent inflammatory change are consistent with gastrointestinal perforation.",
+        "There is CT evidence of hollow-viscus perforation.",
+        "Free intraperitoneal air indicates bowel perforation.",
+        "A perforated gastrointestinal viscus is present."
+      ],
+      "negative": [
+        "There is no extraluminal gas or evidence of gastrointestinal perforation.",
+        "No hollow-viscus perforation is identified.",
+        "There is no free intraperitoneal air to indicate bowel perforation.",
+        "The gastrointestinal tract is without perforation."
+      ]
+    },
+    "Sigmoid": {
+      "canonical_concept": "acute sigmoid diverticulitis",
+      "positive": [
+        "Sigmoid diverticula with focal colonic wall thickening and surrounding inflammation are consistent with acute sigmoid diverticulitis.",
+        "There is perisigmoid fat stranding compatible with acute sigmoid diverticulitis.",
+        "There are CT findings of acute sigmoid diverticulitis.",
+        "Acute inflammation centered on sigmoid diverticula is present."
+      ],
+      "negative": [
+        "The sigmoid colon is without acute diverticular inflammation.",
+        "There is no CT evidence of acute sigmoid diverticulitis.",
+        "No perisigmoid inflammatory change is identified.",
+        "Findings are not consistent with acute sigmoid diverticulitis."
+      ]
+    }
+  }
+}

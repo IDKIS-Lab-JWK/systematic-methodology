@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "method": "linear_probe",
+  "profile_type": "publication_adapted_search",
+  "source": {
+    "paper": "Universal CT Representations from Anatomy to Disease Phenotype through Agglomerative Pretraining",
+    "paper_url": "https://arxiv.org/html/2605.21906",
+    "official_repository": "https://github.com/ricklisz/FlexiCT",
+    "repository_revision": "fd74ac06a31813fe02805674e96f811e9b2a5c43",
+    "native_probe_section": "Supplement S0.17; 3D phenotype frozen-feature linear probing",
+    "official_code": "downstream/retrieval/ours_C4KC_linear.py at the pinned revision"
+  },
+  "fixed_parameters": {
+    "classifier": "multinomial_logistic_regression",
+    "penalty": "l2",
+    "solver": "lbfgs",
+    "class_weight": "balanced",
+    "max_iter": 20000,
+    "random_state": 0,
+    "feature_standardization": "StandardScaler fit on training partition only",
+    "encoder_frozen": true,
+    "feature_dimension": 1024
+  },
+  "search_space": {
+    "C": [0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0],
+    "candidate_count": 7,
+    "candidate_construction": "one complete publication-backed C sweep per development percentage",
+    "ordered_grid_immutable_for_publication_claim": true
+  },
+  "task_adaptations": {
+    "publication_exact": false,
+    "original_task": "lesion-centred 32/64 voxel phenotype crops with repeated stratified CV",
+    "current_task": "five mutually exclusive whole-volume abdominal CT classes with fixed patient folds",
+    "whole_volume_preprocessing_source": "official FlexiCT CT-RATE VLM evaluation code: LPS, 2 mm, 160 cubed, HU clipping and volume z-score",
+    "feature_recipe": "frozen VLM vision backbone; concat normalized CLS and mean normalized patch tokens; frozen 1728-to-1024 VLM projection; L2 normalization",
+    "selection": "project robust macro-F1/balanced-accuracy score; held-out patients excluded"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "method": "linear_probe",
+  "profile_type": "publication_adapted",
+  "source": {
+    "paper": "Pillar-0: A Strong Multimodal Foundation Model for Abdomen CT",
+    "paper_url": "https://arxiv.org/html/2511.17803v1",
+    "official_repository": "https://github.com/YalaLab/rate-evals",
+    "repository_revision": "508afc03691dca8dcad23918f94540cb927d0614",
+    "checkpoint": "YalaLab/Pillar0-AbdomenCT",
+    "checkpoint_revision": "d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8",
+    "publication_backed_parameters": {
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "batch_size": 8192,
+      "epochs": 1000,
+      "weight_decay": 0.0,
+      "encoder": "frozen",
+      "evaluation_protocol": "RATE-Evals frozen features plus a linear classifier"
+    },
+    "provenance_note": "RATE-Evals evaluates binary or multilabel targets with class-balanced BCE. This profile retains its optimizer and training budget but adapts the head and loss to this repository's mutually exclusive five-class task."
+  },
+  "task_adaptations": {
+    "publication_exact": false,
+    "reason": "The Pillar-0 study did not evaluate these five dataset labels.",
+    "label_format": "single_label_five_class",
+    "class_order": [
+      "Appendicitis",
+      "Cholezystitis",
+      "Normal",
+      "Perforation",
+      "Sigmoid"
+    ],
+    "head": "Linear(1152, 5)",
+    "loss": "class_balanced_cross_entropy_instead_of_rate_evals_bce",
+    "split_policy": "existing five deterministic development folds; held-out test excluded from fitting and selection"
+  },
+  "parameters": {
+    "optimizer": "adam",
+    "lr": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 8192,
+    "epochs": 1000,
+    "early_stopping_patience": 1000,
+    "min_delta": 0.0,
+    "class_weighting": "inverse_frequency",
+    "effective_number_beta": 0.999,
+    "loss": "cross_entropy",
+    "feature_dim": 1152,
+    "encoder_frozen": true,
+    "input_shape_dhw": [384, 384, 384],
+    "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+    "ct_window_count": 11,
+    "ct_windows_applied_on_the_fly": true,
+    "apply_input_normalization": false,
+    "seed": 42
+  }
+}

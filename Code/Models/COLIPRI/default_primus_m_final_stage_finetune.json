@@ -1,0 +1,30 @@
+{
+  "# source (not executable)": "Practical project default based on the publication-adapted recipe: adapted final-quarter Primus-M scope, 1e-4 learning-rate anchor, and a short 1,000-step setup ceiling. It is not a publication claim.",
+  "schema_version": 1,
+  "model": "COLIPRI",
+  "method": "PrimusMFinalStageFineTune",
+  "parameter_source": "default",
+  "parameters": {
+    "adaptation_scope": "final_stage",
+    "optimizer": "adamw",
+    "encoder_learning_rate": 0.0001,
+    "head_learning_rate": 0.0001,
+    "weight_decay": 0.05,
+    "head_weight_decay": 0.05,
+    "betas": [0.9, 0.999],
+    "epsilon": 1e-8,
+    "scheduler": "polynomial",
+    "polynomial_power": 1.0,
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 1000,
+    "effective_batch_size": 4,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 50,
+    "early_stopping_patience_steps": 250,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0
+  }
+}

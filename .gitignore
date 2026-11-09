@@ -1,0 +1,74 @@
+# Local inputs and runtime products
+.env
+.env.*
+!.env.example
+/Dataset/
+/data/
+/Data/
+cache/
+caches/
+**/[Cc]ache*/
+**/*_cache/
+**/frozen_inputs/
+/models/
+/weights/
+/outputs/
+/runs/
+/Logs/
+/logs/
+**/*.log
+# Python and editors
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.venv*/
+venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# Machine credentials
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+ssh_config
+# Local preparation and assistant state
+.agents/
+.codex*/
+AGENTS.md
+SKILL.md
+tmp/
+temp/
+.build/
+**/audit/
+**/inputs_4/
+**/last_checkpoint.pt
+Results/
+*.pt
+*.pth
+*.joblib
+*.safetensors
+# Raw medical volumes and numerical caches never belong in the repository
+*.dcm
+*.dicom
+*.nii
+*.nii.gz
+*.npy
+*.npz
+*.h5
+*.hdf5
+**/test_patient_predictions.json
+**/test_probabilities.csv
+**/validation_predictions.json
+**/validation_probabilities.csv
+
+# Checkpoint binaries live on public Google Drive; metadata stays in Git
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.joblib
+**/*.download/
+*.part

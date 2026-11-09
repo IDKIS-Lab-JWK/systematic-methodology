@@ -1,0 +1,30 @@
+{
+  "# source (not executable)": "Practical project default derived from the publication profile: complete final Atlas stage, smaller effective batch, and shorter ceiling for setup/debugging. It is not a publication claim.",
+  "schema_version": 1,
+  "model": "Pillar0",
+  "method": "AtlasFinalStageFineTune",
+  "parameter_source": "default",
+  "parameters": {
+    "adaptation_scope": "final_stage",
+    "optimizer": "adamw",
+    "encoder_learning_rate": 0.00001,
+    "head_learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "head_weight_decay": 0.01,
+    "betas": [0.9, 0.999],
+    "epsilon": 1e-8,
+    "scheduler": "cosine",
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 1000,
+    "effective_batch_size": 4,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 50,
+    "early_stopping_patience_steps": 250,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0,
+    "random_right_angle_rotation": true
+  }
+}

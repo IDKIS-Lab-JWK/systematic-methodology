@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "method": "linear_probe",
+  "strategy": "curated_successive_halving",
+  "source": {
+    "basis": "Publication learning rate and optimizer are included as one candidate; neighboring coupled settings are deliberately enumerated instead of forming a Cartesian grid.",
+    "official_repository": "https://github.com/YalaLab/rate-evals",
+    "repository_revision": "508afc03691dca8dcad23918f94540cb927d0614"
+  },
+  "task_adaptations": {
+    "publication_exact": false,
+    "label_format": "single_label_five_class",
+    "heldout_test_used_for_search": false,
+    "minority_class_tiebreak": "Perforation recall"
+  },
+  "fixed_parameters": {
+    "loss": "cross_entropy",
+    "feature_dim": 1152,
+    "encoder_frozen": true,
+    "input_shape_dhw": [384, 384, 384],
+    "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+    "ct_window_count": 11,
+    "ct_windows_applied_on_the_fly": true,
+    "apply_input_normalization": false,
+    "seed": 42
+  },
+  "candidates": [
+    {
+      "name": "rate_reference",
+      "optimizer": "adam",
+      "lr": 0.001,
+      "weight_decay": 0.0,
+      "batch_size": 8192,
+      "epochs": 500,
+      "early_stopping_patience": 50,
+      "min_delta": 0.0001,
+      "class_weighting": "inverse_frequency",
+      "effective_number_beta": 0.999,
+      "loss": "cross_entropy",
+      "feature_dim": 1152,
+      "encoder_frozen": true,
+      "input_shape_dhw": [384, 384, 384],
+      "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+      "ct_window_count": 11,
+      "ct_windows_applied_on_the_fly": true,
+      "apply_input_normalization": false,
+      "seed": 42
+    },
+    {
+      "name": "adam_lower_lr_balanced",
+      "optimizer": "adam",
+      "lr": 0.0003,
+      "weight_decay": 0.0,
+      "batch_size": 512,
+      "epochs": 500,
+      "early_stopping_patience": 50,
+      "min_delta": 0.0001,
+      "class_weighting": "inverse_frequency",
+      "effective_number_beta": 0.999,
+      "loss": "cross_entropy",
+      "feature_dim": 1152,
+      "encoder_frozen": true,
+      "input_shape_dhw": [384, 384, 384],
+      "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+      "ct_window_count": 11,
+      "ct_windows_applied_on_the_fly": true,
+      "apply_input_normalization": false,
+      "seed": 42
+    },
+    {
+      "name": "adamw_default",
+      "optimizer": "adamw",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "batch_size": 256,
+      "epochs": 500,
+      "early_stopping_patience": 50,
+      "min_delta": 0.0001,
+      "class_weighting": "effective_number",
+      "effective_number_beta": 0.999,
+      "loss": "cross_entropy",
+      "feature_dim": 1152,
+      "encoder_frozen": true,
+      "input_shape_dhw": [384, 384, 384],
+      "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+      "ct_window_count": 11,
+      "ct_windows_applied_on_the_fly": true,
+      "apply_input_normalization": false,
+      "seed": 42
+    },
+    {
+      "name": "adamw_lower_lr",
+      "optimizer": "adamw",
+      "lr": 0.0003,
+      "weight_decay": 0.0001,
+      "batch_size": 256,
+      "epochs": 500,
+      "early_stopping_patience": 50,
+      "min_delta": 0.0001,
+      "class_weighting": "effective_number",
+      "effective_number_beta": 0.999,
+      "loss": "cross_entropy",
+      "feature_dim": 1152,
+      "encoder_frozen": true,
+      "input_shape_dhw": [384, 384, 384],
+      "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+      "ct_window_count": 11,
+      "ct_windows_applied_on_the_fly": true,
+      "apply_input_normalization": false,
+      "seed": 42
+    },
+    {
+      "name": "adamw_higher_lr",
+      "optimizer": "adamw",
+      "lr": 0.003,
+      "weight_decay": 0.0001,
+      "batch_size": 256,
+      "epochs": 500,
+      "early_stopping_patience": 50,
+      "min_delta": 0.0001,
+      "class_weighting": "effective_number",
+      "effective_number_beta": 0.999,
+      "loss": "cross_entropy",
+      "feature_dim": 1152,
+      "encoder_frozen": true,
+      "input_shape_dhw": [384, 384, 384],
+      "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+      "ct_window_count": 11,
+      "ct_windows_applied_on_the_fly": true,
+      "apply_input_normalization": false,
+      "seed": 42
+    },
+    {
+      "name": "adamw_stronger_regularization",
+      "optimizer": "adamw",
+      "lr": 0.001,
+      "weight_decay": 0.001,
+      "batch_size": 128,
+      "epochs": 500,
+      "early_stopping_patience": 50,
+      "min_delta": 0.0001,
+      "class_weighting": "effective_number",
+      "effective_number_beta": 0.99,
+      "loss": "cross_entropy",
+      "feature_dim": 1152,
+      "encoder_frozen": true,
+      "input_shape_dhw": [384, 384, 384],
+      "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+      "ct_window_count": 11,
+      "ct_windows_applied_on_the_fly": true,
+      "apply_input_normalization": false,
+      "seed": 42
+    }
+  ],
+  "rounds": [
+    {
+      "budget": 50,
+      "budget_unit": "epochs",
+      "folds": [1, 2],
+      "keep": 3
+    },
+    {
+      "budget": 150,
+      "budget_unit": "epochs",
+      "folds": [1, 2, 3],
+      "keep": 2
+    },
+    {
+      "budget": 500,
+      "budget_unit": "epochs",
+      "folds": [1, 2, 3, 4, 5],
+      "keep": 1
+    }
+  ],
+  "selection": {
+    "primary_score": "0.7 * (mean_f1_macro - std_f1_macro) + 0.3 * (mean_balanced_accuracy - std_balanced_accuracy)",
+    "tie_breakers": [
+      "higher Perforation recall",
+      "lexicographically smaller deterministic candidate id"
+    ],
+    "final_protocol": "Retrain and evaluate the one surviving candidate through the standard five-fold CV/refit workflow; evaluate held-out test once after selection."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "# source (not executable)": "COLIPRI paper: https://arxiv.org/html/2510.15042. The released downstream segmentation protocol provides the encoder-adaptation basis: a short 37,500-step/150-pseudoepoch schedule and peak learning rate 1e-4. Restricting adaptation to Primus-M block 15 plus the final norm, the five-class head, optimizer details not fixed by that recipe, class weighting, gradient clipping, validation, and stopping are explicit task adaptations.",
+  "schema_version": 1,
+  "model": "COLIPRI",
+  "method": "PrimusMFinalBlockFineTune",
+  "parameter_source": "publication",
+  "parameter_selection": "fixed",
+  "publication_evidence": {
+    "pretrained_encoder_and_partial_downstream_adaptation_family": "publication_backed",
+    "short_step_budget_and_learning_rate_anchor": "publication_backed",
+    "final_block_scope_and_five_class_head": "publication_adapted",
+    "class_weighting_validation_and_early_stopping": "publication_adapted",
+    "partial_classification_optimizer_details_and_gradient_clipping": "publication_adapted"
+  },
+  "parameters": {
+    "adaptation_scope": "final_block",
+    "optimizer": "adamw",
+    "encoder_learning_rate": 0.0001,
+    "head_learning_rate": 0.0001,
+    "weight_decay": 0.05,
+    "head_weight_decay": 0.05,
+    "betas": [0.9, 0.999],
+    "epsilon": 1e-8,
+    "scheduler": "polynomial",
+    "polynomial_power": 1.0,
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 37500,
+    "effective_batch_size": 8,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 250,
+    "early_stopping_patience_steps": 2500,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0
+  }
+}

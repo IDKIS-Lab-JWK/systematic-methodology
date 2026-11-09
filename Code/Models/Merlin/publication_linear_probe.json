@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "profile_name": "merlin_nature_2026_five_class_linear_probe_adaptation",
+  "variant": "linear_probe",
+  "parameter_origin": "publication_adapted",
+  "publication_fidelity": "publication_backed_frozen_encoder_linear_head_with_five_class_task_adaptations",
+  "publication": {
+    "title": "Merlin: A Computed Tomography Vision-Language Foundation Model and Dataset",
+    "venue": "Nature",
+    "year": 2026,
+    "doi": "10.1038/s41586-026-10181-8",
+    "paper_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13082451/",
+    "arxiv_url": "https://arxiv.org/abs/2406.06512"
+  },
+  "sources": {
+    "primary_authority": "The final Nature author manuscript defines the linear-probe training recipe.",
+    "official_repository": "https://github.com/StanfordMIMI/Merlin",
+    "official_inference_documentation": "https://github.com/StanfordMIMI/Merlin/blob/main/documentation/inference.md",
+    "official_image_encoder": "https://github.com/StanfordMIMI/Merlin/blob/main/merlin/models/i3res.py",
+    "package_api": "merlin-vlm==0.0.7",
+    "audit_date": "2026-08-10",
+    "code_availability_note": "The official repository exposes inference and model code but no complete linear-probe training script; values not reported in the paper are identified below as implementation choices."
+  },
+  "parameters": {
+    "head_lr": 0.00001,
+    "head_weight_decay": 0.01,
+    "warmup_epochs": 0,
+    "min_lr_factor": 0.0,
+    "max_grad_norm": 0.0,
+    "batch_size": 1,
+    "grad_accum_steps": 1,
+    "epochs": 10,
+    "scheduler_decay_epochs": 300,
+    "early_stopping_patience": 0,
+    "min_delta": 0.0,
+    "embedding_dim": 2048
+  },
+  "parameter_evidence": {
+    "paper_exact": {
+      "head_lr": "The linear probes use AdamW with an initial learning rate of 1e-5.",
+      "epochs": "The linear probes are trained for 10 epochs.",
+      "scheduler_decay_epochs": "The cosine scheduler is configured to decay to zero over a 300-epoch horizon.",
+      "min_lr_factor": "Zero represents the reported cosine endpoint.",
+      "early_stopping_patience": "Zero disables early stopping so the reported fixed 10-epoch training duration is retained."
+    },
+    "official_code_backed": {
+      "embedding_dim": "Merlin(ImageEmbedding=True) returns the pooled 2048-dimensional image representation before the separate 512-dimensional contrastive projection."
+    },
+    "unreported_runnable_implementation_choices": {
+      "head_weight_decay": "The paper does not report probe weight decay; 0.01 is PyTorch AdamW's default and is not claimed as publication-exact.",
+      "warmup_epochs": "Warmup is not reported; zero adds no unsupported warmup.",
+      "max_grad_norm": "Gradient clipping is not reported; zero disables it.",
+      "batch_size": "Probe batch size is not reported; one is the project-safe default and may be changed only through publication_derived provenance.",
+      "grad_accum_steps": "Gradient accumulation is not reported; one disables it.",
+      "min_delta": "Checkpoint-selection tolerance is not reported; zero represents strict improvement when validation is used by the project protocol."
+    },
+    "fixed_architecture_and_task_adaptations": {
+      "encoder": "All Merlin image-encoder parameters are frozen and the encoder remains in evaluation mode.",
+      "head": "A single Linear(2048, 5) layer is initialized with the explicitly recorded PyTorch Kaiming-uniform convention.",
+      "loss": "Multiclass class-weighted cross-entropy is used because the project has one mutually exclusive label per CT; the publication used masked BCE for incompletely labelled multilabel findings.",
+      "splits": "The project's patient-level five-fold development protocol and fixed held-out cohort are retained for comparison with its other strategies."
+    }
+  },
+  "known_methodological_differences": [
+    "The publication's supervised findings experiment uses thirty independent binary heads with masked binary cross-entropy; this project uses one five-logit head, multiclass cross-entropy, and argmax for mutually exclusive labels.",
+    "The project uses inverse-frequency class weights consistently across its supervised Merlin classifiers; weighting is not reported for the publication's linear-probe experiment.",
+    "The publication uses private 15,331-scan training and 5,060-scan validation cohorts and evaluates 10% and 100% training regimes; this project uses its own patient-level percentage manifests, five-fold CV, full-development refit, and fixed held-out cohort.",
+    "The publication does not report probe batch size, weight decay, warmup, random seed, Kaiming variant, or checkpoint-selection rule. Numeric values required by this runner are explicitly classified as implementation choices rather than publication-backed facts.",
+    "Frozen image features are materialized once in FP32 for deterministic reuse across folds; feature-extraction precision is not specified by the publication.",
+    "The project selects CV checkpoints with 0.7*macro-F1 + 0.3*balanced accuracy and reports multiclass accuracy, balanced accuracy, macro-F1, AP, classwise metrics, and confusion matrices."
+  ]
+}

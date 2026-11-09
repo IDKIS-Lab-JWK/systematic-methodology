@@ -1,0 +1,35 @@
+{
+  "# source (not executable)": "FlexiCT paper classification protocol: https://arxiv.org/html/2605.21906 (frozen encoder, LUNA16 3D learned single-head attention aggregation, SGD momentum 0.9, cosine schedule, 50 epochs, batch 64, base LR 0.02 scaled by batch/256). At effective batch 64 the scaled LR is 0.005. The local transparent query-attention implementation and five-class depth-token input are explicit adaptations because the referenced Curia head is gated.",
+  "schema_version": 1,
+  "model": "FlexiCT",
+  "method": "FrozenSingleHeadAttentionReadout",
+  "parameter_source": "publication",
+  "parameter_selection": "fixed",
+  "publication_evidence": {
+    "frozen_encoder_single_head_sgd_momentum_cosine_epochs_batch_scaled_lr": "publication_backed",
+    "depth_token_cache_query_attention_and_five_class_head": "publication_adapted",
+    "five_class_weighting_validation_and_gradient_clipping": "publication_adapted"
+  },
+  "parameters": {
+    "encoder_state": "frozen",
+    "attention_heads": 1,
+    "query_count": 1,
+    "optimizer": "sgd",
+    "head_learning_rate": 0.005,
+    "weight_decay": 0.0,
+    "momentum": 0.9,
+    "nesterov": false,
+    "scheduler": "cosine",
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "epochs": 50,
+    "effective_batch_size": 64,
+    "eval_batch_size": 64,
+    "validation_interval_steps": 10,
+    "early_stopping_patience_steps": 0,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0
+  },
+  "candidate_count": 1
+}

@@ -1,0 +1,30 @@
+# Pillar-0 abdomen CT preprocessing, practical raw-HU cache profile.
+# Geometry is copied from YalaLab/pillar-pretrain commit
+# ab06083ac0d3706017780fb3e3facd23c4fbd0cd (configs/ct_abdomen.yaml).
+# Only the exporter is changed from video_hevc to lz4_fast so Hounsfield units
+# remain lossless and the cache works without a system ffmpeg/libx265 install.
+
+modality: CT
+anatomy: abdomen
+
+processing:
+  crop_pad:
+    size: [384, 384]
+  resampling:
+    target_spacing: [1.25, 1.25, 1.25]
+  conversion_backend: "sitk"
+  slice_selection:
+    enabled: true
+    slices: 384
+
+exporter:
+  compression: "lz4"
+  lz4:
+    compression_level: 3
+
+parallel:
+  workers: 6
+
+logging:
+  level: "INFO"
+  file: null

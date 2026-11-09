@@ -1,0 +1,34 @@
+{
+  "# source (not executable)": "Manual project grid centered on the reviewed COLIPRI 1e-4 partial-adaptation anchor. This is used only with parameter_source=grid and is not a publication grid.",
+  "schema_version": 1,
+  "model": "COLIPRI",
+  "method": "PrimusMFinalStageFineTune",
+  "parameter_source": "grid",
+  "fixed_parameters": {
+    "adaptation_scope": "final_stage",
+    "optimizer": "adamw",
+    "weight_decay": 0.05,
+    "head_weight_decay": 0.05,
+    "betas": [0.9, 0.999],
+    "epsilon": 1e-8,
+    "scheduler": "polynomial",
+    "polynomial_power": 1.0,
+    "warmup_steps": 250,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 37500,
+    "effective_batch_size": 8,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 250,
+    "early_stopping_patience_steps": 2500,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0
+  },
+  "candidates": [
+    {"encoder_learning_rate": 0.00001, "head_learning_rate": 0.0001},
+    {"encoder_learning_rate": 0.00003, "head_learning_rate": 0.0001},
+    {"encoder_learning_rate": 0.0001, "head_learning_rate": 0.0001}
+  ],
+  "candidate_count": 3
+}

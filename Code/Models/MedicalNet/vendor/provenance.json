@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/Tencent/MedicalNet",
+  "revision": "20f76aaab5cac8056eaf50b79ed97c09dbfbd3bd",
+  "license": "MIT",
+  "files": {
+    "resnet.py": {
+      "source": "https://raw.githubusercontent.com/Tencent/MedicalNet/20f76aaab5cac8056eaf50b79ed97c09dbfbd3bd/models/resnet.py",
+      "sha256": "b2027785ff2fcfb86147c75509d0abc272edeb820bfca6ce9ba56cd122b768ca",
+      "bytes": 8189,
+      "modified": false
+    },
+    "LICENSE": {
+      "source": "https://raw.githubusercontent.com/Tencent/MedicalNet/20f76aaab5cac8056eaf50b79ed97c09dbfbd3bd/LICENSE",
+      "sha256": "3dca9a898552631f35f9cc2eb8b284cabd54f27f00e474eb3ea2ed0669656fea",
+      "bytes": 1634,
+      "modified": false
+    }
+  }
+}

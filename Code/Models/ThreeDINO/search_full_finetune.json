@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "method": "full_finetune",
+  "profile_type": "project_adapted_conditional_search",
+  "strategy": "curated_successive_halving",
+  "source": {
+    "basis": "Small, coupled engineering candidates for this repository's five-class task; none is a 3DINO publication classification recipe.",
+    "paper_url": "https://www.nature.com/articles/s41746-025-02035-w",
+    "official_repository": "https://github.com/AICONSlab/3DINO",
+    "repository_revision": "85bd4435c1b2ada41cd34cd15cad17c4d3c88d89"
+  },
+  "authorization": {
+    "enabled_by_default": false,
+    "reason": "Do not update or save adapted 3DINO weights without documented permission or another confirmed legal basis under the upstream terms, non-commercial eligibility, and a successful full backward memory preflight.",
+    "license_approval_claimed": false,
+    "memory_preflight_passed": false
+  },
+  "task_adaptations": {
+    "publication_exact": false,
+    "publication_demonstrated_for_classification": false,
+    "heldout_test_used_for_search": false,
+    "class_order": [
+      "Appendicitis",
+      "Cholezystitis",
+      "Normal",
+      "Perforation",
+      "Sigmoid"
+    ]
+  },
+  "fixed_parameters": {
+    "optimizer": "adamw",
+    "batch_size": 1,
+    "grad_accum_steps": 8,
+    "epochs": 20,
+    "max_iterations": 0,
+    "early_stopping_patience": 5,
+    "warmup_fraction": 0.05,
+    "scheduler": "cosine",
+    "scheduler_eta_min": 0.0,
+    "max_grad_norm": 1.0,
+    "mixed_precision": true,
+    "gradient_checkpointing": false,
+    "loss": "cross_entropy",
+    "n_last_blocks": 1,
+    "use_mean_patch_token": false,
+    "feature_dim": 1024,
+    "encoder_frozen": false,
+    "input_shape_dhw": [
+      112,
+      112,
+      112
+    ],
+    "resize_prefix_shape_dhw": [
+      144,
+      144,
+      112
+    ],
+    "seed": 42
+  },
+  "candidates": [
+    {
+      "name": "conservative",
+      "encoder_lr": 0.0000003,
+      "head_lr": 0.00003,
+      "weight_decay": 0.01,
+      "dropout": 0.1,
+      "class_weighting": "effective_number",
+      "effective_number_beta": 0.999
+    },
+    {
+      "name": "project_default",
+      "encoder_lr": 0.000001,
+      "head_lr": 0.0001,
+      "weight_decay": 0.01,
+      "dropout": 0.1,
+      "class_weighting": "effective_number",
+      "effective_number_beta": 0.999
+    },
+    {
+      "name": "low_regularization",
+      "encoder_lr": 0.000001,
+      "head_lr": 0.00003,
+      "weight_decay": 0.001,
+      "dropout": 0.0,
+      "class_weighting": "inverse_frequency",
+      "effective_number_beta": 0.999
+    }
+  ],
+  "rounds": [
+    {
+      "budget": 25,
+      "budget_unit": "optimizer_iterations",
+      "folds": [
+        1
+      ],
+      "keep": 2
+    },
+    {
+      "budget": 100,
+      "budget_unit": "optimizer_iterations",
+      "folds": [
+        1,
+        2
+      ],
+      "keep": 1
+    }
+  ],
+  "selection": {
+    "primary_score": "0.7 * (mean_f1_macro - std_f1_macro) + 0.3 * (mean_balanced_accuracy - std_balanced_accuracy)",
+    "tie_breakers": [
+      "higher Perforation recall",
+      "lexicographically smaller deterministic candidate id"
+    ],
+    "final_protocol": "After conditional authorization, evaluate the surviving parameters with the repository's complete five-fold CV/refit workflow before one fixed held-out test."
+  }
+}

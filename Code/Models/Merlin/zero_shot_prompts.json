@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "prompt_set_id": "merlin_publication_method_task_specific_v1",
+  "display_name": "Merlin publication-method-based task-specific prompts v1",
+  "method_source": {
+    "paper": "Merlin: A Vision Language Foundation Model for 3D Computed Tomography",
+    "paper_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11230513/",
+    "official_repository": "https://github.com/StanfordMIMI/Merlin",
+    "method": "Multiple finding-present and finding-absent phrases are embedded and compared with the CT image embedding using mean cosine similarity."
+  },
+  "prompt_provenance": {
+    "source": "task_specific",
+    "publication_exact_prompts": false,
+    "clinical_review_status": "not_recorded",
+    "selection": "Fixed before held-out evaluation; not selected with development or held-out labels.",
+    "note": "The Merlin publication and repository do not release a prompt bank for these five dataset classes. These prompts adapt the publication method to this task."
+  },
+  "class_order": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "author_binary_classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "class_assumptions": {
+    "Cholezystitis": "Dataset spelling retained for outputs; prompts use the clinical English spelling cholecystitis.",
+    "Perforation": "Interpreted as gastrointestinal or hollow-viscus perforation.",
+    "Sigmoid": "Interpreted as acute sigmoid diverticulitis."
+  },
+  "class_semantics_status": "Implementation assumptions approved for this run design but not independently verified from dataset provenance; treat results as exploratory until confirmed.",
+  "classes": {
+    "Appendicitis": {
+      "canonical_concept": "acute appendicitis",
+      "positive": [
+        "acute appendicitis is present",
+        "findings are consistent with acute appendicitis",
+        "there is evidence of acute appendicitis",
+        "the CT demonstrates an acutely inflamed appendix"
+      ],
+      "negative": [
+        "no acute appendicitis",
+        "there is no evidence of acute appendicitis",
+        "findings are not consistent with acute appendicitis",
+        "the appendix is normal without acute inflammation"
+      ]
+    },
+    "Cholezystitis": {
+      "canonical_concept": "acute cholecystitis",
+      "positive": [
+        "acute cholecystitis is present",
+        "findings are consistent with acute cholecystitis",
+        "there is evidence of acute cholecystitis",
+        "the CT demonstrates acute inflammation of the gallbladder"
+      ],
+      "negative": [
+        "no acute cholecystitis",
+        "there is no evidence of acute cholecystitis",
+        "findings are not consistent with acute cholecystitis",
+        "the gallbladder is without acute inflammation"
+      ]
+    },
+    "Normal": {
+      "canonical_concept": "no acute abdominal or pelvic abnormality",
+      "positive": [
+        "no acute abnormality is identified in the abdomen or pelvis",
+        "normal CT of the abdomen and pelvis",
+        "there is no acute intra-abdominal pathology",
+        "no acute abdominal or pelvic disease is present"
+      ],
+      "negative": [
+        "an acute abnormality is present in the abdomen or pelvis",
+        "abnormal CT of the abdomen and pelvis with acute pathology",
+        "there is acute intra-abdominal pathology",
+        "acute abdominal or pelvic disease is present"
+      ]
+    },
+    "Perforation": {
+      "canonical_concept": "gastrointestinal hollow-viscus perforation",
+      "positive": [
+        "gastrointestinal perforation is present",
+        "findings are consistent with hollow viscus perforation",
+        "there is evidence of bowel perforation",
+        "the CT demonstrates perforation of a gastrointestinal viscus"
+      ],
+      "negative": [
+        "no gastrointestinal perforation",
+        "there is no evidence of hollow viscus perforation",
+        "there is no evidence of bowel perforation",
+        "the gastrointestinal tract is without perforation"
+      ]
+    },
+    "Sigmoid": {
+      "canonical_concept": "acute sigmoid diverticulitis",
+      "positive": [
+        "acute sigmoid diverticulitis is present",
+        "findings are consistent with acute sigmoid diverticulitis",
+        "there is evidence of acute sigmoid diverticulitis",
+        "the CT demonstrates acute inflammation of sigmoid diverticula"
+      ],
+      "negative": [
+        "no acute sigmoid diverticulitis",
+        "there is no evidence of acute sigmoid diverticulitis",
+        "findings are not consistent with acute sigmoid diverticulitis",
+        "the sigmoid colon is without acute diverticular inflammation"
+      ]
+    }
+  }
+}

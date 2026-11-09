@@ -1,0 +1,5 @@
+{
+  "train": ["synthetic-patient-a1", "synthetic-patient-b1"],
+  "validation": ["synthetic-patient-a2", "synthetic-patient-b2"],
+  "test": ["synthetic-patient-a3", "synthetic-patient-b3"]
+}

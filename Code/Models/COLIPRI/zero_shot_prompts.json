@@ -1,0 +1,54 @@
+{
+  "# source (not executable)": "COLIPRI paper zero-shot protocol: https://arxiv.org/html/2510.15042. It uses short '{abnormality} present' and 'no {abnormality} present' prompts, cosine similarity divided by 0.07, and pairwise softmax. Normalizing the five pairwise positive probabilities into one mutually-exclusive five-class distribution is an explicit task adaptation.",
+  "schema_version": 1,
+  "prompt_set_id": "colipri_publication_short_pairwise_five_class_v1",
+  "model": "COLIPRI",
+  "method": "ZeroShot",
+  "parameter_source": "publication",
+  "publication_evidence": {
+    "short_positive_negative_prompts_temperature_pairwise_softmax": "publication_backed",
+    "five_class_normalization_and_dataset_concept_mapping": "publication_adapted"
+  },
+  "temperature": 0.07,
+  "class_order": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "class_assumptions": {
+    "Cholezystitis": "Dataset spelling is retained in outputs; prompt text uses cholecystitis.",
+    "Perforation": "Interpreted as gastrointestinal perforation.",
+    "Sigmoid": "Interpreted as acute sigmoid diverticulitis."
+  },
+  "classes": {
+    "Appendicitis": {
+      "positive": "appendicitis present",
+      "negative": "no appendicitis present"
+    },
+    "Cholezystitis": {
+      "positive": "cholecystitis present",
+      "negative": "no cholecystitis present"
+    },
+    "Normal": {
+      "positive": "normal abdominal CT present",
+      "negative": "abnormal abdominal CT present"
+    },
+    "Perforation": {
+      "positive": "gastrointestinal perforation present",
+      "negative": "no gastrointestinal perforation present"
+    },
+    "Sigmoid": {
+      "positive": "sigmoid diverticulitis present",
+      "negative": "no sigmoid diverticulitis present"
+    }
+  },
+  "scoring": {
+    "image_and_text_embeddings": "released projected pooled L2-normalized embeddings",
+    "per_class": "softmax([negative cosine, positive cosine] / 0.07)[positive]",
+    "five_class_probability": "normalize the five positive probabilities to sum to one",
+    "calibration": "none; probabilities are uncalibrated relative evidence",
+    "heldout_prompt_selection": "forbidden"
+  }
+}

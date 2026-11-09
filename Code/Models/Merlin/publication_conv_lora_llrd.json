@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "profile_name": "hcc_merlin_publication_inspired_image_only_conv_lora_llrd",
+  "variant": "conv_lora_llrd",
+  "parameter_origin": "publication_adapted",
+  "publication_fidelity": "publication_inspired_image_only_supervised_adaptation",
+  "publication": {
+    "title": "Efficient Self-Supervised Adaptation of 3D Abdominal Vision-Language Model for Institution-Specific HCC Classification via Full Fine-Tuning and PEFT",
+    "venue": "MIDL 2026",
+    "local_pdf": "Systematic_Methodology/Relevant Studies/300_Efficient_Self_Supervised_.pdf",
+    "paper_url": "https://openreview.net/forum?id=9zEZlQKUD3",
+    "relevant_pages": [6, 17, 18]
+  },
+  "sources": {
+    "primary_authority": "The accepted paper takes precedence for reported experimental values; the official code supplies optimizer mechanics that the paper does not fully enumerate.",
+    "official_repository": "https://github.com/fbrynpk/HCC-Merlin",
+    "audited_commit": "0e5fc47829b74033a6d72a8778c0c16c8644d6ad",
+    "audited_commit_date": "2026-07-01",
+    "audited_files": [
+      "main.sh",
+      "config.py",
+      "train.py",
+      "merlin/models/lora_utils.py",
+      "merlin/utils/engine.py",
+      "merlin/utils/optimizer.py"
+    ],
+    "adaptation_note": "This profile carries the authors' image ConvLoRA and layer-wise optimizer settings into the present five-class supervised image-only task. It intentionally omits the unavailable text branch and contrastive objective and therefore is not an exact reproduction of the publication."
+  },
+  "parameters": {
+    "head_lr": 0.0001,
+    "dropout_prob": 0.0,
+    "encoder_weight_decay": 0.01,
+    "head_weight_decay": 0.01,
+    "warmup_epochs": 0,
+    "min_lr_factor": 0.0,
+    "max_grad_norm": 0.0,
+    "batch_size": 18,
+    "grad_accum_steps": 8,
+    "epochs": 300,
+    "early_stopping_patience": 5,
+    "min_delta": 0.0,
+    "embedding_dim": 2048,
+    "gradient_checkpointing": true,
+    "adapter_lr": 0.0001,
+    "conv_lora_rank": 2,
+    "conv_lora_alpha": 2.0,
+    "train_image_projection": false,
+    "image_layer_decay": 0.7,
+    "exclude_norm_bias_from_weight_decay": true,
+    "scheduler_step_unit": "optimizer_update"
+  },
+  "parameter_evidence": {
+    "paper_exact": {
+      "adapter_lr": "Appendix C, Table 6 and accompanying text report a PEFT learning rate of 1e-4.",
+      "batch_size": "Appendix C, Table 6 reports 18.",
+      "grad_accum_steps": "Appendix C, Table 6 reports 8.",
+      "epochs": "Appendix C, Table 6 reports 300.",
+      "early_stopping_patience": "Appendix C, Table 6 reports patience 5, selected by validation F1.",
+      "min_lr_factor": "Appendix C reports cosine learning-rate decay to zero.",
+      "gradient_checkpointing": "Appendix C reports gradient checkpointing for the image and text encoders. This profile requests it; each run records the modules on which the installed Merlin implementation actually enables it.",
+      "conv_lora_rank": "Table 2 and Appendix C report image ConvLoRA rank 2.",
+      "conv_lora_alpha": "Table 2 and Appendix C report image ConvLoRA scaling factor 2."
+    },
+    "official_code_backed": {
+      "image_layer_decay": "The audited optimizer constructs image-layer learning rates with a layer-wise decay factor of 0.7.",
+      "encoder_weight_decay": "The audited training code uses AdamW weight decay 0.01.",
+      "exclude_norm_bias_from_weight_decay": "The audited optimizer excludes biases and normalization-like one-dimensional parameters from weight decay.",
+      "warmup_epochs": "The audited training code supplies zero warmup steps.",
+      "max_grad_norm": "The audited training loop performs no gradient clipping; zero disables it here."
+    },
+    "supervised_image_only_adaptations": {
+      "head_lr": "The publication trains projection layers rather than this five-class head; the reported PEFT base learning rate is used for the head.",
+      "head_weight_decay": "Eligible classifier matrices receive the official 0.01 decay and classifier normalization/bias parameters receive zero decay.",
+      "dropout_prob": "Zero avoids adding classifier dropout not reported by the publication.",
+      "train_image_projection": "False is deliberate: Merlin(ImageEmbedding=True) supplies the raw 2048-dimensional image feature and bypasses the publication's contrastive projection.",
+      "scheduler_step_unit": "The cosine schedule advances after each real optimizer update, rather than each minibatch, so gradient accumulation has valid schedule semantics.",
+      "embedding_dim": "The classifier consumes Merlin's 2048-dimensional image representation.",
+      "min_delta": "Zero represents strict improvement in this project's validation-selection metric."
+    }
+  },
+  "known_methodological_differences": [
+    "The publication's complete PEFT method also has text LoRA rank 16, alpha 32, and dropout 0.2; this variant has no text encoder training.",
+    "The publication trains a joint image-text VLM with InfoNCE and a learned temperature; this variant trains a class-weighted supervised five-class cross-entropy objective.",
+    "The publication trains a 512-dimensional contrastive image projection; this variant deliberately uses Merlin's raw 2048-dimensional image embedding and a classifier head.",
+    "The official scheduler advances per minibatch. This variant advances after successful optimizer updates so accumulation and AMP-overflow skips do not shorten the cosine schedule.",
+    "The publication stops on validation F1. This project retains its common selection protocol, 0.7*macro-F1 + 0.3*balanced accuracy, for comparability across all three strategies.",
+    "This variant normalizes accumulated losses and flushes a final partial accumulation window; the audited publication code does neither consistently.",
+    "The publication uses FP16 mixed precision. Supply --amp to match that runtime setting."
+  ]
+}

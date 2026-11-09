@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "model": "DenseNet",
+  "method": "FromScratch",
+  "parameter_source": "default",
+  "parameter_selection": "fixed",
+  "# provenance": {
+    "architecture": "DenseNet121 growth 32, block depths 6/12/24/16; spatial_dims=3 is the MONAI adaptation of the original 2D architecture.",
+    "geometry": "Med3D training-median spacing and nnU-Net geometry/memory planning principles. Max-extent coarsening to a 256-cube is a task adaptation. Validation/test keep fitted spacing unchanged; larger scans expand the padded canvas.",
+    "intensity": "Med3D LiTS [-200,250] HU precedent; mapping to [0,1] and use for five-class/DenseNet classification are adaptations.",
+    "imbalance": "Effective-number weighted CE (Cui et al. CVPR 2019); beta=0.999 from existing systematic adapters, computed on fold training labels only.",
+    "batch_precision": "Effective batch 4, default microbatch 4, BF16/FP32 execution are measured resource adaptations; accumulation does not make BatchNorm batch sizes equivalent.",
+    "augmentation": "None: preserve laterality and coverage without lesion boxes. Not the original papers augmentation recipe.",
+    "selection": "Existing systematic score 0.7 macro-F1 + 0.3 balanced accuracy; five-fold grid uses mean-minus-SD. Refit uses median selected optimizer step, so full-development refit has fewer epoch equivalents than CV.",
+    "optimizer_budget": "Practical profile: AdamW 1e-4, weight decay 1e-4, constant LR, 200 epoch cap, patience 10. Local baseline using legacy optimizer anchors, not either original publication recipe.",
+    "weight_decay": "AdamW 1e-4 is the practical project setting.",
+    "dropout": "0.2 for DenseNet; zero for MedicalNet. Local practical choices."
+  },
+  "# references": [
+    "https://arxiv.org/pdf/1904.00625",
+    "https://arxiv.org/pdf/1608.06993",
+    "https://doi.org/10.1038/s41592-020-01008-z",
+    "https://arxiv.org/abs/1901.05555"
+  ],
+  "# practical_profile": "Legacy optimizer anchors with corrected input/splits. MedicalNet head-only warmup is omitted; not an exact legacy reproduction.",
+  "parameters": {
+    "epochs": 200,
+    "effective_batch_size": 4,
+    "eval_batch_size": 1,
+    "validation_interval_epochs": 1,
+    "early_stopping_patience_epochs": 10,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.2,
+    "augmentation": "none",
+    "canvas_xyz": [
+      256,
+      256,
+      256
+    ],
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "optimizer": "adamw",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "scheduler": "constant"
+  }
+}

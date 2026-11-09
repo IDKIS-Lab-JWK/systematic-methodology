@@ -1,0 +1,46 @@
+{
+  "# source (not executable)": "Project grid centered on the FlexiCT publication learning rate 5e-5; 1e-5 and 1e-4 are conservative adjacent adaptation rates. This is a project grid. The final-quarter scope is a project adaptation and retains the final-block recipe as its starting point.",
+  "schema_version": 1,
+  "model": "FlexiCT",
+  "method": "FinalQuarterFineTune",
+  "parameter_source": "grid",
+  "fixed_parameters": {
+    "adaptation_scope": "final_quarter",
+    "optimizer": "adamw",
+    "weight_decay": 0.00003,
+    "head_weight_decay": 0.00003,
+    "betas": [
+      0.9,
+      0.98
+    ],
+    "epsilon": 1e-8,
+    "scheduler": "polynomial",
+    "polynomial_power": 1,
+    "warmup_steps": 100,
+    "minimum_lr_ratio": 0,
+    "max_steps": 10000,
+    "effective_batch_size": 4,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 100,
+    "early_stopping_patience_steps": 1000,
+    "early_stopping_min_delta": 0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1,
+    "dropout": 0
+  },
+  "candidates": [
+    {
+      "encoder_learning_rate": 0.00001,
+      "head_learning_rate": 0.00005
+    },
+    {
+      "encoder_learning_rate": 0.00005,
+      "head_learning_rate": 0.00005
+    },
+    {
+      "encoder_learning_rate": 0.0001,
+      "head_learning_rate": 0.0001
+    }
+  ],
+  "candidate_count": 3
+}

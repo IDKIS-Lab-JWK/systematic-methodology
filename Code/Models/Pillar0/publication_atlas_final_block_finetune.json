@@ -1,0 +1,37 @@
+{
+  "# source (not executable)": "Pillar-0 paper methods: https://arxiv.org/html/2511.17803 (AdamW, learning rate 1e-5, batch 8 with gradient accumulation 4, maximum 10,000 optimizer steps, stop after 1,000 iterations without validation improvement, random rotations). Restricting adaptation to the final Atlas block and the five-class classification details are task adaptations. Atlas mapping is from pinned revision d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8.",
+  "schema_version": 1,
+  "model": "Pillar0",
+  "method": "AtlasFinalBlockFineTune",
+  "parameter_source": "publication",
+  "parameter_selection": "fixed",
+  "publication_evidence": {
+    "optimizer_lr_batch_steps_patience_augmentation": "publication_backed",
+    "final_block_scope_and_five_class_head": "publication_adapted",
+    "head_learning_rate_scheduler_weight_decay_validation_interval": "publication_adapted_where_not_reported",
+    "class_weighting_and_gradient_clipping": "publication_adapted"
+  },
+  "parameters": {
+    "adaptation_scope": "final_block",
+    "optimizer": "adamw",
+    "encoder_learning_rate": 0.00001,
+    "head_learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "head_weight_decay": 0.01,
+    "betas": [0.9, 0.999],
+    "epsilon": 1e-8,
+    "scheduler": "cosine",
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 10000,
+    "effective_batch_size": 32,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 100,
+    "early_stopping_patience_steps": 1000,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0,
+    "random_right_angle_rotation": true
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "method": "linear_probe",
+  "profile_type": "publication_adapted_search",
+  "source": {
+    "paper": "A generalizable 3D framework and model for self-supervised learning in medical imaging",
+    "paper_url": "https://www.nature.com/articles/s41746-025-02035-w",
+    "official_repository": "https://github.com/AICONSlab/3DINO",
+    "repository_revision": "85bd4435c1b2ada41cd34cd15cad17c4d3c88d89",
+    "checkpoint": "AICONSlab/3DINO-ViT",
+    "checkpoint_filename": "3dino_vit_weights.pth",
+    "publication_backed_parameters": {
+      "encoder": "frozen",
+      "optimizer": "SGD",
+      "momentum": 0.9,
+      "weight_decay": 0.0,
+      "scheduler": "cosine annealing to zero",
+      "loss": "cross entropy",
+      "batch_size": 32,
+      "sampler": "sharded_infinite",
+      "drop_last": true,
+      "mixed_precision": true,
+      "autocast_dtype": "float16",
+      "max_iterations": 12500,
+      "n_last_blocks": [
+        1,
+        4
+      ],
+      "use_mean_patch_token": [
+        false,
+        true
+      ],
+      "learning_rates_nominal": [
+        0.0001,
+        0.0002,
+        0.0005,
+        0.001,
+        0.002,
+        0.005,
+        0.01,
+        0.02,
+        0.05,
+        0.1,
+        0.2,
+        0.3,
+        0.5
+      ]
+    }
+  },
+  "task_adaptations": {
+    "publication_exact": false,
+    "reason": "The publication did not evaluate this repository's five abdominal CT classes or its fixed patient-level folds.",
+    "label_format": "single_label_five_class",
+    "class_order": [
+      "Appendicitis",
+      "Cholezystitis",
+      "Normal",
+      "Perforation",
+      "Sigmoid"
+    ],
+    "head": "one independent Linear(feature_recipe_dimension, 5) head per learning-rate and feature-recipe candidate",
+    "loss": "multiclass cross entropy",
+    "selection_policy": "rank candidates on development folds only; held-out test is excluded until the configuration and model source are fixed"
+  },
+  "learning_rate_reconciliation": {
+    "paper": "The Methods section reports the 13 values as the learning rates searched.",
+    "official_code": "linear3d.py has a different narrower parser-default LR list and applies effective_lr = nominal_lr * (batch_size * world_size) / 256 before constructing each SGD parameter group.",
+    "implementation": "The profile intentionally prioritizes the paper's 13 values as nominal, rather than silently replacing them with the code defaults, and follows the official code's global-batch scaling. With batch size 32 and world size 1, effective learning rates are one eighth of the printed paper values. The paper values, code-default discrepancy, effective values, and scaling rule are retained in run provenance.",
+    "scale_rule": "global_batch_over_256",
+    "reference_global_batch_size": 256
+  },
+  "fixed_parameters": {
+    "optimizer": "sgd",
+    "momentum": 0.9,
+    "weight_decay": 0.0,
+    "scheduler": "cosine",
+    "scheduler_eta_min": 0.0,
+    "loss": "cross_entropy",
+    "batch_size": 32,
+    "sampler": "sharded_infinite",
+    "drop_last": true,
+    "mixed_precision": true,
+    "autocast_dtype": "float16",
+    "max_iterations": 12500,
+    "evaluation_interval_iterations": 50,
+    "learning_rate_scale_rule": "global_batch_over_256",
+    "class_weighting": "none",
+    "encoder_frozen": true,
+    "input_shape_dhw": [
+      112,
+      112,
+      112
+    ],
+    "resize_prefix_shape_dhw": [
+      144,
+      144,
+      112
+    ],
+    "intensity_percentiles": [
+      0.05,
+      99.95
+    ],
+    "intensity_range": [
+      -1.0,
+      1.0
+    ],
+    "seed": 42
+  },
+  "search_space": {
+    "learning_rates_nominal": [
+      0.0001,
+      0.0002,
+      0.0005,
+      0.001,
+      0.002,
+      0.005,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.5
+    ],
+    "representations": [
+      {
+        "n_last_blocks": 1,
+        "use_mean_patch_token": false
+      },
+      {
+        "n_last_blocks": 1,
+        "use_mean_patch_token": true
+      },
+      {
+        "n_last_blocks": 4,
+        "use_mean_patch_token": false
+      },
+      {
+        "n_last_blocks": 4,
+        "use_mean_patch_token": true
+      }
+    ],
+    "candidate_count": 52,
+    "candidate_construction": "Cartesian product of the 13 nominal learning rates and four feature recipes; all heads share frozen encoder passes."
+  },
+  "selection": {
+    "development_only": true,
+    "primary_score": "0.7 * (mean_f1_macro - std_f1_macro) + 0.3 * (mean_balanced_accuracy - std_balanced_accuracy)",
+    "tie_breakers": [
+      "higher Perforation recall",
+      "lower nominal learning rate",
+      "lexicographically smaller deterministic candidate id"
+    ]
+  }
+}

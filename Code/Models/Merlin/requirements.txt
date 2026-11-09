@@ -1,0 +1,13 @@
+merlin-vlm==0.0.7
+torch>=2.1.2
+numpy>=2.0,<3.0
+pandas
+scikit-learn
+monai>=1.5.2
+SimpleITK
+nibabel
+huggingface-hub
+transformers>=4.38.2
+accelerate
+einops
+

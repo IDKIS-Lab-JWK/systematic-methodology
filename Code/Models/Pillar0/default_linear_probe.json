@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "method": "linear_probe",
+  "profile_type": "practical_default",
+  "source": {
+    "starting_point": "Pillar-0 RATE-Evals frozen-feature protocol",
+    "paper_url": "https://arxiv.org/html/2511.17803v1",
+    "official_repository": "https://github.com/YalaLab/rate-evals",
+    "repository_revision": "508afc03691dca8dcad23918f94540cb927d0614",
+    "checkpoint": "YalaLab/Pillar0-AbdomenCT",
+    "checkpoint_revision": "d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8",
+    "provenance_note": "This is an engineering default for the present small, imbalanced five-class dataset; it is not reported by the Pillar-0 study."
+  },
+  "task_adaptations": {
+    "publication_exact": false,
+    "label_format": "single_label_five_class",
+    "class_order": [
+      "Appendicitis",
+      "Cholezystitis",
+      "Normal",
+      "Perforation",
+      "Sigmoid"
+    ],
+    "head": "Linear(1152, 5)",
+    "loss": "effective-number-weighted cross entropy",
+    "rationale": "Moderate batches, early stopping, and mild decoupled weight decay are more suitable than 1000 full-batch epochs for this dataset size."
+  },
+  "parameters": {
+    "optimizer": "adamw",
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "batch_size": 256,
+    "epochs": 500,
+    "early_stopping_patience": 50,
+    "min_delta": 0.0001,
+    "class_weighting": "effective_number",
+    "effective_number_beta": 0.999,
+    "loss": "cross_entropy",
+    "feature_dim": 1152,
+    "encoder_frozen": true,
+    "input_shape_dhw": [384, 384, 384],
+    "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+    "ct_window_count": 11,
+    "ct_windows_applied_on_the_fly": true,
+    "apply_input_normalization": false,
+    "seed": 42
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "method": "linear_probe",
+  "profile_type": "practical_default",
+  "parameters": {
+    "classifier": "multinomial_logistic_regression",
+    "penalty": "l2",
+    "solver": "lbfgs",
+    "class_weight": "balanced",
+    "max_iter": 20000,
+    "random_state": 0,
+    "feature_standardization": "StandardScaler fit on training partition only",
+    "encoder_frozen": true,
+    "feature_dimension": 1024,
+    "C": 1.0
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "method": "full_finetune",
+  "profile_type": "publication_adapted",
+  "source": {
+    "paper": "Pillar-0: A Strong Multimodal Foundation Model for Abdomen CT",
+    "paper_url": "https://arxiv.org/html/2511.17803v1",
+    "official_finetune_repository": "https://github.com/YalaLab/pillar-finetune",
+    "finetune_repository_revision": "47506d5267cb448867fe415d416910ce6aad9422",
+    "official_checkpoint": "YalaLab/Pillar0-AbdomenCT",
+    "checkpoint_revision": "d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8",
+    "publication_backed_parameters": {
+      "optimizer": "AdamW",
+      "base_learning_rate": 0.00001,
+      "batch_size": 8,
+      "gradient_accumulation_steps": 4,
+      "maximum_optimizer_steps": 10000,
+      "plateau_patience_optimizer_steps": 1000,
+      "augmentation": "random rotation"
+    },
+    "supplementary_official_config_parameters": {
+      "source": "pillar-finetune Sybil configuration",
+      "weight_decay": 0.0,
+      "layer_decay": 0.9,
+      "rotation_degrees": 20.0
+    },
+    "provenance_note": "The published RSNA hemorrhage fine-tune used a head-CT crop of 256 x 256 x 128. This abdomen-task profile instead keeps the 384-cube input required by the released abdomen checkpoint. Settings absent from the paper are declared implementation resolutions, not publication claims."
+  },
+  "task_adaptations": {
+    "publication_exact": false,
+    "reason": "Neither the RSNA nor Sybil experiment is this five-class abdomen dataset.",
+    "label_format": "single_label_five_class",
+    "class_order": [
+      "Appendicitis",
+      "Cholezystitis",
+      "Normal",
+      "Perforation",
+      "Sigmoid"
+    ],
+    "head": "LayerNorm(1152) + Linear(1152, 5)",
+    "loss": "class-balanced cross entropy",
+    "input_change": "released Pillar0-AbdomenCT native 384 x 384 x 384 input replaces the RSNA task-specific 256 x 256 x 128 head-CT crop",
+    "runtime_warning": "Publication batch size 8 at 384 cubed may exceed a 24 GB GPU; use default_full_finetune.json for the practical local profile."
+  },
+  "parameters": {
+    "optimizer": "adamw",
+    "encoder_lr": 0.00001,
+    "head_lr": 0.00001,
+    "weight_decay": 0.0,
+    "layer_decay": 0.9,
+    "batch_size": 8,
+    "grad_accum_steps": 4,
+    "epochs": 100,
+    "max_steps": 10000,
+    "early_stopping_patience_steps": 1000,
+    "evaluation_interval_steps": 100,
+    "warmup_fraction": 0.0,
+    "mixed_precision": true,
+    "gradient_checkpointing": false,
+    "activation_offload": false,
+    "bf16_model_weights": false,
+    "rotation_degrees": 20.0,
+    "rotation_probability": 0.5,
+    "max_grad_norm": 0.0,
+    "dropout": 0.0,
+    "min_delta": 0.0,
+    "class_weighting": "inverse_frequency",
+    "effective_number_beta": 0.999,
+    "loss": "cross_entropy",
+    "input_shape_dhw": [384, 384, 384],
+    "input_spacing_xyz_mm": [1.25, 1.25, 1.25],
+    "ct_window_count": 11,
+    "ct_windows_applied_on_the_fly": true,
+    "apply_input_normalization": false,
+    "seed": 42
+  }
+}

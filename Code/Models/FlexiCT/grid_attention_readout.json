@@ -1,0 +1,31 @@
+{
+  "# source (not executable)": "Project grid around the publication batch-scaled SGD rate. Rates 0.00125, 0.005, and 0.01 test conservative, publication-anchor, and upper settings while keeping the architecture fixed.",
+  "schema_version": 1,
+  "model": "FlexiCT",
+  "method": "FrozenSingleHeadAttentionReadout",
+  "parameter_source": "grid",
+  "fixed_parameters": {
+    "encoder_state": "frozen",
+    "attention_heads": 1,
+    "query_count": 1,
+    "optimizer": "sgd",
+    "weight_decay": 0.0,
+    "momentum": 0.9,
+    "nesterov": false,
+    "scheduler": "cosine",
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "epochs": 50,
+    "effective_batch_size": 64,
+    "eval_batch_size": 64,
+    "validation_interval_steps": 10,
+    "early_stopping_patience_steps": 0,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0
+  },
+  "search_space": {
+    "head_learning_rate": [0.00125, 0.005, 0.01],
+    "candidate_count": 3
+  }
+}

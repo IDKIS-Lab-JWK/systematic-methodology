@@ -1,0 +1,63 @@
+{
+  "# source (not executable)": "FlexiCT paper and pinned official evaluator: https://arxiv.org/abs/2605.21906 and https://github.com/ricklisz/FlexiCT/blob/fd74ac06a31813fe02805674e96f811e9b2a5c43/downstream/vlm/ct_rate_eval.py. The released method compares short positive and 'No ...' prompts with projected L2-normalized image/text embeddings and the checkpoint-learned logit scale. Mapping the local five abdominal concepts and normalizing five pairwise positive probabilities into one mutually exclusive distribution are explicit task adaptations.",
+  "schema_version": 1,
+  "prompt_set_id": "flexict_upstream_pairwise_five_class_v1",
+  "model": "FlexiCT",
+  "method": "ZeroShot",
+  "parameter_source": "publication",
+  "publication_evidence": {
+    "image_text_projection_last_token_pool_pairwise_softmax": "publication_backed",
+    "five_class_prompts_concept_mapping_and_normalization": "publication_adapted"
+  },
+  "text_model": {
+    "repo_id": "Qwen/Qwen3-Embedding-0.6B",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "pooling": "last_non_padding_token",
+    "padding_side": "left",
+    "embedding_dimension": 1024
+  },
+  "class_order": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "class_assumptions": {
+    "Cholezystitis": "Dataset spelling is retained in outputs; prompt text uses cholecystitis.",
+    "Normal": "Normal is represented as a normal abdominal CT versus an abnormal abdominal CT; this is not one of the paper's 18 CT-RATE abnormality labels.",
+    "Perforation": "Interpreted as gastrointestinal perforation.",
+    "Sigmoid": "Interpreted as acute sigmoid diverticulitis."
+  },
+  "classes": {
+    "Appendicitis": {
+      "positive": "appendicitis .",
+      "negative": "No appendicitis."
+    },
+    "Cholezystitis": {
+      "positive": "cholecystitis .",
+      "negative": "No cholecystitis."
+    },
+    "Normal": {
+      "positive": "normal abdominal CT .",
+      "negative": "abnormal abdominal CT ."
+    },
+    "Perforation": {
+      "positive": "gastrointestinal perforation .",
+      "negative": "No gastrointestinal perforation."
+    },
+    "Sigmoid": {
+      "positive": "sigmoid diverticulitis .",
+      "negative": "No sigmoid diverticulitis."
+    }
+  },
+  "scoring": {
+    "image_embedding": "released 1024-D VLM projection of normalized CLS concatenated with mean normalized patch token, then L2 normalization",
+    "text_embedding": "released Qwen3 text tower with last-non-padding-token pooling, then L2 normalization",
+    "logit_scale": "checkpoint_learned",
+    "per_class": "softmax([positive cosine, negative cosine] * exp(checkpoint logit_scale))[positive]",
+    "five_class_probability": "normalize the five pairwise positive probabilities to sum to one",
+    "calibration": "none; probabilities are uncalibrated relative evidence",
+    "heldout_prompt_selection": "forbidden"
+  }
+}

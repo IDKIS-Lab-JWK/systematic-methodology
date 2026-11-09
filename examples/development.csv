@@ -1,0 +1,7 @@
+sample_id,patient_id,nifti_path,label
+synthetic-a1,synthetic-patient-a1,images/a1.nii.gz,class_a
+synthetic-a2,synthetic-patient-a2,images/a2.nii.gz,class_a
+synthetic-a3,synthetic-patient-a3,images/a3.nii.gz,class_a
+synthetic-b1,synthetic-patient-b1,images/b1.nii.gz,class_b
+synthetic-b2,synthetic-patient-b2,images/b2.nii.gz,class_b
+synthetic-b3,synthetic-patient-b3,images/b3.nii.gz,class_b

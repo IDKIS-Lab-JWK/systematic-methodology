@@ -1,0 +1,15 @@
+# Official FlexiCT linear-probe environment (Python 3.11, Windows x64).
+# PyTorch 2.8 wheels use CUDA 12.8 on the audited upstream environment.
+torch==2.8.0
+torchvision==0.23.0
+numpy==2.3.2
+scikit-learn==1.7.1
+scipy==1.16.1
+SimpleITK==2.5.2
+nibabel==5.3.2
+einops==0.8.1
+transformers==4.56.1
+huggingface-hub==0.34.4
+joblib>=1.4,<2
+tqdm==4.67.1
+pytest>=8,<9
