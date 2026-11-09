@@ -1,0 +1,244 @@
+<!doctype html><meta charset="utf-8"><style>body{font-family:Arial;margin:32px;color:#172b3a}table{border-collapse:collapse;font-size:12px}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}th{background:#eef3f7}caption{text-align:left;font-size:16px;padding:12px 0}</style><h2>Table S7 error overlap</h2><p>Number of held-out patients misclassified by both methods; diagonal is each method error count.</p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>label</th>
+      <th>model_method</th>
+      <th>3DINO | Frozen features</th>
+      <th>3DINO | LoRA</th>
+      <th>COLIPRI | Frozen + native pooling</th>
+      <th>COLIPRI | Final block</th>
+      <th>FlexiCT | Frozen features</th>
+      <th>FlexiCT | Final block</th>
+      <th>Merlin | Frozen features</th>
+      <th>Merlin | ConvLoRA + LLRD</th>
+      <th>Merlin | Full fine-tuning</th>
+      <th>Pillar0 | Frozen features</th>
+      <th>Pillar0 | Final block</th>
+      <th>MedicalNet | Full fine-tuning</th>
+      <th>DenseNet | 3D DenseNet121 from scratch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>3DINO | Frozen features</td>
+      <td>132</td>
+      <td>97</td>
+      <td>81</td>
+      <td>58</td>
+      <td>29</td>
+      <td>11</td>
+      <td>81</td>
+      <td>57</td>
+      <td>46</td>
+      <td>42</td>
+      <td>36</td>
+      <td>73</td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>3DINO | LoRA</td>
+      <td>97</td>
+      <td>127</td>
+      <td>82</td>
+      <td>65</td>
+      <td>31</td>
+      <td>13</td>
+      <td>91</td>
+      <td>59</td>
+      <td>45</td>
+      <td>44</td>
+      <td>42</td>
+      <td>75</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>COLIPRI | Frozen + native pooling</td>
+      <td>81</td>
+      <td>82</td>
+      <td>122</td>
+      <td>67</td>
+      <td>25</td>
+      <td>14</td>
+      <td>72</td>
+      <td>54</td>
+      <td>38</td>
+      <td>42</td>
+      <td>36</td>
+      <td>66</td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>COLIPRI | Final block</td>
+      <td>58</td>
+      <td>65</td>
+      <td>67</td>
+      <td>88</td>
+      <td>29</td>
+      <td>14</td>
+      <td>60</td>
+      <td>46</td>
+      <td>33</td>
+      <td>42</td>
+      <td>33</td>
+      <td>51</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>FlexiCT | Frozen features</td>
+      <td>29</td>
+      <td>31</td>
+      <td>25</td>
+      <td>29</td>
+      <td>42</td>
+      <td>16</td>
+      <td>33</td>
+      <td>27</td>
+      <td>20</td>
+      <td>23</td>
+      <td>22</td>
+      <td>29</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>FlexiCT | Final block</td>
+      <td>11</td>
+      <td>13</td>
+      <td>14</td>
+      <td>14</td>
+      <td>16</td>
+      <td>20</td>
+      <td>14</td>
+      <td>13</td>
+      <td>9</td>
+      <td>12</td>
+      <td>12</td>
+      <td>16</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>Merlin | Frozen features</td>
+      <td>81</td>
+      <td>91</td>
+      <td>72</td>
+      <td>60</td>
+      <td>33</td>
+      <td>14</td>
+      <td>132</td>
+      <td>66</td>
+      <td>44</td>
+      <td>39</td>
+      <td>32</td>
+      <td>64</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>Merlin | ConvLoRA + LLRD</td>
+      <td>57</td>
+      <td>59</td>
+      <td>54</td>
+      <td>46</td>
+      <td>27</td>
+      <td>13</td>
+      <td>66</td>
+      <td>87</td>
+      <td>42</td>
+      <td>36</td>
+      <td>31</td>
+      <td>52</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>Merlin | Full fine-tuning</td>
+      <td>46</td>
+      <td>45</td>
+      <td>38</td>
+      <td>33</td>
+      <td>20</td>
+      <td>9</td>
+      <td>44</td>
+      <td>42</td>
+      <td>59</td>
+      <td>32</td>
+      <td>28</td>
+      <td>43</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>Pillar0 | Frozen features</td>
+      <td>42</td>
+      <td>44</td>
+      <td>42</td>
+      <td>42</td>
+      <td>23</td>
+      <td>12</td>
+      <td>39</td>
+      <td>36</td>
+      <td>32</td>
+      <td>68</td>
+      <td>47</td>
+      <td>44</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>Pillar0 | Final block</td>
+      <td>36</td>
+      <td>42</td>
+      <td>36</td>
+      <td>33</td>
+      <td>22</td>
+      <td>12</td>
+      <td>32</td>
+      <td>31</td>
+      <td>28</td>
+      <td>47</td>
+      <td>55</td>
+      <td>35</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>MedicalNet | Full fine-tuning</td>
+      <td>73</td>
+      <td>75</td>
+      <td>66</td>
+      <td>51</td>
+      <td>29</td>
+      <td>16</td>
+      <td>64</td>
+      <td>52</td>
+      <td>43</td>
+      <td>44</td>
+      <td>35</td>
+      <td>105</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>DenseNet | 3D DenseNet121 from scratch</td>
+      <td>49</td>
+      <td>52</td>
+      <td>49</td>
+      <td>45</td>
+      <td>25</td>
+      <td>12</td>
+      <td>44</td>
+      <td>35</td>
+      <td>36</td>
+      <td>33</td>
+      <td>31</td>
+      <td>53</td>
+      <td>71</td>
+    </tr>
+  </tbody>
+</table>

@@ -45,11 +45,6 @@ temp/
 **/audit/
 **/inputs_4/
 **/last_checkpoint.pt
-Results/
-*.pt
-*.pth
-*.joblib
-*.safetensors
 # Raw medical volumes and numerical caches never belong in the repository
 *.dcm
 *.dicom
@@ -63,6 +58,9 @@ Results/
 **/test_probabilities.csv
 **/validation_predictions.json
 **/validation_probabilities.csv
+Results/**
+!Results/**/
+!Results/**/*.metadata.json
 
 # Checkpoint binaries live on public Google Drive; metadata stays in Git
 *.pt

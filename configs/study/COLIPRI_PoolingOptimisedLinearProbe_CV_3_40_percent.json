@@ -1,0 +1,24 @@
+{
+  "model": "COLIPRI",
+  "method": "PoolingOptimisedLinearProbe",
+  "cv_id": "CV_3",
+  "development_percentage": 40,
+  "parameters": {
+    "optimizer": "sgd",
+    "momentum": 0.95,
+    "weight_decay": 0.0,
+    "scheduler": "cosine",
+    "max_steps": 12500,
+    "effective_batch_size": 16,
+    "embed_dim": 864,
+    "attention_heads": 12,
+    "num_classes": 5,
+    "loss": "weighted_multiclass_cross_entropy_effective_number",
+    "class_weight_beta": 0.999,
+    "pooling": "max",
+    "learning_rate": 0.003,
+    "candidate_id": "cc58c3be50cf"
+  },
+  "parameter_source": null,
+  "heldout_used_for_selection": false
+}

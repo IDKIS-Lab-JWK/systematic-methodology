@@ -1,0 +1,86 @@
+<!doctype html><meta charset="utf-8"><style>body{font-family:Arial;margin:32px;color:#172b3a}table{border-collapse:collapse;font-size:12px}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}th{background:#eef3f7}caption{text-align:left;font-size:16px;padding:12px 0}</style><h2>Table S11 zero shot</h2><p>Separate five-class zero-shot results; relative score semantics and task adaptations differ.</p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>method</th>
+      <th>percentage</th>
+      <th>source</th>
+      <th>cv_id</th>
+      <th>source_family</th>
+      <th>integrity</th>
+      <th>n_test</th>
+      <th>Macro F1 (95% CI)</th>
+      <th>Balanced accuracy (95% CI)</th>
+      <th>Macro average precision (95% CI)</th>
+      <th>Macro OvR AUROC (95% CI)</th>
+      <th>protocol</th>
+      <th>interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>COLIPRI</td>
+      <td>ZeroShot</td>
+      <td>0</td>
+      <td>zero_shot</td>
+      <td>Pretrained</td>
+      <td>zero_shot</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.144 (0.109, 0.181)</td>
+      <td>0.258 (0.196, 0.321)</td>
+      <td>0.246 (0.225, 0.301)</td>
+      <td>0.547 (0.499, 0.594)</td>
+      <td>colipri_publication_short_pairwise_five_class_v1</td>
+      <td>Model-specific five-class task adaptation</td>
+    </tr>
+    <tr>
+      <td>FlexiCT</td>
+      <td>ZeroShot</td>
+      <td>0</td>
+      <td>zero_shot</td>
+      <td>Pretrained</td>
+      <td>zero_shot</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.422 (0.369, 0.475)</td>
+      <td>0.489 (0.434, 0.542)</td>
+      <td>0.454 (0.420, 0.524)</td>
+      <td>0.781 (0.754, 0.809)</td>
+      <td>flexict_upstream_pairwise_five_class_v1</td>
+      <td>Model-specific five-class task adaptation</td>
+    </tr>
+    <tr>
+      <td>Merlin</td>
+      <td>ZeroShot</td>
+      <td>0</td>
+      <td>zero_shot</td>
+      <td>Pretrained</td>
+      <td>zero_shot</td>
+      <td>legacy_unsealed_content_validated</td>
+      <td>278</td>
+      <td>0.436 (0.377, 0.495)</td>
+      <td>0.495 (0.433, 0.556)</td>
+      <td>0.485 (0.440, 0.562)</td>
+      <td>0.794 (0.763, 0.824)</td>
+      <td>merlin_publication_method_task_specific_v1</td>
+      <td>Model-specific five-class task adaptation</td>
+    </tr>
+    <tr>
+      <td>Pillar0</td>
+      <td>ZeroShot</td>
+      <td>0</td>
+      <td>zero_shot</td>
+      <td>Pretrained</td>
+      <td>zero_shot</td>
+      <td>legacy_unsealed_content_validated</td>
+      <td>278</td>
+      <td>0.339 (0.285, 0.393)</td>
+      <td>0.383 (0.319, 0.449)</td>
+      <td>0.340 (0.311, 0.410)</td>
+      <td>0.686 (0.645, 0.727)</td>
+      <td>pillar0_qwen_findings_five_class_margin_v2</td>
+      <td>Experimental prompt similarity</td>
+    </tr>
+  </tbody>
+</table>

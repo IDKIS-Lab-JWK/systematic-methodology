@@ -1,0 +1,25 @@
+{
+  "model": "Merlin",
+  "method": "FullFineTune",
+  "cv_id": "CV_2",
+  "development_percentage": 40,
+  "parameters": {
+    "head_lr": 1e-05,
+    "dropout_prob": 0.0,
+    "encoder_weight_decay": 0.01,
+    "head_weight_decay": 0.01,
+    "warmup_epochs": 0,
+    "min_lr_factor": 0.0,
+    "max_grad_norm": 0.0,
+    "batch_size": 2,
+    "grad_accum_steps": 8,
+    "epochs": 300,
+    "early_stopping_patience": 5,
+    "min_delta": 0.0,
+    "embedding_dim": 2048,
+    "gradient_checkpointing": true,
+    "encoder_lr": 1e-05
+  },
+  "parameter_source": "publication_derived",
+  "heldout_used_for_selection": false
+}

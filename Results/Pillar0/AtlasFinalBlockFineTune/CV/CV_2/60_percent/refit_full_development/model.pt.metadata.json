@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "model_family": "Pillar0",
+  "method": "AtlasFinalBlockFineTune",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "151d8645f39b12a23899b68831e1f738baef0696d69748a2a6b9bba52d3b602b",
+  "source_checkpoint_sha256": "dba6104652516367292eceba053789ff0c4003646856f98f412569efdfd17ef8",
+  "model_tensor_sha256": "e39053203bfd3739f80056c4727bacc87fc27e65fb837e7be23f55841c1b8a99",
+  "model_tensor_count": 61,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "adaptation_scope": "final_block",
+    "optimizer": "adamw",
+    "encoder_learning_rate": 1e-05,
+    "head_learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "head_weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "scheduler": "cosine",
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 10000,
+    "effective_batch_size": 32,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 100,
+    "early_stopping_patience_steps": 1000,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0,
+    "random_right_angle_rotation": true,
+    "candidate_id": "3b7d0afd4acf"
+  },
+  "model_identity": {
+    "schema_version": "supervised-adaptation-v1",
+    "model": "Pillar0",
+    "method": "AtlasFinalBlockFineTune",
+    "method_id": "atlas_final_block_finetune",
+    "pretrained_model": {
+      "repo_id": "YalaLab/Pillar0-AbdomenCT",
+      "revision": "d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8",
+      "checkpoint_identity": "immutable_huggingface_commit",
+      "cache_manifest": null,
+      "cache_manifest_sha256": "43463bcd1229d3734e32b6e863dcd7c5b088391395c35fe548bc9346e0336a41",
+      "cache_namespace": "pillar0_abdct_rave_1p25mm_384cube_rawhu_lz4_v1",
+      "frozen_cache": {
+        "contract": {
+          "schema_version": 1,
+          "representation": "atlas_final_scale_tokens_and_early_pools",
+          "source": {
+            "repo_id": "YalaLab/Pillar0-AbdomenCT",
+            "revision": "d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8",
+            "checkpoint_identity": "immutable_huggingface_commit",
+            "cache_manifest": null,
+            "cache_manifest_sha256": "43463bcd1229d3734e32b6e863dcd7c5b088391395c35fe548bc9346e0336a41",
+            "cache_namespace": "pillar0_abdct_rave_1p25mm_384cube_rawhu_lz4_v1"
+          },
+          "boundaries": [
+            "final_block"
+          ],
+          "augmentation": {
+            "planes_cdhw": [
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                3
+              ]
+            ],
+            "turns": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "draw_order": [
+              "uniform_plane_0_2",
+              "uniform_turns_0_3"
+            ],
+            "orientations": [
+              "identity",
+              "plane0_turns1",
+              "plane0_turns2",
+              "plane0_turns3",
+              "plane1_turns1",
+              "plane1_turns2",
+              "plane1_turns3",
+              "plane2_turns1",
+              "plane2_turns2",
+              "plane2_turns3"
+            ],
+            "identity_probability": "3/12",
+            "other_orientation_probability": "1/12",
+            "validation_orientation": "identity"
+          },
+          "extraction_batch_size": 1,
+          "storage": "lossless_native_activation_dtype",
+          "vision_weights_sha256": "6853324a1acbd1eb6dd9d1497cdf33f2b8ee6f51fb48b4cb74e6a63cbc377de1",
+          "layout": [
+            {
+              "grid_size": [
+                16,
+                16,
+                16
+              ],
+              "window_size": 64,
+              "num_windows": 4096,
+              "seq_length": 262144,
+              "window_dims": [
+                4,
+                4,
+                4
+              ]
+            },
+            {
+              "grid_size": [
+                4,
+                4,
+                4
+              ],
+              "window_size": 64,
+              "num_windows": 64,
+              "seq_length": 4096,
+              "window_dims": [
+                4,
+                4,
+                4
+              ]
+            },
+            {
+              "grid_size": [
+                1,
+                1,
+                1
+              ],
+              "window_size": 64,
+              "num_windows": 1,
+              "seq_length": 64,
+              "window_dims": [
+                4,
+                4,
+                4
+              ]
+            }
+          ],
+          "modality_config": {
+            "image_size": [
+              384,
+              384,
+              384
+            ],
+            "in_chans": 11,
+            "local2global": [
+              4,
+              4,
+              4
+            ],
+            "merge_ratio": [
+              4,
+              4,
+              4
+            ],
+            "num_features": 192,
+            "patch_size": [
+              6,
+              6,
+              6
+            ]
+          },
+          "tensor_shapes": {
+            "tokens": [
+              64,
+              384
+            ],
+            "early": [
+              768
+            ]
+          },
+          "runtime": {
+            "python": "3.10.19",
+            "platform": "Windows-10-10.0.26200-SP0",
+            "torch": "2.7.1+cu118",
+            "numpy": "2.2.6",
+            "scikit_learn": "1.7.2",
+            "device_requested": "cuda",
+            "training_precision_resolved": "bf16",
+            "cuda_runtime": "11.8",
+            "cudnn": 90100,
+            "cuda_device_name": "NVIDIA GeForce RTX 4090",
+            "cuda_device_capability": [
+              8,
+              9
+            ]
+          },
+          "torch_math": {
+            "matmul_precision": "highest",
+            "matmul_tf32": false,
+            "cudnn_tf32": true,
+            "cudnn_benchmark": false,
+            "deterministic": false
+          },
+          "implementation": {
+            "frozen_cache.py": "8affec93aacced05d69c8bceaa321e8190e0393109647f459341fb8a9954b944",
+            "frozen_forward.py": "eec78627962c9437a817f637ac9643c2f8aea90e75440411509cf7cee6cf75b3",
+            "augmentations.py": "d3ec155c1e3174fde93a8f5835c987e948d5fc42d6258dcee78a36637dc5dcab"
+          },
+          "encoder_sources": {
+            "transformers_modules/YalaLab/Pillar0-AbdomenCT/d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8/modeling_clip_mmatlas.py": "ea4952fc2b7a4199ed926daa6d55a1130a8dab2ed4ae66e56f9a3524171a0b80",
+            "transformers_modules/YalaLab/Pillar0-AbdomenCT/d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8/modeling_clip.py": "3e41058e5a3c3bf8e7ce5965512759d1e0eeccf41fe12beb3162386a9147b88e",
+            "transformers_modules/YalaLab/Pillar0-AbdomenCT/d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8/multimodal_atlas.py": "6ed5cb31914fb8cf6efc4548040ff493c55e5da351f58199bca3e65eb0a76e8f",
+            "torch/nn/modules/container.py": "74ac5d5ae6514270a835528dc59b3b5247f2cfce23965168bca83536a8d36407",
+            "transformers_modules/YalaLab/Pillar0-AbdomenCT/d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8/atlas_encoders.py": "33d3fbe9efdcef0619b17bd7ff67c4f398734e7e65f505a8fa3d4d96c13e0b07",
+            "torch/nn/modules/linear.py": "179d99a4c536ed86d8540eb0dab91c38fc7dd6df8e6a6f916ab1efa393dd5199",
+            "torch/nn/modules/conv.py": "dc6e39e833ad3c705c60afd94a4e2790e7c58a60f7ab154e55a62a0a017142fa",
+            "torch/nn/modules/batchnorm.py": "890bea2b4a462de409aefe9e4199bdc8ff945d1457795a2cf13a4e49973bd8bb",
+            "torch/nn/modules/activation.py": "f1e4a092e0da831147aa5b3f797b68e0728cee64bf2fc7ae4dbd41481f8c6c13",
+            "transformers_modules/YalaLab/Pillar0-AbdomenCT/d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8/multimodal_msa.py": "07307c9064825c50fc83643fc81ec65801876aead6290293e174ce0b13caec00",
+            "torch/nn/modules/dropout.py": "4b6e9c88dd0cafcac4514f71cf69be4e9b55479c39b7681b596184110c5132e7",
+            "torch/nn/modules/normalization.py": "55af72d057e1547c63ea72a87ee8b3297fdccbd5e8be0f9666c7ee32a0164533",
+            "timm/layers/mlp.py": "c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5",
+            "torch/nn/modules/pooling.py": "9564a81bf07213bb772019342e4c59d2621d6c258016b6bfd4bd320248006452",
+            "transformers_modules/YalaLab/Pillar0-AbdomenCT/d73d111bb278b3f6411f3c8e72c7e6f8a5fb1bb8/hf_model.py": "38fd9eb270e1217815f967f0dfb11bee7cd768761659960091854bf4baba6665"
+          }
+        },
+        "contract_sha256": "5b609fdb8f5ddc9665ca14ca95f7fbdd54868f2683805ecf9e754521ff9e1a58"
+      }
+    },
+    "representation": {
+      "input": "raw HU from validated RAVE cache",
+      "input_shape_bcdhw": [
+        "B",
+        1,
+        384,
+        384,
+        384
+      ],
+      "windowing": {
+        "channel_count": 11,
+        "channel_order": [
+          "lung",
+          "mediastinum",
+          "abdomen",
+          "liver",
+          "bone",
+          "brain",
+          "subdural",
+          "stroke",
+          "temporal_bone",
+          "soft_tissue",
+          "minmax"
+        ],
+        "anatomical_windows": {
+          "lung": {
+            "center": -600.0,
+            "width": 1500.0
+          },
+          "mediastinum": {
+            "center": 50.0,
+            "width": 400.0
+          },
+          "abdomen": {
+            "center": 40.0,
+            "width": 400.0
+          },
+          "liver": {
+            "center": 80.0,
+            "width": 150.0
+          },
+          "bone": {
+            "center": 400.0,
+            "width": 1800.0
+          },
+          "brain": {
+            "center": 40.0,
+            "width": 80.0
+          },
+          "subdural": {
+            "center": 75.0,
+            "width": 215.0
+          },
+          "stroke": {
+            "center": 40.0,
+            "width": 40.0
+          },
+          "temporal_bone": {
+            "center": 600.0,
+            "width": 2800.0
+          },
+          "soft_tissue": {
+            "center": 50.0,
+            "width": 350.0
+          }
+        },
+        "minmax_scope": "per_sample_raw_hu_volume",
+        "output_range": [
+          0.0,
+          1.0
+        ],
+        "apply_normalization_after_windowing": false
+      },
+      "atlas_stage_depths": [
+        2,
+        2,
+        8
+      ],
+      "final_stage_index_zero_based": 2,
+      "selected_adaptation_scope": "final_block",
+      "feature_dimension": 1152,
+      "head": "LayerNorm(1152) -> Linear(1152,5)",
+      "training_input": "rotation-specific final-scale tokens and frozen earlier-scale readouts",
+      "augmentation": {
+        "planes_cdhw": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "turns": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "draw_order": [
+          "uniform_plane_0_2",
+          "uniform_turns_0_3"
+        ],
+        "orientations": [
+          "identity",
+          "plane0_turns1",
+          "plane0_turns2",
+          "plane0_turns3",
+          "plane1_turns1",
+          "plane1_turns2",
+          "plane1_turns3",
+          "plane2_turns1",
+          "plane2_turns2",
+          "plane2_turns3"
+        ],
+        "identity_probability": "3/12",
+        "other_orientation_probability": "1/12",
+        "validation_orientation": "identity"
+      },
+      "native_feature_normalization": "L2"
+    },
+    "implementation": {
+      "sha256": "e484fa946b28f92823a73b4544b59acd28cbeeeeae1722e38e06709a1968ba21"
+    }
+  },
+  "study": {
+    "cv_id": "CV_2",
+    "development_percentage": 60,
+    "partition": "refit_full_development",
+    "reported_test_routes": [
+      "Pillar0/AtlasFinalBlockFineTune/Test/CV_2/refit_full_development/60_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": true,
+  "runtime_assets": {}
+}

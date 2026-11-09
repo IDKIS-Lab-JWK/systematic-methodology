@@ -1,0 +1,146 @@
+<!doctype html><meta charset="utf-8"><style>body{font-family:Arial;margin:32px;color:#172b3a}table{border-collapse:collapse;font-size:12px}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}th{background:#eef3f7}caption{text-align:left;font-size:16px;padding:12px 0}</style><h2>Table 3 main performance</h2><p>CV ensembles at the full development pool on 278 held-out patients; estimates with 95% stratified patient-bootstrap CIs. Merlin ConvLoRA+LLRD uses the corrected CV_2 implementation; 3DINO includes linear probing and LoRA; Merlin full-network CV_2 is separately identified. Full provenance: Table S1.</p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Method</th>
+      <th>Test patients</th>
+      <th>Macro F1 (95% CI)</th>
+      <th>Balanced accuracy (95% CI)</th>
+      <th>Macro average precision (95% CI)</th>
+      <th>Macro OvR AUROC (95% CI)</th>
+      <th>Accuracy (95% CI)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3DINO</td>
+      <td>Frozen features</td>
+      <td>278</td>
+      <td>0.489 (0.416, 0.557)</td>
+      <td>0.473 (0.408, 0.541)</td>
+      <td>0.522 (0.464, 0.597)</td>
+      <td>0.786 (0.747, 0.823)</td>
+      <td>0.525 (0.468, 0.583)</td>
+    </tr>
+    <tr>
+      <td>3DINO</td>
+      <td>LoRA</td>
+      <td>278</td>
+      <td>0.403 (0.357, 0.449)</td>
+      <td>0.423 (0.377, 0.470)</td>
+      <td>0.543 (0.493, 0.620)</td>
+      <td>0.819 (0.786, 0.851)</td>
+      <td>0.543 (0.493, 0.594)</td>
+    </tr>
+    <tr>
+      <td>COLIPRI</td>
+      <td>Frozen + native pooling</td>
+      <td>278</td>
+      <td>0.548 (0.478, 0.613)</td>
+      <td>0.541 (0.472, 0.608)</td>
+      <td>0.595 (0.536, 0.671)</td>
+      <td>0.837 (0.804, 0.869)</td>
+      <td>0.561 (0.504, 0.619)</td>
+    </tr>
+    <tr>
+      <td>COLIPRI</td>
+      <td>Final block</td>
+      <td>278</td>
+      <td>0.665 (0.594, 0.728)</td>
+      <td>0.643 (0.574, 0.710)</td>
+      <td>0.737 (0.677, 0.801)</td>
+      <td>0.903 (0.876, 0.927)</td>
+      <td>0.683 (0.629, 0.737)</td>
+    </tr>
+    <tr>
+      <td>FlexiCT</td>
+      <td>Frozen features</td>
+      <td>278</td>
+      <td>0.809 (0.750, 0.863)</td>
+      <td>0.802 (0.742, 0.860)</td>
+      <td>0.888 (0.842, 0.931)</td>
+      <td>0.968 (0.953, 0.980)</td>
+      <td>0.849 (0.806, 0.888)</td>
+    </tr>
+    <tr>
+      <td>FlexiCT</td>
+      <td>Final block</td>
+      <td>278</td>
+      <td>0.920 (0.881, 0.954)</td>
+      <td>0.919 (0.876, 0.956)</td>
+      <td>0.957 (0.929, 0.980)</td>
+      <td>0.988 (0.979, 0.994)</td>
+      <td>0.928 (0.896, 0.957)</td>
+    </tr>
+    <tr>
+      <td>Merlin</td>
+      <td>Frozen features</td>
+      <td>278</td>
+      <td>0.299 (0.259, 0.342)</td>
+      <td>0.346 (0.315, 0.380)</td>
+      <td>0.543 (0.491, 0.615)</td>
+      <td>0.830 (0.801, 0.858)</td>
+      <td>0.525 (0.486, 0.565)</td>
+    </tr>
+    <tr>
+      <td>Merlin</td>
+      <td>ConvLoRA + LLRD</td>
+      <td>278</td>
+      <td>0.646 (0.578, 0.712)</td>
+      <td>0.631 (0.565, 0.699)</td>
+      <td>0.720 (0.662, 0.789)</td>
+      <td>0.901 (0.875, 0.926)</td>
+      <td>0.687 (0.633, 0.741)</td>
+    </tr>
+    <tr>
+      <td>Merlin</td>
+      <td>Full fine-tuning</td>
+      <td>278</td>
+      <td>0.746 (0.680, 0.806)</td>
+      <td>0.730 (0.668, 0.793)</td>
+      <td>0.815 (0.762, 0.879)</td>
+      <td>0.941 (0.918, 0.961)</td>
+      <td>0.788 (0.741, 0.835)</td>
+    </tr>
+    <tr>
+      <td>Pillar-0</td>
+      <td>Frozen features</td>
+      <td>278</td>
+      <td>0.724 (0.667, 0.781)</td>
+      <td>0.742 (0.681, 0.802)</td>
+      <td>0.797 (0.748, 0.863)</td>
+      <td>0.939 (0.920, 0.956)</td>
+      <td>0.755 (0.705, 0.802)</td>
+    </tr>
+    <tr>
+      <td>Pillar-0</td>
+      <td>Final block</td>
+      <td>278</td>
+      <td>0.771 (0.710, 0.828)</td>
+      <td>0.764 (0.704, 0.824)</td>
+      <td>0.823 (0.773, 0.887)</td>
+      <td>0.952 (0.936, 0.967)</td>
+      <td>0.802 (0.755, 0.849)</td>
+    </tr>
+    <tr>
+      <td>MedicalNet</td>
+      <td>Full fine-tuning</td>
+      <td>278</td>
+      <td>0.594 (0.526, 0.659)</td>
+      <td>0.591 (0.523, 0.659)</td>
+      <td>0.646 (0.586, 0.717)</td>
+      <td>0.857 (0.821, 0.890)</td>
+      <td>0.622 (0.568, 0.676)</td>
+    </tr>
+    <tr>
+      <td>DenseNet</td>
+      <td>3D DenseNet121 from scratch</td>
+      <td>278</td>
+      <td>0.704 (0.636, 0.767)</td>
+      <td>0.687 (0.623, 0.752)</td>
+      <td>0.771 (0.713, 0.837)</td>
+      <td>0.920 (0.894, 0.944)</td>
+      <td>0.745 (0.694, 0.795)</td>
+    </tr>
+  </tbody>
+</table>

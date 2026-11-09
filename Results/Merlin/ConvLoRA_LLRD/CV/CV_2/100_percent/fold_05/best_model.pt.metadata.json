@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "model_family": "Merlin",
+  "method": "ConvLoRA_LLRD",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "2432565e0a443ae7de45d5cedb637655daee5c38765e02b75de72c5f855df478",
+  "source_checkpoint_sha256": "42f9c3d543f03665a0571c671355af8a5bdab570594b698bb5ed59f315d133ff",
+  "model_tensor_sha256": "fe521b3903bb1e4802170e611b5fdbfe808d0486c0e88b6d40001e4c69336dc5",
+  "model_tensor_count": 1520,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "head_lr": 0.0001,
+    "dropout_prob": 0.0,
+    "encoder_weight_decay": 0.01,
+    "head_weight_decay": 0.01,
+    "warmup_epochs": 0,
+    "min_lr_factor": 0.0,
+    "max_grad_norm": 0.0,
+    "batch_size": 2,
+    "grad_accum_steps": 8,
+    "epochs": 300,
+    "early_stopping_patience": 5,
+    "min_delta": 0.0,
+    "embedding_dim": 2048,
+    "gradient_checkpointing": true,
+    "adapter_lr": 0.0001,
+    "conv_lora_rank": 2,
+    "conv_lora_alpha": 2.0,
+    "train_image_projection": false,
+    "image_layer_decay": 0.7,
+    "exclude_norm_bias_from_weight_decay": true,
+    "scheduler_step_unit": "optimizer_update"
+  },
+  "model_identity": {},
+  "study": {
+    "cv_id": "CV_2",
+    "development_percentage": 100,
+    "partition": "fold_05",
+    "reported_test_routes": [
+      "Merlin/ConvLoRA_LLRD/Test/CV_2/cv_ensemble/100_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": false,
+  "runtime_assets": {}
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "model_family": "Pillar0",
+  "method": "LinearProbe",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "0d0aafcd3a90fc411264f8e2b00b96e137265189ecabd96b959a84b74e56bfde",
+  "source_checkpoint_sha256": "995f7a92feefc1fb9a65d1a9b192f2c63c0a27de79370e48ba66a557f7ec2c08",
+  "model_tensor_sha256": "d2693e4c32fc8ebf720ee7b66d739d4bb0944f92b71cfdb31e251f55a06f5c5e",
+  "model_tensor_count": 2,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "optimizer": "adam",
+    "lr": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 8192,
+    "epochs": 1000,
+    "early_stopping_patience": 1000,
+    "min_delta": 0.0,
+    "class_weighting": "inverse_frequency",
+    "effective_number_beta": 0.999,
+    "loss": "cross_entropy",
+    "feature_dim": 1152,
+    "encoder_frozen": true,
+    "input_shape_dhw": [
+      384,
+      384,
+      384
+    ],
+    "input_spacing_xyz_mm": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "ct_window_count": 11,
+    "ct_windows_applied_on_the_fly": true,
+    "apply_input_normalization": false,
+    "seed": 42
+  },
+  "model_identity": {},
+  "study": {
+    "cv_id": "CV_1",
+    "development_percentage": 60,
+    "partition": "fold_03",
+    "reported_test_routes": [
+      "Pillar0/LinearProbe/Test/CV_1/cv_ensemble/60_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": true,
+  "runtime_assets": {}
+}

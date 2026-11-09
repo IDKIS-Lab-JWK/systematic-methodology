@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "model_family": "COLIPRI",
+  "method": "PrimusMFinalBlockFineTune",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "766e23094ddb4e2e4a633853eda6a4f8dc7b8645ad992e2f188eb451462baa17",
+  "source_checkpoint_sha256": "5f70728a5a96581b532ce4ec57ab36a847d46cef84e805dd35eb56e238a5a80b",
+  "model_tensor_sha256": "c1de767f8ad5e351df31674d00818a0c2d24645dc386987b0d03ff5dc464acc3",
+  "model_tensor_count": 29,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "adaptation_scope": "final_block",
+    "optimizer": "adamw",
+    "encoder_learning_rate": 0.0001,
+    "head_learning_rate": 0.0001,
+    "weight_decay": 0.05,
+    "head_weight_decay": 0.05,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "scheduler": "polynomial",
+    "polynomial_power": 1.0,
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 37500,
+    "effective_batch_size": 8,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 250,
+    "early_stopping_patience_steps": 2500,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0,
+    "candidate_id": "2eedcc016928"
+  },
+  "model_identity": {
+    "schema_version": "supervised-adaptation-v1",
+    "model": "COLIPRI",
+    "method": "PrimusMFinalBlockFineTune",
+    "method_id": "primus_m_final_block_finetune",
+    "pretrained_model": {
+      "source": {
+        "repository": "https://huggingface.co/microsoft/colipri",
+        "revision": "be872ebec5c62894cf183b09835ec6fd7be537f5",
+        "acquisition": "existing_local_checkout"
+      },
+      "checkpoint": {
+        "bytes": 1033541380,
+        "sha256": "97d66586507d1f48577b5149777d02e12d25787435a2a295cac5563df9291c14",
+        "repo_id": "microsoft/colipri",
+        "revision": "be872ebec5c62894cf183b09835ec6fd7be537f5",
+        "filename": "model.safetensors",
+        "acquisition": "existing_local_checkpoint"
+      },
+      "processor_config": {
+        "sha256": "c128516fa9ccba5a5ad435b7961ab1b7901fd3ad44443f6b5d28d5089c34ab92"
+      },
+      "volume_cache": {
+        "contract_sha256": "5e9f337e7b27f6e33e302f936947b3764cafdc13cbe6a75306d3d6387c483409",
+        "manifest_sha256": "abeb75a890e46a486ae954116afa6f2c7285761a23d1047c4760f9448128e648",
+        "artifact_stats_sha256": "971152e26b14cbea06f1aaea003a072385156c3750390deb40e5fe343b913a8b"
+      },
+      "frozen_cache": {
+        "contract_sha256": "c67e79f8edde74c5504300173b8e6c20cdc815c89b8ca06b0ea0f8bfdc246117",
+        "contract": {
+          "schema_version": 1,
+          "representation": "primus_pre_block_tokens",
+          "boundaries": [
+            "final_block"
+          ],
+          "source": {
+            "source": {
+              "repository": "https://huggingface.co/microsoft/colipri",
+              "revision": "be872ebec5c62894cf183b09835ec6fd7be537f5",
+              "acquisition": "existing_local_checkout"
+            },
+            "checkpoint": {
+              "bytes": 1033541380,
+              "sha256": "97d66586507d1f48577b5149777d02e12d25787435a2a295cac5563df9291c14",
+              "repo_id": "microsoft/colipri",
+              "revision": "be872ebec5c62894cf183b09835ec6fd7be537f5",
+              "filename": "model.safetensors",
+              "acquisition": "existing_local_checkpoint"
+            },
+            "processor_config": {
+              "sha256": "c128516fa9ccba5a5ad435b7961ab1b7901fd3ad44443f6b5d28d5089c34ab92"
+            },
+            "volume_cache": {
+              "contract_sha256": "5e9f337e7b27f6e33e302f936947b3764cafdc13cbe6a75306d3d6387c483409",
+              "manifest_sha256": "abeb75a890e46a486ae954116afa6f2c7285761a23d1047c4760f9448128e648",
+              "artifact_stats_sha256": "971152e26b14cbea06f1aaea003a072385156c3750390deb40e5fe343b913a8b"
+            }
+          },
+          "extraction_batch_size": 1,
+          "storage": "lossless_native_activation_dtype",
+          "runtime": {
+            "python": "3.11.15",
+            "platform": "Windows-10-10.0.26200-SP0",
+            "torch": "2.8.0+cu128",
+            "numpy": "2.3.3",
+            "scikit_learn": "1.7.2",
+            "device_requested": "cuda",
+            "training_precision_resolved": "bf16",
+            "cuda_runtime": "12.8",
+            "cudnn": 91002,
+            "cuda_device_name": "NVIDIA GeForce RTX 4090",
+            "cuda_device_capability": [
+              8,
+              9
+            ]
+          },
+          "torch_math": {
+            "matmul_precision": "highest",
+            "matmul_tf32": false,
+            "cudnn_tf32": true,
+            "cudnn_benchmark": false,
+            "deterministic": false
+          },
+          "implementation": {
+            "frozen_cache.py": "0edd954c2993473646c89e970fc300de03b5717284e317fa4480018839962cd0",
+            "frozen_forward.py": "d84c5d7e0fdfc2e93891f511af8fe889bc596ed9fd8924b5904992416625b8f1"
+          },
+          "encoder_sources": {
+            "tmp/upstream_colipri/src/colipri/model/image.py": "7ba9a25bc0bf8622dddc1121bb5c95cd38204ebd694cf3ce93a827938095aca9",
+            "dynamic_network_architectures/architectures/primus.py": "221bdefc8c907978bb4f8569c381164d88d1c64bb51538bb7d648b3827d67d62",
+            "dynamic_network_architectures/building_blocks/patch_encode_decode.py": "4477cd06e3e71967e7f1a6d03ff0350936ca514fcc0319bd185c79241830dc37",
+            "torch/nn/modules/conv.py": "eaa7c8b18eceb473b719393cdc7807befaddbee77190037dc59f9dcbb480c904",
+            "torch/nn/modules/linear.py": "58b8ce1f2a2889ffac1f7817522daef466505ecd5123d179a5d86c1b75afff70",
+            "dynamic_network_architectures/building_blocks/eva.py": "6bd5c149cb84821e4883e98292690170549dadc4baacbe84a9640caae3672783",
+            "torch/nn/modules/dropout.py": "4b6e9c88dd0cafcac4514f71cf69be4e9b55479c39b7681b596184110c5132e7",
+            "timm/layers/pos_embed_sincos.py": "fec482a96a7a740010938e5d615c53e23efe4eb7cef22d0821b518f1bba98f0e",
+            "torch/nn/modules/container.py": "99d96bbab9ae925781ef86f5f88ce55a914c3164f7f209c8e1612c42e2ffcb03",
+            "timm/models/eva.py": "9f0cc2eb38aadd4c69ea0297d5c12ed080b3f9fb7a3047b0a5a0479d6baf708d",
+            "torch/nn/modules/normalization.py": "ad0c10824b2b3a3120af4a5e9ff570fbca33382d146e64c8049a470d45208f21",
+            "timm/layers/mlp.py": "c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5",
+            "torch/nn/modules/activation.py": "888849404f330cf8a28e53aa1766ed48ea7deaf2f694a2aba593183de54cf1ab",
+            "timm/layers/drop.py": "3dc892acc4333156de3e1bd921bd2f335373f7212c23c0b9e3f4b3ec5f5b5710",
+            "tmp/upstream_colipri/src/colipri/pooling.py": "5563668ab9b862c55ca1772651b535613ef4b63f4074d30e36b90cfb0a55fc81"
+          }
+        }
+      }
+    },
+    "representation": {
+      "input_shape_bcdhw": [
+        "B",
+        1,
+        192,
+        192,
+        192
+      ],
+      "orientation": "RAS",
+      "spacing_mm": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "primus_m_blocks": 16,
+      "selected_adaptation_scope": "final_block",
+      "pooling": "released 768-D projector plus released multi-head attention pooler (frozen)",
+      "head": "LayerNorm(768) -> Linear(768,5)",
+      "training_input": "cached tokens immediately before the selected trainable scope",
+      "input_shape_bnc": [
+        "B",
+        13824,
+        864
+      ],
+      "random_image_augmentation": false
+    },
+    "implementation": {
+      "sha256": "072df19314a1854113edb8c0afd26df82724265e6077cbca79964f7adf4e45d0"
+    }
+  },
+  "study": {
+    "cv_id": "CV_2",
+    "development_percentage": 40,
+    "partition": "fold_01",
+    "reported_test_routes": [
+      "COLIPRI/PrimusMFinalBlockFineTune/Test/CV_2/cv_ensemble/40_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": true,
+  "runtime_assets": {}
+}

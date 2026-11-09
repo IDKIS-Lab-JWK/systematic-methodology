@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "model_family": "FlexiCT",
+  "method": "FinalBlockFineTune",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "d8e3e0be567c11db8132b3a95d864bf4f189d0a9905994ca6ea66e8a3364e909",
+  "source_checkpoint_sha256": "4648748208f3145dc07800d4b4b2e0b59b470d880cc7f1c77380ea3bffb8dfab",
+  "model_tensor_sha256": "9e2a8dd89a95d89ec3aa7e42ff54c8fa4fa6848bd384ef15ed24b00462e7c091",
+  "model_tensor_count": 19,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "adaptation_scope": "final_block",
+    "optimizer": "adamw",
+    "encoder_learning_rate": 5e-05,
+    "head_learning_rate": 5e-05,
+    "weight_decay": 3e-05,
+    "head_weight_decay": 3e-05,
+    "betas": [
+      0.9,
+      0.98
+    ],
+    "epsilon": 1e-08,
+    "scheduler": "polynomial",
+    "polynomial_power": 1.0,
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 10000,
+    "effective_batch_size": 4,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 100,
+    "early_stopping_patience_steps": 1000,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0,
+    "candidate_id": "5dabc4ee2cad"
+  },
+  "model_identity": {
+    "schema_version": "supervised-adaptation-v1",
+    "model": "FlexiCT",
+    "method": "FinalBlockFineTune",
+    "method_id": "final_block_finetune",
+    "pretrained_model": {
+      "source": {
+        "repository": "https://github.com/ricklisz/FlexiCT",
+        "revision": "fd74ac06a31813fe02805674e96f811e9b2a5c43",
+        "acquisition": "existing_local_checkout"
+      },
+      "checkpoint": {
+        "bytes": 1771227431,
+        "sha256": "bb4e0a697380f3636723b76b175cd1d6ca2e72659a4c269be3b3e5d41c4b7403",
+        "source": "official FlexiCT Google Drive release supplied by user"
+      },
+      "legacy_pickle_opt_in": false
+    },
+    "representation": {
+      "preprocessing": {
+        "schema_version": 1,
+        "source": {
+          "basis": "FlexiCT official CT-RATE VLM evaluation code",
+          "repository_revision": "fd74ac06a31813fe02805674e96f811e9b2a5c43",
+          "reference_file": "downstream/vlm/ct_rate_eval.py and downstream/vlm/dataset.py",
+          "task_adaptation": "explicit LPS reorientation before the official 2 mm whole-volume recipe"
+        },
+        "orientation": "LPS",
+        "axis_convention": "SimpleITK XYZ metadata; model tensor CDHW with array order ZYX",
+        "target_spacing_xyz_mm": [
+          2.0,
+          2.0,
+          2.0
+        ],
+        "resampling": "SimpleITK linear; identity physical transform; default background 0 HU; output pixel type retained from input",
+        "intensity": "clip [-1000,1000], then whole-volume z-score",
+        "std_definition": "torch.std correction=1, matching the official dataset implementation",
+        "padding": "symmetric constant padding with normalized volume minimum",
+        "crop": "center crop",
+        "output_shape_cdhw": [
+          1,
+          160,
+          160,
+          160
+        ],
+        "dtype": "float32"
+      },
+      "vision": {
+        "vision_dimension": 864,
+        "joint_dimension": 1728,
+        "projection_dimension": 1024,
+        "input_shape_dhw": [
+          160,
+          160,
+          160
+        ],
+        "patch_size": 8,
+        "expected_patch_tokens": 8000,
+        "backbone_kwargs": {
+          "patch_size": 8,
+          "in_chans": 1,
+          "n_storage_tokens": 4,
+          "qkv_bias": false,
+          "mask_k_bias": true,
+          "drop_path_rate": 0.2,
+          "layerscale_init": 1e-05
+        },
+        "representation": "normalized CLS + mean normalized patch -> VLM projection -> L2",
+        "text_tower_loaded": false
+      },
+      "classifier_input": "concatenate normalized CLS token and mean normalized patch token",
+      "classifier_input_dimension": 1728,
+      "released_vlm_projection": "loaded for strict checkpoint verification but frozen and bypassed",
+      "head": "LayerNorm(1728) -> Linear(1728,5)"
+    },
+    "implementation": {
+      "sha256": "d58ac69d445cd25a9cb07c52b3b884cbe910be75b9a36f290406bdeed67ee4ab"
+    }
+  },
+  "study": {
+    "cv_id": "CV_2",
+    "development_percentage": 60,
+    "partition": "fold_04",
+    "reported_test_routes": [
+      "FlexiCT/FinalBlockFineTune/Test/CV_2/cv_ensemble/60_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": true,
+  "runtime_assets": {}
+}

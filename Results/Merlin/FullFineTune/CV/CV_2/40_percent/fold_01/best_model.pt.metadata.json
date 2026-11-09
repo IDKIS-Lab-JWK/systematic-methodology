@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "model_family": "Merlin",
+  "method": "FullFineTune",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "73cb39b1df09598c22cdedfb5bafa7963d6bc5e72c8cb45a9bf767b53168a61d",
+  "source_checkpoint_sha256": "32bc4ebb624cdfce799eb360ae3afb1e76b8946b50e43d25eabc6eb3b3f20d21",
+  "model_tensor_sha256": "f38bd85e6114e8940026564ebe8f92c24e817656e8cc1863efe6a93c2f9160c3",
+  "model_tensor_count": 1212,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "head_lr": 1e-05,
+    "dropout_prob": 0.0,
+    "encoder_weight_decay": 0.01,
+    "head_weight_decay": 0.01,
+    "warmup_epochs": 0,
+    "min_lr_factor": 0.0,
+    "max_grad_norm": 0.0,
+    "batch_size": 2,
+    "grad_accum_steps": 8,
+    "epochs": 300,
+    "early_stopping_patience": 5,
+    "min_delta": 0.0,
+    "embedding_dim": 2048,
+    "gradient_checkpointing": true,
+    "encoder_lr": 1e-05
+  },
+  "model_identity": {},
+  "study": {
+    "cv_id": "CV_2",
+    "development_percentage": 40,
+    "partition": "fold_01",
+    "reported_test_routes": [
+      "Merlin/FullFineTune/Test/CV_2/cv_ensemble/40_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": false,
+  "runtime_assets": {}
+}

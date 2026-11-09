@@ -1,0 +1,21 @@
+{
+  "model": "FlexiCT",
+  "method": "LinearProbe",
+  "cv_id": "CV_2",
+  "development_percentage": 60,
+  "parameters": {
+    "classifier": "multinomial_logistic_regression",
+    "penalty": "l2",
+    "solver": "lbfgs",
+    "class_weight": "balanced",
+    "max_iter": 20000,
+    "random_state": 0,
+    "feature_standardization": "StandardScaler fit on training partition only",
+    "encoder_frozen": true,
+    "feature_dimension": 1024,
+    "C": 1.0,
+    "candidate_id": "05ea1e2c65b3"
+  },
+  "parameter_source": null,
+  "heldout_used_for_selection": false
+}

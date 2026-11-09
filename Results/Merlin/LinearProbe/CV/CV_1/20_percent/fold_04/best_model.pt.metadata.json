@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "model_family": "Merlin",
+  "method": "LinearProbe",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "827085e20a3c90704c2f4971a4de78c248929041dc99a5ccf0be0dc0b368812a",
+  "source_checkpoint_sha256": "936c2358c9a1cffe447a17a935cf945ee0fc1f51530551804eab62207686ce26",
+  "model_tensor_sha256": "12851bb01a0c67510445b446291ab57379214dcf68a2353a302387832fc33b00",
+  "model_tensor_count": 2,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "head_lr": 1e-05,
+    "head_weight_decay": 0.01,
+    "warmup_epochs": 0,
+    "min_lr_factor": 0.0,
+    "max_grad_norm": 0.0,
+    "batch_size": 1,
+    "grad_accum_steps": 1,
+    "epochs": 10,
+    "scheduler_decay_epochs": 300,
+    "early_stopping_patience": 0,
+    "min_delta": 0.0,
+    "embedding_dim": 2048
+  },
+  "model_identity": {},
+  "study": {
+    "cv_id": "CV_1",
+    "development_percentage": 20,
+    "partition": "fold_04",
+    "reported_test_routes": [
+      "Merlin/LinearProbe/Test/CV_1/cv_ensemble/20_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": true,
+  "runtime_assets": {}
+}

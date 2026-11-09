@@ -1,0 +1,271 @@
+{
+  "study": "Systematic patient-level five-class abdominal CT comparison",
+  "analysis_version": 4,
+  "class_order": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "split_seed": 42,
+  "folds": 5,
+  "fixed_heldout_patients": 278,
+  "development_sizes": {
+    "20": 248,
+    "40": 456,
+    "60": 664,
+    "80": 872,
+    "100": 1080
+  },
+  "perforation_development_count": 40,
+  "primary_checkpoint_source": "cv_ensemble",
+  "sensitivity_sources": [
+    "best_cv_fold",
+    "refit_full_development"
+  ],
+  "source_split_hashes": [
+    {
+      "percentage": 20,
+      "manifest_sha256": "59bf11331dcfdb75985674e9a07bb86e18018aab4e9035bb6c5e738701551535",
+      "test_n": 278,
+      "development_n": 248,
+      "folds_disjoint": true,
+      "test_disjoint": true,
+      "nested": true
+    },
+    {
+      "percentage": 40,
+      "manifest_sha256": "6c3db69aafb8053355d4d35cdd4064921d89f65ee410891a3c45c409aee7d0c1",
+      "test_n": 278,
+      "development_n": 456,
+      "folds_disjoint": true,
+      "test_disjoint": true,
+      "nested": true
+    },
+    {
+      "percentage": 60,
+      "manifest_sha256": "8b98fe0cfab666dde633846c126ab427f06cf1024012939984c182af22fa4f2e",
+      "test_n": 278,
+      "development_n": 664,
+      "folds_disjoint": true,
+      "test_disjoint": true,
+      "nested": true
+    },
+    {
+      "percentage": 80,
+      "manifest_sha256": "823be09cb904965eaa0880da52bfc9cae50e2baaba075747d06beabdfebc8329",
+      "test_n": 278,
+      "development_n": 872,
+      "folds_disjoint": true,
+      "test_disjoint": true,
+      "nested": true
+    },
+    {
+      "percentage": 100,
+      "manifest_sha256": "b1bc129f7b7e4989f44423a07b50b67f24d3a9e911ee12ed58be36773202b9a4",
+      "test_n": 278,
+      "development_n": 1080,
+      "folds_disjoint": true,
+      "test_disjoint": true,
+      "nested": true
+    }
+  ],
+  "statistical_configuration": {
+    "version": 4,
+    "bootstrap_replicates": 10000,
+    "permutation_replicates": 10000,
+    "seed": 20260928,
+    "calibration_bins": 10,
+    "main_source": "cv_ensemble",
+    "main_percentage": 100,
+    "run_overrides": {},
+    "class_order": [
+      "Appendicitis",
+      "Cholezystitis",
+      "Normal",
+      "Perforation",
+      "Sigmoid"
+    ],
+    "selection_policy": "foundation publication-only; baselines publication then grid then default; unresolved ties excluded",
+    "allowed_supervised_methods": {
+      "3DINO": [
+        "LinearProbe",
+        "LoRA"
+      ],
+      "COLIPRI": [
+        "PoolingOptimisedLinearProbe",
+        "PrimusMFinalBlockFineTune"
+      ],
+      "FlexiCT": [
+        "LinearProbe",
+        "FinalBlockFineTune"
+      ],
+      "Merlin": [
+        "LinearProbe",
+        "ConvLoRA_LLRD",
+        "FullFineTune"
+      ],
+      "Pillar0": [
+        "LinearProbe",
+        "AtlasFinalBlockFineTune"
+      ],
+      "MedicalNet": [
+        "FullFineTune"
+      ],
+      "DenseNet": [
+        "FromScratch"
+      ]
+    },
+    "zero_shot_models": [
+      "COLIPRI",
+      "FlexiCT",
+      "Merlin",
+      "Pillar0"
+    ],
+    "comparison_plan": [
+      {
+        "model_a": "3DINO",
+        "method_a": "LinearProbe",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "foundation_vs_scratch"
+      },
+      {
+        "model_a": "3DINO",
+        "method_a": "LoRA",
+        "model_b": "3DINO",
+        "method_b": "LinearProbe",
+        "family": "within_model_adaptation"
+      },
+      {
+        "model_a": "3DINO",
+        "method_a": "LoRA",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "adapted_foundation_vs_scratch"
+      },
+      {
+        "model_a": "COLIPRI",
+        "method_a": "PoolingOptimisedLinearProbe",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "foundation_vs_scratch"
+      },
+      {
+        "model_a": "COLIPRI",
+        "method_a": "PrimusMFinalBlockFineTune",
+        "model_b": "COLIPRI",
+        "method_b": "PoolingOptimisedLinearProbe",
+        "family": "within_model_adaptation"
+      },
+      {
+        "model_a": "COLIPRI",
+        "method_a": "PrimusMFinalBlockFineTune",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "adapted_foundation_vs_scratch"
+      },
+      {
+        "model_a": "FlexiCT",
+        "method_a": "LinearProbe",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "foundation_vs_scratch"
+      },
+      {
+        "model_a": "FlexiCT",
+        "method_a": "FinalBlockFineTune",
+        "model_b": "FlexiCT",
+        "method_b": "LinearProbe",
+        "family": "within_model_adaptation"
+      },
+      {
+        "model_a": "FlexiCT",
+        "method_a": "FinalBlockFineTune",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "adapted_foundation_vs_scratch"
+      },
+      {
+        "model_a": "Merlin",
+        "method_a": "LinearProbe",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "foundation_vs_scratch"
+      },
+      {
+        "model_a": "Merlin",
+        "method_a": "ConvLoRA_LLRD",
+        "model_b": "Merlin",
+        "method_b": "LinearProbe",
+        "family": "within_model_adaptation"
+      },
+      {
+        "model_a": "Merlin",
+        "method_a": "ConvLoRA_LLRD",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "adapted_foundation_vs_scratch"
+      },
+      {
+        "model_a": "Pillar0",
+        "method_a": "LinearProbe",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "foundation_vs_scratch"
+      },
+      {
+        "model_a": "Pillar0",
+        "method_a": "AtlasFinalBlockFineTune",
+        "model_b": "Pillar0",
+        "method_b": "LinearProbe",
+        "family": "within_model_adaptation"
+      },
+      {
+        "model_a": "Pillar0",
+        "method_a": "AtlasFinalBlockFineTune",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "adapted_foundation_vs_scratch"
+      },
+      {
+        "model_a": "MedicalNet",
+        "method_a": "FullFineTune",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "reference_baselines"
+      },
+      {
+        "model_a": "Merlin",
+        "method_a": "FullFineTune",
+        "model_b": "DenseNet",
+        "method_b": "FromScratch",
+        "family": "full_network_addition"
+      },
+      {
+        "model_a": "Merlin",
+        "method_a": "FullFineTune",
+        "model_b": "Merlin",
+        "method_b": "ConvLoRA_LLRD",
+        "family": "full_network_addition"
+      },
+      {
+        "model_a": "Merlin",
+        "method_a": "FullFineTune",
+        "model_b": "Merlin",
+        "method_b": "LinearProbe",
+        "family": "full_network_addition"
+      }
+    ],
+    "inferential_status": "exploratory, retrospective reporting amendment"
+  },
+  "scope_counts": {
+    "valid_runs": 192,
+    "excluded_runs": 0,
+    "scope_excluded_runs": 66,
+    "selected_main_runs": 13,
+    "heldout_patients": 278
+  },
+  "split_membership_distributed": false
+}

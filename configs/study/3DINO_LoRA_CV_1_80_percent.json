@@ -1,0 +1,33 @@
+{
+  "model": "3DINO",
+  "method": "LoRA",
+  "cv_id": "CV_1",
+  "development_percentage": 80,
+  "parameters": {
+    "autocast_dtype": "float16",
+    "batch_size": 4,
+    "class_weighting": "none",
+    "drop_last": true,
+    "early_stopping_patience": 0,
+    "epochs": 50,
+    "grad_accum_steps": 1,
+    "gradient_checkpointing": false,
+    "head_dropout": 0.3,
+    "head_type": "study_mlp",
+    "lora_alpha": 1.0,
+    "lora_dropout": 0.0,
+    "lora_rank": 4,
+    "loss": "cross_entropy",
+    "lr": 0.0001,
+    "max_grad_norm": 0.0,
+    "max_iterations": 0,
+    "mixed_precision": true,
+    "optimizer": "adam",
+    "scheduler": "none",
+    "seed": 42,
+    "warmup_fraction": 0.0,
+    "weight_decay": 0.0
+  },
+  "parameter_source": "default",
+  "heldout_used_for_selection": false
+}

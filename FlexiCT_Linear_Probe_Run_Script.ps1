@@ -1,0 +1,123 @@
+[CmdletBinding()]
+param(
+    [ValidateSet("grid", "cv", "test", "all")]
+    [string]$Stage = "all",
+
+    [ValidateSet(20, 40, 60, 80, 100)]
+    [int]$Percentage = 40,
+
+    [ValidateSet("publication", "grid", "default", "manual")]
+    [string]$ParameterSource = "publication",
+
+    [string]$ParameterConfig = "",
+    [string]$GridConfig = "",
+
+    [ValidateRange(0, 1000)]
+    [int]$MaxGridCandidates = 0,
+
+    [ValidateSet("refit_full_development", "cv_ensemble", "best_cv_fold")]
+    [string]$ModelSource = "refit_full_development",
+
+    [string]$DatasetRoot = "",
+    [string]$ResultsRoot = "",
+    [string]$CacheRoot = "",
+    [string]$CacheNamespace = "flexict_vlm_lps_2mm_160cube_clsmean_proj_l2_v1",
+    [string]$UpstreamRoot = "",
+    [string]$UpstreamRevision = "",
+    [string]$Checkpoint = "",
+    [string]$CheckpointSha256 = "",
+    [string]$ProvisionLog = "",
+    [string]$Device = "cuda",
+
+    [ValidateSet("auto", "bf16", "fp16", "fp32")]
+    [string]$FeaturePrecision = "auto",
+
+    [ValidateSet("stat", "sha256")]
+    [string]$SourceFingerprint = "sha256",
+
+    [int]$Seed = 42,
+
+    [ValidateSet(0)]
+    [int]$NumWorkers = 0,
+
+    [switch]$LocalFilesOnly,
+    [switch]$AllowTrustedLegacyCheckpoint,
+    [switch]$NoResume,
+    [switch]$DryRun,
+    [switch]$ForceTest
+)
+
+if ($AllowTrustedLegacyCheckpoint -and -not $CheckpointSha256) {
+    throw "-AllowTrustedLegacyCheckpoint requires -CheckpointSha256."
+}
+if (-not $DryRun -and $SourceFingerprint -ne "sha256") {
+    throw "FlexiCT linear-probe execution requires -SourceFingerprint sha256; stat is cache diagnostics/dry-run only."
+}
+
+if ($ParameterSource -eq "manual" -and -not $ParameterConfig) {
+    throw "-ParameterSource manual requires -ParameterConfig."
+}
+if ($Stage -in @("grid", "all") -and $ParameterSource -notin @("publication", "grid")) {
+    throw "-Stage $Stage requires -ParameterSource publication or grid."
+}
+if ($ParameterSource -eq "publication" -and $ParameterConfig) {
+    throw "-ParameterSource publication does not accept -ParameterConfig; the packaged seven-C grid is fixed."
+}
+if ($ParameterSource -eq "publication" -and $GridConfig) {
+    throw "-ParameterSource publication does not accept -GridConfig; the audited seven-C grid is fixed."
+}
+if ($ParameterSource -eq "publication" -and $MaxGridCandidates -gt 0) {
+    throw "-ParameterSource publication does not accept -MaxGridCandidates; all seven candidates are required."
+}
+if ($ParameterSource -eq "grid" -and $ParameterConfig) {
+    throw "-ParameterSource grid does not accept -ParameterConfig."
+}
+if ($ParameterSource -in @("default", "manual") -and ($GridConfig -or $MaxGridCandidates -gt 0)) {
+    throw "Fixed default/manual parameter sources do not accept -GridConfig or -MaxGridCandidates."
+}
+
+$python = Join-Path $PSScriptRoot ".venv_flexict\Scripts\python.exe"
+if (-not (Test-Path -LiteralPath $python -PathType Leaf)) {
+    throw "FlexiCT Python environment not found: $python. Run FlexiCT_Environment_Setup.ps1 first."
+}
+
+$pythonArguments = @(
+    "Code\Models\FlexiCT\train_linear_probe.py",
+    "--stage", $Stage,
+    "--percentage", $Percentage,
+    "--parameter_source", $ParameterSource,
+    "--model_source", $ModelSource,
+    "--cache_namespace", $CacheNamespace,
+    "--device", $Device,
+    "--feature_precision", $FeaturePrecision,
+    "--source_fingerprint", $SourceFingerprint,
+    "--seed", $Seed,
+    "--num_workers", $NumWorkers
+)
+if ($ParameterConfig) { $pythonArguments += @("--parameter_config", $ParameterConfig) }
+if ($GridConfig) { $pythonArguments += @("--grid_config", $GridConfig) }
+if ($MaxGridCandidates -gt 0) { $pythonArguments += @("--max_grid_candidates", $MaxGridCandidates) }
+if ($DatasetRoot) { $pythonArguments += @("--dataset_root", $DatasetRoot) }
+if ($ResultsRoot) { $pythonArguments += @("--results_root", $ResultsRoot) }
+if ($CacheRoot) { $pythonArguments += @("--cache_root", $CacheRoot) }
+if ($UpstreamRoot) { $pythonArguments += @("--upstream_root", $UpstreamRoot) }
+if ($UpstreamRevision) { $pythonArguments += @("--upstream_revision", $UpstreamRevision) }
+if ($Checkpoint) { $pythonArguments += @("--checkpoint", $Checkpoint) }
+if ($CheckpointSha256) { $pythonArguments += @("--checkpoint_sha256", $CheckpointSha256) }
+if ($ProvisionLog) { $pythonArguments += @("--provision_log", $ProvisionLog) }
+if ($LocalFilesOnly) { $pythonArguments += "--local_files_only" }
+if ($AllowTrustedLegacyCheckpoint) { $pythonArguments += "--allow_trusted_legacy_checkpoint" }
+if ($NoResume) { $pythonArguments += "--no-resume" }
+if ($DryRun) { $pythonArguments += "--dry_run" }
+if ($ForceTest) { $pythonArguments += "--force_test" }
+
+Push-Location $PSScriptRoot
+try {
+    & $python @pythonArguments
+    if ($LASTEXITCODE -ne 0) {
+        throw "FlexiCT linear-probe command failed with exit code $LASTEXITCODE."
+    }
+}
+finally {
+    Pop-Location
+}

@@ -1,0 +1,35 @@
+{
+  "model": "Pillar0",
+  "method": "AtlasFinalBlockFineTune",
+  "cv_id": "CV_2",
+  "development_percentage": 100,
+  "parameters": {
+    "adaptation_scope": "final_block",
+    "optimizer": "adamw",
+    "encoder_learning_rate": 1e-05,
+    "head_learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "head_weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "scheduler": "cosine",
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "max_steps": 10000,
+    "effective_batch_size": 32,
+    "eval_batch_size": 1,
+    "validation_interval_steps": 100,
+    "early_stopping_patience_steps": 1000,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0,
+    "random_right_angle_rotation": true,
+    "candidate_id": "3b7d0afd4acf"
+  },
+  "parameter_source": "publication",
+  "heldout_used_for_selection": false
+}

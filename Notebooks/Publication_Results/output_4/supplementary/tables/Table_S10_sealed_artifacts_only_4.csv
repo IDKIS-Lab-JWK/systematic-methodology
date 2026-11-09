@@ -1,0 +1,10 @@
+model,method,percentage,source,cv_id,source_family,integrity,n_test,Macro F1 (95% CI),Balanced accuracy (95% CI),Macro average precision (95% CI)
+3DINO,LinearProbe,100,cv_ensemble,CV_1,publication,hash_seal_verified,278,"0.489 (0.416, 0.557)","0.473 (0.408, 0.541)","0.522 (0.464, 0.597)"
+3DINO,LoRA,100,cv_ensemble,CV_1,default,hash_seal_verified,278,"0.403 (0.357, 0.449)","0.423 (0.377, 0.470)","0.543 (0.493, 0.620)"
+COLIPRI,PoolingOptimisedLinearProbe,100,cv_ensemble,CV_1,publication,hash_seal_verified,278,"0.548 (0.478, 0.613)","0.541 (0.472, 0.608)","0.595 (0.536, 0.671)"
+COLIPRI,PrimusMFinalBlockFineTune,100,cv_ensemble,CV_2,publication,hash_seal_verified,278,"0.665 (0.594, 0.728)","0.643 (0.574, 0.710)","0.737 (0.677, 0.801)"
+FlexiCT,LinearProbe,100,cv_ensemble,CV_1,publication,hash_seal_verified,278,"0.809 (0.750, 0.863)","0.802 (0.742, 0.860)","0.888 (0.842, 0.931)"
+FlexiCT,FinalBlockFineTune,100,cv_ensemble,CV_1,publication,hash_seal_verified,278,"0.920 (0.881, 0.954)","0.919 (0.876, 0.956)","0.957 (0.929, 0.980)"
+Pillar0,AtlasFinalBlockFineTune,100,cv_ensemble,CV_2,publication,hash_seal_verified,278,"0.771 (0.710, 0.828)","0.764 (0.704, 0.824)","0.823 (0.773, 0.887)"
+MedicalNet,FullFineTune,100,cv_ensemble,CV_1,publication,hash_seal_verified,278,"0.594 (0.526, 0.659)","0.591 (0.523, 0.659)","0.646 (0.586, 0.717)"
+DenseNet,FromScratch,100,cv_ensemble,CV_1,publication,hash_seal_verified,278,"0.704 (0.636, 0.767)","0.687 (0.623, 0.752)","0.771 (0.713, 0.837)"

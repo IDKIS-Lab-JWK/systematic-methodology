@@ -1,0 +1,199 @@
+# Detailed Results, interpretation and Discussion · version 4
+
+This companion is generated from the executed version-4 analysis. It includes 13 supervised pipelines, 65 ensemble cells, all 188 available supervised test cells and four separate zero-shot protocols. The 15 completed 3DINO linear-probe cells and 15 publication-derived full-network Merlin cells are included throughout. Earlier releases are preserved as historical outputs, not combined with current adjusted P values. The concise manuscript draft remains available separately as Results_and_Discussion_4.txt/html. Main versus supplementary allocation is in the notebook’s editorial table.
+
+## 1. What the denominators and metrics establish
+
+The fixed test cohort comprises 278 patients: appendicitis 47, cholecystitis 37, Normal 90, perforation 18 and Sigmoid 86. Normal and Sigmoid together account for 63.3% of patients. Accuracy weights every patient equally; balanced accuracy gives each class equal weight through mean sensitivity; macro-F1 gives each class equal weight through precision and recall. Thus accuracy, macro-F1 and balanced accuracy can rank methods differently. Macro AP measures probability ranking at the observed class prevalence; macro OvR AUROC summarizes pairwise ranking and should not replace the multiclass decision endpoint. Brier score, log loss and top-label ECE address different aspects of probabilistic prediction; lower is better for these three measures. None is a clinical utility measure.
+
+Development pools contain 248, 456, 664, 872 and 1,080 patients. Perforation support remains 40 at every size, so both class composition and total sample size change. Each CV ensemble averages five fold-model probability vectors; its members individually train on four folds. Full-development refits and validation-selected best-fold models are separate routes. The same original test labels are retained for every model and after the reread.
+
+The 10,000 class-stratified bootstrap draws are shared across models, preserving paired comparisons and observed test-class counts. Intervals condition on the fitted models; they do not measure training-seed variation, external-site variation or different prevalence. Version 4 recalculates the 19 planned full-development ensemble macro-F1 permutation tests and their Holm adjustment. Pointwise confidence intervals are unadjusted and need not agree with adjusted tests. All inference is exploratory because the reporting emphasis and scope were revised after results were available.
+
+## 2. Overall ensemble results and manuscript emphasis
+
+At the full development size, the observed macro-F1 ordering is: FlexiCT Final block, 92.0%; FlexiCT Frozen features, 80.9%; Pillar0 Final block, 77.1%; Merlin Full fine-tuning, 74.6%; Pillar0 Frozen features, 72.4%; DenseNet 3D DenseNet121 from scratch, 70.4%; COLIPRI Final block, 66.5%; Merlin ConvLoRA + LLRD, 64.6%; MedicalNet Full fine-tuning, 59.4%; COLIPRI Frozen + native pooling, 54.8%; 3DINO Frozen features, 48.9%; 3DINO LoRA, 40.3%; Merlin Frozen features, 29.9%. The ordering describes this completed set and is not a prospective winner-selection procedure. Table 3 and Figure 2 should carry the main estimates and uncertainty. Table 4 and Figure 5 add the classwise clinical context. Figure 3a shows partial adaptation and frozen comparators; Figure 3b shows full-network Merlin/MedicalNet versus scratch DenseNet. Both panels display observed estimates without confidence bands, smoothing or extrapolation. Numerical intervals remain available in Table S1.
+
+The useful main-paper message is the combination of strong FlexiCT transfer, heterogeneous effects of adaptation, and meaningful conventional CNN performance. Avoid reducing it to “transformers beat CNNs.” 3DINO linear probing exceeds its LoRA macro-F1 endpoint, while Merlin full-network adaptation materially improves the interpretation of Merlin compared with its frozen or corrected-adapter results. These differences make the adaptation recipe part of the result, not a detail that can be omitted.
+
+## 3. Complete pipeline-by-pipeline interpretation
+
+Each paragraph reports the same 100% ensemble endpoint, the observed five-size curve and available full-development routes. Curve values are ordered by 248, 456, 664, 872 and 1,080 development patients. Differences across sizes are descriptive; the largest observed point is not used to choose a fraction.
+
+### 3DINO — Frozen features
+
+Observed results: macro-F1 48.9% (95% CI 41.6–55.7); accuracy 52.5% (95% CI 46.8–58.3); balanced accuracy 47.3% (95% CI 40.8–54.1); macro AP 0.522; macro OvR AUROC 0.786. Multiclass Brier score is 0.640, log loss 1.306 and top-label ECE 0.137. The macro-F1 curve is 36.8%, 46.4%, 42.4%, 44.9%, 48.9%, a smallest-to-largest change of +12.0 percentage points. At 100%, the refit macro-F1 is 47.8% and the best-fold macro-F1 is 42.7%. Perforation sensitivity is 6/18 (33.3%; Wilson 95% CI 16.3–56.3%).
+
+Interpretation and Discussion: The frozen representation supports a better macro-F1 endpoint than this LoRA recipe, although its accuracy is lower. A classifier can improve minority-class precision/recall balance while classifying fewer patients correctly overall. Native classifier/readout selection and LoRA optimization differ, so this contrast does not identify why adaptation underperformed. The probe was missing from the prior notebook method list, not from the completed experiment. Include both methods wherever 3DINO is discussed.
+
+### 3DINO — LoRA
+
+Observed results: macro-F1 40.3% (95% CI 35.7–44.9); accuracy 54.3% (95% CI 49.3–59.4); balanced accuracy 42.3% (95% CI 37.7–47.0); macro AP 0.543; macro OvR AUROC 0.819. Multiclass Brier score is 0.579, log loss 1.118 and top-label ECE 0.069. The macro-F1 curve is 39.1%, 43.0%, 44.4%, 38.3%, 40.3%, a smallest-to-largest change of +1.2 percentage points. At 100%, the refit macro-F1 is 38.4% and the best-fold macro-F1 is 40.1%. Perforation sensitivity is 0/18 (0.0%; Wilson 95% CI 0.0–17.6%).
+
+Interpretation and Discussion: This task-adapted LoRA pipeline has a nonmonotonic curve and weak multiclass decisions. No perforation case is correctly identified at 100%. The linear-probe comparison rules out describing this curve as the only evidence about the frozen representation. Higher ranking metrics do not resolve poor argmax classification; a different tuning or full-network recipe would be a different experiment, not an explanation established here.
+
+### COLIPRI — Frozen + native pooling
+
+Observed results: macro-F1 54.8% (95% CI 47.8–61.3); accuracy 56.1% (95% CI 50.4–61.9); balanced accuracy 54.1% (95% CI 47.2–60.8); macro AP 0.595; macro OvR AUROC 0.837. Multiclass Brier score is 0.590, log loss 1.172 and top-label ECE 0.139. The macro-F1 curve is 43.7%, 44.6%, 53.4%, 55.0%, 54.8%, a smallest-to-largest change of +11.1 percentage points. At 100%, the refit macro-F1 is 52.8% and the best-fold macro-F1 is 52.5%. Perforation sensitivity is 8/18 (44.4%; Wilson 95% CI 24.6–66.3%).
+
+Interpretation and Discussion: Native pooling and classifier search should be named explicitly: this comparator is not uniformly a strict linear probe. Modest performance does not show that all pretrained features are uninformative. Spatial preprocessing, pooling, classifier selection and task alignment are intertwined. A local flattening of this curve is not an intrinsic representation ceiling.
+
+### COLIPRI — Final block
+
+Observed results: macro-F1 66.5% (95% CI 59.4–72.8); accuracy 68.3% (95% CI 62.9–73.7); balanced accuracy 64.3% (95% CI 57.4–71.0); macro AP 0.737; macro OvR AUROC 0.903. Multiclass Brier score is 0.455, log loss 1.114 and top-label ECE 0.106. The macro-F1 curve is 48.5%, 54.9%, 52.6%, 57.5%, 66.5%, a smallest-to-largest change of +18.1 percentage points. At 100%, the refit macro-F1 is 58.8% and the best-fold macro-F1 is 68.8%. Perforation sensitivity is 9/18 (50.0%; Wilson 95% CI 29.0–71.0%).
+
+Interpretation and Discussion: Final-block adaptation improves the full-development endpoint relative to the native frozen-encoder pooling/classifier procedure. This is a comparison of model-specific pipelines rather than identical linear classifiers. The intermediate nonmonotonicity and minority-class uncertainty preclude a claim of uniform improvement for every training increment or diagnosis.
+
+### FlexiCT — Frozen features
+
+Observed results: macro-F1 80.9% (95% CI 75.0–86.3); accuracy 84.9% (95% CI 80.6–88.8); balanced accuracy 80.2% (95% CI 74.2–86.0); macro AP 0.888; macro OvR AUROC 0.968. Multiclass Brier score is 0.235, log loss 0.658 and top-label ECE 0.074. The macro-F1 curve is 75.9%, 78.7%, 79.7%, 79.2%, 80.9%, a smallest-to-largest change of +5.0 percentage points. At 100%, the refit macro-F1 is 83.4% and the best-fold macro-F1 is 80.4%. Perforation sensitivity is 12/18 (66.7%; Wilson 95% CI 43.7–83.7%).
+
+Interpretation and Discussion: Strong frozen-feature performance indicates useful transferred information for this endpoint. The additional final-block gain shows that a useful representation and useful task adaptation can coexist. It does not isolate pretraining corpus size, architecture or multimodal supervision as the cause. Do not compare its downstream sample count directly with the source model pretraining data size.
+
+### FlexiCT — Final block
+
+Observed results: macro-F1 92.0% (95% CI 88.1–95.4); accuracy 92.8% (95% CI 89.6–95.7); balanced accuracy 91.9% (95% CI 87.6–95.6); macro AP 0.957; macro OvR AUROC 0.988. Multiclass Brier score is 0.132, log loss 0.294 and top-label ECE 0.044. The macro-F1 curve is 86.7%, 92.2%, 90.8%, 91.8%, 92.0%, a smallest-to-largest change of +5.3 percentage points. At 100%, the refit macro-F1 is 89.0% and the best-fold macro-F1 is 91.0%. Perforation sensitivity is 16/18 (88.9%; Wilson 95% CI 67.2–96.9%).
+
+Interpretation and Discussion: This is the highest observed macro-F1 pipeline among those evaluated. Strong performance with the smallest development pool supports labeled-data efficiency of this transferred pipeline. Its intermediate maximum must not be used to select a test-optimal training fraction. The 20 original-label disagreements remain in the denominator after the radiologist reread.
+
+### Merlin — Frozen features
+
+Observed results: macro-F1 29.9% (95% CI 25.9–34.2); accuracy 52.5% (95% CI 48.6–56.5); balanced accuracy 34.6% (95% CI 31.5–38.0); macro AP 0.543; macro OvR AUROC 0.830. Multiclass Brier score is 0.653, log loss 1.265 and top-label ECE 0.139. The macro-F1 curve is 24.2%, 25.4%, 26.2%, 30.6%, 29.9%, a smallest-to-largest change of +5.7 percentage points. At 100%, the refit macro-F1 is 33.8% and the best-fold macro-F1 is unavailable under the eligible protocol. Perforation sensitivity is 0/18 (0.0%; Wilson 95% CI 0.0–17.6%).
+
+Interpretation and Discussion: The frozen task classifier has substantially lower macro-F1 than either adaptation route. Its higher accuracy must be interpreted alongside class support and minority-class recall; accuracy weights prevalent classes more strongly. This result concerns the saved image-only five-class classifier, not every task or representation accessible to Merlin.
+
+### Merlin — ConvLoRA + LLRD
+
+Observed results: macro-F1 64.6% (95% CI 57.8–71.2); accuracy 68.7% (95% CI 63.3–74.1); balanced accuracy 63.1% (95% CI 56.5–69.9); macro AP 0.720; macro OvR AUROC 0.901. Multiclass Brier score is 0.438, log loss 0.858 and top-label ECE 0.061. The macro-F1 curve is 52.8%, 60.3%, 60.4%, 63.2%, 64.6%, a smallest-to-largest change of +11.8 percentage points. At 100%, the refit macro-F1 is 58.8% and the best-fold macro-F1 is 63.4%. Perforation sensitivity is 9/18 (50.0%; Wilson 95% CI 29.0–71.0%).
+
+Interpretation and Discussion: Corrected adapters improve markedly over this frozen-feature classifier but do not match full-network adaptation at the largest size. The earlier pre-gradient-fix adapter recipe remains excluded. Limited trainable capacity and optimization differences are plausible hypotheses, not measured causes. The small-data ordering differs from the full-development ordering.
+
+### Merlin — Full fine-tuning
+
+Observed results: macro-F1 74.6% (95% CI 68.0–80.6); accuracy 78.8% (95% CI 74.1–83.5); balanced accuracy 73.0% (95% CI 66.8–79.3); macro AP 0.815; macro OvR AUROC 0.941. Multiclass Brier score is 0.327, log loss 0.654 and top-label ECE 0.058. The macro-F1 curve is 50.1%, 51.5%, 65.4%, 72.1%, 74.6%, a smallest-to-largest change of +24.5 percentage points. At 100%, the refit macro-F1 is 72.8% and the best-fold macro-F1 is 67.0%. Perforation sensitivity is 8/18 (44.4%; Wilson 95% CI 24.6–66.3%).
+
+Interpretation and Discussion: Full-network adaptation changes the interpretation of Merlin substantially. Its ensemble point estimate exceeds DenseNet at each sampled size and exceeds corrected adapters at the larger sizes. The full-development paired ensemble interval versus DenseNet includes zero. The evidence supports higher observed performance, not a definitive superiority or robustness claim. FullFineTune CV_2 is method-specific and must not be confused with corrected ConvLoRA_LLRD CV_2.
+
+### Pillar0 — Frozen features
+
+Observed results: macro-F1 72.4% (95% CI 66.7–78.1); accuracy 75.5% (95% CI 70.5–80.2); balanced accuracy 74.2% (95% CI 68.1–80.2); macro AP 0.797; macro OvR AUROC 0.939. Multiclass Brier score is 0.433, log loss 0.874 and top-label ECE 0.249. The macro-F1 curve is 68.5%, 67.5%, 71.3%, 73.0%, 72.4%, a smallest-to-largest change of +3.9 percentage points. At 100%, the refit macro-F1 is 73.7% and the best-fold macro-F1 is 72.7%. Perforation sensitivity is 12/18 (66.7%; Wilson 95% CI 43.7–83.7%).
+
+Interpretation and Discussion: The frozen-feature result supports transferable task information. Calibration and classwise performance must accompany aggregate discrimination: relatively good F1 does not mean numerical confidence is reliable. Cases correctly classified among another model’s errors are a selected subset and cannot establish overall superiority.
+
+### Pillar0 — Final block
+
+Observed results: macro-F1 77.1% (95% CI 71.0–82.8); accuracy 80.2% (95% CI 75.5–84.9); balanced accuracy 76.4% (95% CI 70.4–82.4); macro AP 0.823; macro OvR AUROC 0.952. Multiclass Brier score is 0.313, log loss 0.605 and top-label ECE 0.069. The macro-F1 curve is 70.7%, 72.3%, 74.9%, 75.3%, 77.1%, a smallest-to-largest change of +6.4 percentage points. At 100%, the refit macro-F1 is 71.5% and the best-fold macro-F1 is 74.0%. Perforation sensitivity is 10/18 (55.6%; Wilson 95% CI 33.7–75.4%).
+
+Interpretation and Discussion: Final Atlas block adaptation has a higher aggregate endpoint than the frozen probe, but the gain is modest relative to paired uncertainty and multiplicity. Aggregate improvement is not improvement in every class. The selected FlexiCT-error comparison is supplementary evidence only; the full 278-patient paired comparison is the basis for head-to-head conclusions.
+
+### MedicalNet — Full fine-tuning
+
+Observed results: macro-F1 59.4% (95% CI 52.6–65.9); accuracy 62.2% (95% CI 56.8–67.6); balanced accuracy 59.1% (95% CI 52.3–65.9); macro AP 0.646; macro OvR AUROC 0.857. Multiclass Brier score is 0.522, log loss 1.022 and top-label ECE 0.097. The macro-F1 curve is 35.5%, 40.3%, 40.2%, 46.9%, 59.4%, a smallest-to-largest change of +23.9 percentage points. At 100%, the refit macro-F1 is 10.5% and the best-fold macro-F1 is 55.1%. Perforation sensitivity is 8/18 (44.4%; Wilson 95% CI 24.6–66.3%).
+
+Interpretation and Discussion: This is full-network transfer from pretrained weights. Improvement across the available development range does not bring the endpoint to the strongest transferred models. Its large ensemble/refit discrepancy warrants training and selection analysis before attributing weakness to architecture. The notebook preserves each completed route rather than selecting the best test outcome.
+
+### DenseNet — 3D DenseNet121 from scratch
+
+Observed results: macro-F1 70.4% (95% CI 63.6–76.7); accuracy 74.5% (95% CI 69.4–79.5); balanced accuracy 68.7% (95% CI 62.3–75.2); macro AP 0.771; macro OvR AUROC 0.920. Multiclass Brier score is 0.369, log loss 0.805 and top-label ECE 0.055. The macro-F1 curve is 43.0%, 47.9%, 60.4%, 66.6%, 70.4%, a smallest-to-largest change of +27.4 percentage points. At 100%, the refit macro-F1 is 43.0% and the best-fold macro-F1 is 66.5%. Perforation sensitivity is 7/18 (38.9%; Wilson 95% CI 20.3–61.4%).
+
+Interpretation and Discussion: This model trains all parameters from random initialization; calling it pretrained full fine-tuning would be incorrect. Its improvement across development sizes contradicts a universal early CNN plateau in this experiment. The refit discrepancy is reported separately from the ensemble. Neither a favorable ensemble score nor internal calibration establishes robustness across hospitals or scanner protocols.
+
+## 4. Every planned paired ensemble comparison
+
+The direction below is method A minus method B. Positive values favor A. These are matched-patient macro-F1 differences with 95% pointwise bootstrap intervals and two-sided permutation P values Holm-adjusted across all 19 configured comparisons. A positive point estimate alone does not establish a reliable advantage. A nonsignificant test does not establish equivalence.
+
+3DINO Frozen features − DenseNet 3D DenseNet121 from scratch: -21.5 percentage points (95% CI -30.2 to -13.0); adjusted P=0.0019.
+3DINO LoRA − 3DINO Frozen features: -8.6 percentage points (95% CI -15.4 to -1.4); adjusted P=0.3954.
+3DINO LoRA − DenseNet 3D DenseNet121 from scratch: -30.1 percentage points (95% CI -37.2 to -22.5); adjusted P=0.0019.
+COLIPRI Frozen + native pooling − DenseNet 3D DenseNet121 from scratch: -15.6 percentage points (95% CI -22.9 to -8.0); adjusted P=0.0019.
+COLIPRI Final block − COLIPRI Frozen + native pooling: +11.8 percentage points (95% CI +5.8 to +17.5); adjusted P=0.0022.
+COLIPRI Final block − DenseNet 3D DenseNet121 from scratch: -3.9 percentage points (95% CI -10.6 to +2.7); adjusted P=0.7507.
+FlexiCT Frozen features − DenseNet 3D DenseNet121 from scratch: +10.5 percentage points (95% CI +3.7 to +17.7); adjusted P=0.0333.
+FlexiCT Final block − FlexiCT Frozen features: +11.1 percentage points (95% CI +6.5 to +16.1); adjusted P=0.0019.
+FlexiCT Final block − DenseNet 3D DenseNet121 from scratch: +21.6 percentage points (95% CI +15.3 to +28.6); adjusted P=0.0019.
+Merlin Frozen features − DenseNet 3D DenseNet121 from scratch: -40.5 percentage points (95% CI -47.8 to -32.6); adjusted P=0.0019.
+Merlin ConvLoRA + LLRD − Merlin Frozen features: +34.7 percentage points (95% CI +27.6 to +41.7); adjusted P=0.0019.
+Merlin ConvLoRA + LLRD − DenseNet 3D DenseNet121 from scratch: -5.8 percentage points (95% CI -14.1 to +2.7); adjusted P=0.7507.
+Pillar0 Frozen features − DenseNet 3D DenseNet121 from scratch: +2.0 percentage points (95% CI -5.0 to +9.4); adjusted P=0.7507.
+Pillar0 Final block − Pillar0 Frozen features: +4.7 percentage points (95% CI +0.1 to +9.0); adjusted P=0.2849.
+Pillar0 Final block − DenseNet 3D DenseNet121 from scratch: +6.7 percentage points (95% CI -0.6 to +14.2); adjusted P=0.3954.
+MedicalNet Full fine-tuning − DenseNet 3D DenseNet121 from scratch: -11.0 percentage points (95% CI -18.9 to -2.6); adjusted P=0.07279.
+Merlin Full fine-tuning − DenseNet 3D DenseNet121 from scratch: +4.2 percentage points (95% CI -2.9 to +11.4); adjusted P=0.7507.
+Merlin Full fine-tuning − Merlin ConvLoRA + LLRD: +9.9 percentage points (95% CI +3.4 to +16.2); adjusted P=0.02.
+Merlin Full fine-tuning − Merlin Frozen features: +44.6 percentage points (95% CI +37.3 to +51.8); adjusted P=0.0019.
+
+## 5. Why the 3DINO probe changes the interpretation
+
+At 100%, linear probing has macro-F1 48.9% versus 40.3% for LoRA, a paired probe-minus-LoRA difference of +8.6 points (95% CI +1.4 to +15.4). Accuracy is 52.5% versus 54.3%, so a claim that the probe is uniformly better across endpoints would be wrong. Table S17 reports all five sizes and three routes for macro-F1, accuracy and balanced accuracy. The probe curve is not monotonic and LoRA has higher macro-F1 at some smaller sizes.
+
+The Holm-adjusted permutation P value for this contrast is 0.3954. The unadjusted bootstrap interval and the multiplicity-adjusted permutation test answer different questions; the latter does not establish a difference at the 0.05 threshold.
+
+Suggested Results wording: “The 3DINO frozen-encoder linear probe achieved a higher full-development macro-F1 point estimate than the evaluated LoRA pipeline, despite lower overall accuracy; the comparison was not significant after multiplicity adjustment.” Suggested Discussion wording: “Adaptation gains were model- and recipe-dependent. The 3DINO result cautions against assuming that increasing the number of trainable parameters necessarily improves downstream classification.” Class-specific decisions, native classifier/readout selection and LoRA tuning would need controlled follow-up to explain the contrast. No mechanistic explanation is established by these predictions.
+
+## 6. Merlin full-network adaptation versus DenseNet
+
+Merlin full-network CV_2 has higher ensemble macro-F1 point estimates at each sampled development size. At 100%, the values are 74.6% and 70.4%; difference +4.2 points (95% CI -2.9 to +11.4). The interval includes zero. Table S16 is the requested complete comparison, with 45 rows covering three metrics, five sizes and three matched routes. Merlin and MedicalNet are pretrained full-network fine-tuning; DenseNet is full-network training from random initialization.
+
+Do not generalize the ensemble ordering to every route. For example, DenseNet’s 60% refit is above the corresponding Merlin full-network refit, and the 100% best-fold estimates are close. The large 100% refit difference favors Merlin partly in the setting of DenseNet’s much weaker refit than ensemble. Preserve the route-specific results instead of describing a single architecture as robust. Suggested manuscript wording: “Full-network Merlin achieved higher ensemble point estimates than DenseNet trained from scratch, although the paired full-development interval did not establish a clear ensemble advantage.”
+
+## 7. Fact check: CNN performance and data requirements
+
+The proposed claim that CNNs never exceed 72% accuracy or F1 is false. Eligible full-network Merlin reaches 78.8% accuracy and 74.6% macro-F1; DenseNet reaches 74.5% accuracy. Do not conflate accuracy and macro-F1 or omit the full-network Merlin recipe when describing CNN performance.
+
+The proposed transformer data claim needs two distinctions: pretraining data versus labeled downstream development data, and a particular training recipe versus an intrinsic architecture property. Here the transferred FlexiCT pipeline is already strong at 248 development patients, whereas 3DINO is substantially weaker despite also using a transformer encoder. This study cannot identify an architecture-only data requirement.
+
+The proposed CNN saturation claim is also unsupported as a general conclusion. DenseNet and full-network Merlin continue to improve over the sampled development range. A model can plateau under a fixed capacity or optimization schedule without establishing a universal ceiling. The cited studies support conditional inductive-bias and scale arguments, not a guarantee that all CNNs are better with small clinical datasets or that ViTs always require many labeled CT cases.
+
+[Dosovitskiy et al., ICLR 2021](https://arxiv.org/html/2010.11929v2). The original ViT experiments support a benefit of large-scale pretraining and report earlier ResNet saturation in a particular comparison. This concerns natural-image pretraining regimes, not a universal minimum number of labeled downstream CT patients.
+
+[Touvron et al., ICML 2021 (DeiT)](https://proceedings.mlr.press/v139/touvron21a.html). Data-efficient training and distillation produced competitive transformers using ImageNet without external training data. This qualifies an absolute claim that every ViT requires enormous external pretraining datasets; ImageNet itself is much larger than this clinical cohort.
+
+[Kolesnikov et al., ECCV 2020 (BiT)](https://arxiv.org/html/1912.11370v3). ResNet-based transfer benefits depend on model capacity, pretraining data and training duration. CNNs can benefit from additional data and transfer across small and large downstream regimes.
+
+[Liu et al., CVPR 2022 (ConvNeXt)](https://arxiv.org/abs/2201.03545). Competitive and scalable pure convolutional models counter an intrinsic CNN ceiling. Natural-image benchmark scores are not numerically comparable with this five-class CT test cohort.
+
+## 8. Learning curves, route sensitivity and uncertainty
+
+Report actual development counts rather than implying that nominal 20% is exactly one fifth of 1,080. The fixed 40-case perforation pool means relative class support decreases as other classes are added. Native hyperparameters may also change with development selection. The curves therefore compare complete training pipelines across these nested subsets, not a pure sample-size intervention with fixed class composition and fixed optimization.
+
+Table S2 reports within-pipeline differences from 100%; Table S3 gives normalized trapezoidal macro-F1 area over the observed count range. AULC is a descriptive summary of the five measured points and does not interpolate missing runs or estimate a minimum clinically sufficient sample size. Table S15 extends paired pipeline contrasts across smaller sizes. It does not add significance tests for every observed difference.
+
+Table S9 compares checkpoint routes only where model, method, percentage, CV identity and effective parameter signature match. Table S1 retains all eligible routes regardless of whether that matching gate is satisfied. The seven unavailable best-fold cells are five Merlin frozen-probe cells and two COLIPRI native-pooling cells; they are explicit gaps, not zeros. Completion means all available outputs were analyzed, not that missing experimental routes were fabricated.
+
+Ensemble/refit differences do not by themselves prove bagging robustness, checkpoint failure, overfitting or data leakage. Training histories and repeated controlled runs would be needed to distinguish hypotheses. Test-time route selection would bias the comparison; the main analysis consistently uses ensembles. Bootstrap rank stability in Table S8 measures resampling sensitivity among the 13 included pipelines, not the probability that a model is truly best in another population.
+
+## 9. Classwise discrimination, calibration and shared failures
+
+Perforation has only 18 test cases; one patient changes sensitivity by 5.6 percentage points. Report numerator, denominator and interval, especially when a model correctly identifies zero cases. A high aggregate macro-F1 does not guarantee adequate perforation sensitivity, and an increase in class precision can accompany a sensitivity decrease. Table S5 retains the full confusion-derived metrics, AP and AUROC; Figure S3 displays confusion matrices and Figure S4 ranking curves.
+
+Calibration and discrimination must be separated. Raw probabilities are evaluated without test-set recalibration. Top-label ECE uses ten fixed bins and is sensitive to bin support; Brier and log loss penalize probability error differently. These values are prevalence-dependent and cannot establish calibrated deployment risk at another institution. Figure S8 and Table S6 belong in the supplement unless probability reliability is a main study objective.
+
+Shared-error counts in Table S7/Figure S5 reveal overlap on the same cohort. Complementary errors may motivate a future cross-model ensemble, but choosing its weights using these test labels would invalidate the held-out comparison. The four zero-shot protocols remain a separate supplement because prompts, normalization and task adaptations differ. Their relative scores must not be assumed calibrated; Pillar-0’s prompt-similarity task is experimental.
+
+## 10. Radiologist reread: Results content and Discussion implications
+
+All 20 FlexiCT final-block ensemble disagreements remain reported as errors against the original labels: 20/278, or 7.2%. The radiologist reviewed a model-selected subset, not an independent sample of all test patients. Nineteen comment IDs match exactly; the 8701-to-Perforation_R20 link remains provisional despite the user’s confirmation of plausibility by elimination. The notebook does not silently convert that linkage into certainty.
+
+The analyst-coded narrative categories are Confirmed model error: 6, Other disease / proposed exclusion: 5, Likely error / uncertain reference: 3, Reference-label discrepancy: 2, Target diagnosis not supported: 2, Overlapping target diagnoses: 2. This coding summarizes prose, not a blinded adjudicated reference standard. Some disagreements involve overlapping target diagnoses, unsupported recorded targets or disease outside the five mutually exclusive categories. Others remain genuine clinically consequential misses. A case with no supported target diagnosis is not necessarily a normal abdomen.
+
+Pillar-0 matches the original label in 8/20 selected cases and makes the same prediction as FlexiCT in 10/20. This selection is asymmetric and cannot estimate overall superiority or radiologist-confirmed accuracy. Use canonical saved predictions; the supplied manual table differs for Sigmoid_R08. The comparison belongs in Table S13, alongside the full-cohort result already in Table 3.
+
+Put a short quantitative reread description and representative error mechanisms in Results. In Discussion, address reference-standard uncertainty, overlapping diagnoses and label ontology; do not claim corrected accuracy or retrospectively exclude inconvenient cases. A defensible relabeling sensitivity analysis would require a consistent adjudication procedure applied to the full cohort, with reader details and blinding documented.
+
+## 11. Grad-CAM, CT panels and perturbation evidence
+
+All 20 existing explanation runs reproduce the stored ensemble probabilities within tolerance. Targeted masking produces a positive probability decrease exceeding the mean of three random masks in 14/20 cases, and increases the predicted-class probability in 6/20. Median targeted and random probability drops are 0.152 and 0.023. Preserve these counterexamples when discussing attribution rather than showing only convincing heatmaps.
+
+The saved token maps are coarse: 20³ tokens at 16-mm spacing from 160³ inputs at 2-mm spacing. Positive targets are independently normalized; signed contrast can compare direction but does not create an anatomical lesion annotation. Displayed planes pass through the predicted-map maximum, not a verified lesion coordinate. Six 40³-voxel cubes occupy 9.375% of the model input and span 80 mm each, potentially masking multiple structures. Mean- and air-filled occlusions change the input distribution. Only one fold’s classifier head was randomized, so that diagnostic does not validate lesion localization.
+
+Figure 6 should illustrate distinct clinical disagreement mechanisms using four examples, with radiologist comments clearly attributed. Figures S9–S11 preserve quantitative diagnostics, all 20 three-plane attributions and all 20 CT overviews. No lesion arrows are added without verified coordinates. These materials support inspection of model behavior, not proof that the network used the appendix, gallbladder or a proposed mimic causally.
+
+## 12. Suggested Discussion synthesis and editorial placement
+
+The main interpretation is that transfer performance in this five-class abdominal CT task depends strongly on the pretrained model and the adaptation recipe. FlexiCT performs well with both frozen features and final-block adaptation, while 3DINO does not benefit uniformly from LoRA. Merlin’s full-network result changes conclusions drawn from its frozen or limited-adapter variants. Conventional DenseNet training remains competitive, and the observed CNN curves do not support an intrinsic low performance ceiling. These findings motivate controlled optimization and transfer studies rather than architecture-wide superiority claims.
+
+The radiologist reread provides a complementary clinical interpretation of model–label disagreement. Ambiguous or overlapping categories can make an apparently simple multiclass endpoint clinically imperfect, yet true misses of subtle disease remain important. Uncertain reference labels, non-target inflammation and complex anatomy should be described without retrospectively redefining the test endpoint. Attribution maps provide examples and limitations of model inspection, not a substitute for lesion annotations or reader studies.
+
+Main paper: Tables 1–4 for cohort, methods, full-development performance and class sensitivity; Figures 1–6 for design, interval comparisons, Figure 3a/b learning curves, paired effects, class performance and selected clinical images. Supplement: all numeric runs, uncertainty, calibration, confusion/ranking, routes, zero-shot, all rereads, Pillar-0 selected-case comparison, all attribution images and Tables S16–S17. Detailed model-by-model prose is an author resource; select only findings that advance the main argument for the journal manuscript.
+
+Limitations to retain: retrospective emphasis on ensembles and expanded comparison scope after result inspection; repeated use of the same test cohort; model-specific preprocessing, pretraining and search budgets; small perforation support; changing training composition; absent repeated training seeds and external cohorts; incomplete clinical demographics, acquisition, recruitment and reader-protocol metadata. None of these internal estimates establishes external robustness, fairness, prospective utility or a causal effect of architecture. Clinical authors must verify label definitions, ethics and reference-standard construction, finalize the provisional case linkage, and approve deidentified image selection before submission.

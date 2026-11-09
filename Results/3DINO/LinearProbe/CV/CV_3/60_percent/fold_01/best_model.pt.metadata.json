@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "model_family": "3DINO",
+  "method": "LinearProbe",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "1ee7d51dbc4634f12636c4f8eb98a1e94f23fca97d036dc65ea203fcfa0fcbec",
+  "source_checkpoint_sha256": "f89a5b5da0355a92d6960db7ab8f1ac2432557a9434c073f2b6110dfa7798ab5",
+  "model_tensor_sha256": "f7f8e1583d6b7584ce5d471652e1faa6245c63ae0d89b6569fdc9470d508d04d",
+  "model_tensor_count": 2,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "autocast_dtype": "float16",
+    "batch_size": 32,
+    "candidate_id": "4bd92e767699",
+    "class_weighting": "none",
+    "drop_last": true,
+    "encoder_frozen": true,
+    "evaluation_interval_iterations": 50,
+    "input_shape_dhw": [
+      112,
+      112,
+      112
+    ],
+    "intensity_percentiles": [
+      0.05,
+      99.95
+    ],
+    "intensity_range": [
+      -1.0,
+      1.0
+    ],
+    "learning_rate_scale_rule": "global_batch_over_256",
+    "loss": "cross_entropy",
+    "lr": 0.025,
+    "max_iterations": 12500,
+    "mixed_precision": true,
+    "momentum": 0.9,
+    "n_last_blocks": 4,
+    "nominal_lr": 0.2,
+    "optimizer": "sgd",
+    "resize_prefix_shape_dhw": [
+      144,
+      144,
+      112
+    ],
+    "sampler": "sharded_infinite",
+    "scheduler": "cosine",
+    "scheduler_eta_min": 0.0,
+    "seed": 42,
+    "use_mean_patch_token": true,
+    "weight_decay": 0.0
+  },
+  "model_identity": {
+    "asset_provisioning": {
+      "checkpoint": {
+        "acquisition": "huggingface_cache",
+        "download_performed": false,
+        "filename": "3dino_vit_weights.pth",
+        "repo_id": "AICONSlab/3DINO-ViT",
+        "revision": "8a00a2bb14becb3fbe955064837322a3217f7ac0",
+        "sha256": "b68dde2e435648bdf72edae70f970b07e4a903a8122c5be9e360bdb076cf695c",
+        "size_bytes": 1417113974,
+        "token_logged": false
+      },
+      "downloads_performed": false,
+      "git_operations_performed": true,
+      "upstream": {
+        "acquisition": "existing_local_checkout",
+        "git_invoked": true,
+        "head_revision": "85bd4435c1b2ada41cd34cd15cad17c4d3c88d89",
+        "modification_status": "clean_tracked_tree",
+        "origin": "https://github.com/AICONSlab/3DINO",
+        "repository": "https://github.com/AICONSlab/3DINO",
+        "required_files_present": true,
+        "revision": "85bd4435c1b2ada41cd34cd15cad17c4d3c88d89",
+        "revision_claim_verified_from_scm": true,
+        "source_vendored": false,
+        "tracked_modifications_present": false,
+        "tracked_tree_clean": true,
+        "untracked_content_policy": "only __pycache__/*.pyc allowed",
+        "untracked_runtime_artifacts_ignored": 0,
+        "validation_scope": "required-file presence plus Git origin, exact detached/checked-out HEAD revision, clean tracked tree, and no untracked content except generated __pycache__ bytecode"
+      }
+    },
+    "downloaded_automatically": false,
+    "git_operations_performed": true,
+    "model_repo_id": "AICONSlab/3DINO-ViT",
+    "model_revision": "8a00a2bb14becb3fbe955064837322a3217f7ac0",
+    "pretrained_checkpoint": null,
+    "pretrained_checkpoint_sha256": "b68dde2e435648bdf72edae70f970b07e4a903a8122c5be9e360bdb076cf695c",
+    "upstream_modification_status": "clean_tracked_tree",
+    "upstream_modified": false,
+    "upstream_repository": "https://github.com/AICONSlab/3DINO",
+    "upstream_revision": "85bd4435c1b2ada41cd34cd15cad17c4d3c88d89",
+    "upstream_validation": {
+      "acquisition": "existing_local_checkout",
+      "git_invoked": true,
+      "head_revision": "85bd4435c1b2ada41cd34cd15cad17c4d3c88d89",
+      "modification_status": "clean_tracked_tree",
+      "origin": "https://github.com/AICONSlab/3DINO",
+      "repository": "https://github.com/AICONSlab/3DINO",
+      "required_files_present": true,
+      "revision": "85bd4435c1b2ada41cd34cd15cad17c4d3c88d89",
+      "revision_claim_verified_from_scm": true,
+      "source_vendored": false,
+      "tracked_modifications_present": false,
+      "tracked_tree_clean": true,
+      "untracked_content_policy": "only __pycache__/*.pyc allowed",
+      "untracked_runtime_artifacts_ignored": 0,
+      "validation_scope": "required-file presence plus Git origin, exact detached/checked-out HEAD revision, clean tracked tree, and no untracked content except generated __pycache__ bytecode"
+    }
+  },
+  "study": {
+    "cv_id": "CV_3",
+    "development_percentage": 60,
+    "partition": "fold_01",
+    "reported_test_routes": [
+      "3DINO/LinearProbe/Test/CV_3/cv_ensemble/60_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": true,
+  "runtime_assets": {}
+}

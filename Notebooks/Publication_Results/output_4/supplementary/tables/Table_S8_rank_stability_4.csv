@@ -1,0 +1,14 @@
+run_id,label,median_bootstrap_rank,fractional_best_frequency,within_0_02_of_best_frequency,comparison_set_n
+3DINO/LinearProbe/Test/CV_1/cv_ensemble/100_percent,3DINO | Frozen features,11.0,0.0,0.0,13
+3DINO/LoRA/Test/CV_1/cv_ensemble/100_percent,3DINO | LoRA,12.0,0.0,0.0,13
+COLIPRI/PoolingOptimisedLinearProbe/Test/CV_1/cv_ensemble/100_percent,COLIPRI | Frozen + native pooling,10.0,0.0,0.0,13
+COLIPRI/PrimusMFinalBlockFineTune/Test/CV_2/cv_ensemble/100_percent,COLIPRI | Final block,7.0,0.0,0.0,13
+FlexiCT/LinearProbe/Test/CV_1/cv_ensemble/100_percent,FlexiCT | Frozen features,2.0,0.0,0.0,13
+FlexiCT/FinalBlockFineTune/Test/CV_1/cv_ensemble/100_percent,FlexiCT | Final block,1.0,1.0,1.0,13
+Merlin/LinearProbe/Test/CV_1/cv_ensemble/100_percent,Merlin | Frozen features,13.0,0.0,0.0,13
+Merlin/ConvLoRA_LLRD/Test/CV_2/cv_ensemble/100_percent,Merlin | ConvLoRA + LLRD,8.0,0.0,0.0,13
+Merlin/FullFineTune/Test/CV_2/cv_ensemble/100_percent,Merlin | Full fine-tuning,4.0,0.0,0.0,13
+Pillar0/LinearProbe/Test/CV_1/cv_ensemble/100_percent,Pillar0 | Frozen features,5.0,0.0,0.0,13
+Pillar0/AtlasFinalBlockFineTune/Test/CV_2/cv_ensemble/100_percent,Pillar0 | Final block,3.0,0.0,0.0,13
+MedicalNet/FullFineTune/Test/CV_1/cv_ensemble/100_percent,MedicalNet | Full fine-tuning,9.0,0.0,0.0,13
+DenseNet/FromScratch/Test/CV_1/cv_ensemble/100_percent,DenseNet | 3D DenseNet121 from scratch,6.0,0.0,0.0,13

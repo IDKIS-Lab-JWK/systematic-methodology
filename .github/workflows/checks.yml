@@ -25,3 +25,5 @@ jobs:
       - name: Shared workflow contracts
         run: python -B -m pytest Code/Models/_linear_probe/tests Code/Models/_supervised_adaptation/tests -q -p no:cacheprovider
 
+      - name: Checkpoint downloader contracts (no network downloads)
+        run: python -B -m pytest tests/test_checkpoint_download.py -q -p no:cacheprovider

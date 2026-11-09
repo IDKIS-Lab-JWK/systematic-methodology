@@ -1,0 +1,7 @@
+cohort,percentage,Appendicitis,Cholecystitis,Normal,Perforation,Sigmoid,total
+20% development,20,38,30,72,40,68,248
+40% development,40,76,59,144,40,137,456
+60% development,60,114,89,216,40,205,664
+80% development,80,152,118,288,40,274,872
+100% development,100,190,148,360,40,342,1080
+Fixed held-out test,0,47,37,90,18,86,278

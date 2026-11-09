@@ -1,0 +1,40 @@
+
+For perforation fixed:
+No splitting into different chunks of overall data. Fixed number of train (29), val (11) and test datasets
+
+Test dataset fixed (20%):
+Perforation: 18 (Fixed)
+Cholecystitis: 37 
+Normal: 90
+Appendicitis: 47
+Sigmoid: 86
+Train/Val (70/30) splits at different percentages:
+
+Split	Appendicitis	Cholecystitis	Normal	Perforation	Sigmoid
+Total	237	185	450	58	428
+Test (20%)	47	37	90	18	86
+Remaining	190	148	360	40	342
+20%	38	30	72	40 (fixed)	68
+20% Train/Val	27/11	21/9	50/22	29/11	48/20
+40%	76	59	144	40 (fixed)	137
+40% Train/Val	53/23	41/18	101/43	29/11	96/41
+60%	114	89	216	40 (fixed)	205
+60% Train/Val	80/34	62/27	151/65	29/11	144/61
+80%	152	118	288	40 (fixed)	274
+80% Train/Val	106/46	83/35	202/86	29/11	192/82
+100%	190	148	360	40 (fixed)	342
+100% Train/Val	133/57	104/44	252/108	29/11	239/103
+
+Five-fold cross-validation JSON representation:
+- The 70/30 Train/Val rows above are retained as historical planning values;
+  the JSON manifests replace that single split with five CV folds.
+- The DICOM, NIfTI, and PNG folders remain physically unsplit.
+- Patient assignments are stored in Dataset/Splits/*.json.
+- Each percentage's development pool is partitioned into five deterministic,
+  class-stratified, mutually exclusive folds.
+- For iteration i, fold i is validation and the other four folds are training.
+- Each hyperparameter candidate is evaluated across these five iterations.
+- The fixed held-out test set is identical for all percentages and is used
+  only once after model and hyperparameter selection.
+- Seed: 42.
+- Lower-percentage patient pools are subsets of higher-percentage pools.

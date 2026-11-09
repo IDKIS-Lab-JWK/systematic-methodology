@@ -1,0 +1,14 @@
+model_method,3DINO | Frozen features,3DINO | LoRA,COLIPRI | Frozen + native pooling,COLIPRI | Final block,FlexiCT | Frozen features,FlexiCT | Final block,Merlin | Frozen features,Merlin | ConvLoRA + LLRD,Merlin | Full fine-tuning,Pillar0 | Frozen features,Pillar0 | Final block,MedicalNet | Full fine-tuning,DenseNet | 3D DenseNet121 from scratch
+3DINO | Frozen features,132,97,81,58,29,11,81,57,46,42,36,73,49
+3DINO | LoRA,97,127,82,65,31,13,91,59,45,44,42,75,52
+COLIPRI | Frozen + native pooling,81,82,122,67,25,14,72,54,38,42,36,66,49
+COLIPRI | Final block,58,65,67,88,29,14,60,46,33,42,33,51,45
+FlexiCT | Frozen features,29,31,25,29,42,16,33,27,20,23,22,29,25
+FlexiCT | Final block,11,13,14,14,16,20,14,13,9,12,12,16,12
+Merlin | Frozen features,81,91,72,60,33,14,132,66,44,39,32,64,44
+Merlin | ConvLoRA + LLRD,57,59,54,46,27,13,66,87,42,36,31,52,35
+Merlin | Full fine-tuning,46,45,38,33,20,9,44,42,59,32,28,43,36
+Pillar0 | Frozen features,42,44,42,42,23,12,39,36,32,68,47,44,33
+Pillar0 | Final block,36,42,36,33,22,12,32,31,28,47,55,35,31
+MedicalNet | Full fine-tuning,73,75,66,51,29,16,64,52,43,44,35,105,53
+DenseNet | 3D DenseNet121 from scratch,49,52,49,45,25,12,44,35,36,33,31,53,71

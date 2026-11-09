@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "model_family": "FlexiCT",
+  "method": "LinearProbe",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "645f28d1b180a33f66c16b69cfdb20697e600648f7178c6b6cd8d9bca9f48933",
+  "source_checkpoint_sha256": "645f28d1b180a33f66c16b69cfdb20697e600648f7178c6b6cd8d9bca9f48933",
+  "model_tensor_sha256": null,
+  "model_tensor_count": null,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "classifier": "multinomial_logistic_regression",
+    "penalty": "l2",
+    "solver": "lbfgs",
+    "class_weight": "balanced",
+    "max_iter": 20000,
+    "random_state": 0,
+    "feature_standardization": "StandardScaler fit on training partition only",
+    "encoder_frozen": true,
+    "feature_dimension": 1024,
+    "C": 10.0,
+    "candidate_id": "af1e8a0c522b"
+  },
+  "model_identity": {
+    "feature_contract_sha256": "4a0d098068f89ec64e8a04a215ab9158647318441ea9066f49aabe8b33c7cba7",
+    "feature_cache_manifest_sha256": "cfd575b6dab79399f613b801c931f99a0ee11601607ccb8b735b4d133635ea75",
+    "feature_entries_sha256": "0b197f1d6d295f233cb706713c68990b698c2afd00d73c7d548a4d4b3a1744c1",
+    "checkpoint": {
+      "bytes": 1771227431,
+      "sha256": "bb4e0a697380f3636723b76b175cd1d6ca2e72659a4c269be3b3e5d41c4b7403",
+      "source": "official FlexiCT Google Drive release supplied by user"
+    },
+    "upstream_revision": "fd74ac06a31813fe02805674e96f811e9b2a5c43",
+    "representation": "vlm_projected_cls_mean_l2_1024",
+    "storage_dtype": "float32",
+    "extraction_precision": "bf16",
+    "probe_implementation_identity": {
+      "schema_version": 1
+    },
+    "probe_runtime": {
+      "python_implementation": "CPython",
+      "python_version": "3.11.15",
+      "numpy_version": "2.3.2",
+      "scipy_version": "1.16.1",
+      "scikit_learn_version": "1.7.1",
+      "joblib_version": "1.5.3",
+      "classifier_random_state": 0
+    }
+  },
+  "study": {
+    "cv_id": "CV_1",
+    "development_percentage": 80,
+    "partition": "fold_01",
+    "reported_test_routes": [
+      "FlexiCT/LinearProbe/Test/CV_1/cv_ensemble/80_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": true,
+  "runtime_assets": {}
+}

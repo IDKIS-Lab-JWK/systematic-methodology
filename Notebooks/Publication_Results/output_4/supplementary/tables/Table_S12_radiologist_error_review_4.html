@@ -1,0 +1,258 @@
+<!doctype html><meta charset="utf-8"><style>body{font-family:Arial;margin:32px;color:#172b3a}table{border-collapse:collapse;font-size:12px}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}th{background:#eef3f7}caption{text-align:left;font-size:16px;padding:12px 0}</style><h2>Table S12 radiologist error review</h2><p>All 20 FlexiCT-selected disagreements; original labels retained. Categories summarize a narrative reread with undocumented blinding and one provisional link.</p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>review_id</th>
+      <th>true_class</th>
+      <th>predicted_class</th>
+      <th>predicted_probability</th>
+      <th>true_probability</th>
+      <th>fold_votes_for_ensemble_prediction</th>
+      <th>review_category</th>
+      <th>radiologist_summary</th>
+      <th>interpretation</th>
+      <th>linkage_status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>R01</td>
+      <td>Normal</td>
+      <td>Appendicitis</td>
+      <td>0.9994</td>
+      <td>0.0001</td>
+      <td>5</td>
+      <td>Reference-label discrepancy</td>
+      <td>Clear appendicitis on reread; supports the model class.</td>
+      <td>Reconsider recorded Normal label</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R02</td>
+      <td>Normal</td>
+      <td>Sigmoid</td>
+      <td>0.9952</td>
+      <td>0.0041</td>
+      <td>5</td>
+      <td>Other disease / proposed exclusion</td>
+      <td>Colitis and jejunitis; neither normal nor appendicitis nor sigmoid diverticulitis.</td>
+      <td>Outside the five mutually exclusive labels</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R03</td>
+      <td>Normal</td>
+      <td>Cholezystitis</td>
+      <td>0.9923</td>
+      <td>0.0074</td>
+      <td>5</td>
+      <td>Other disease / proposed exclusion</td>
+      <td>Gallbladder-adjacent enhancing lesion ultimately considered a liver tumor mimicking inflammation.</td>
+      <td>Reviewer recommends exclusion</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R04</td>
+      <td>Normal</td>
+      <td>Appendicitis</td>
+      <td>0.9647</td>
+      <td>0.0296</td>
+      <td>5</td>
+      <td>Other disease / proposed exclusion</td>
+      <td>Crohn disease exacerbation with surrounding inflammation and tumor infiltration.</td>
+      <td>Reviewer recommends exclusion</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R05</td>
+      <td>Sigmoid</td>
+      <td>Normal</td>
+      <td>0.9546</td>
+      <td>0.0017</td>
+      <td>5</td>
+      <td>Target diagnosis not supported</td>
+      <td>Incarcerated left inguinal hernia involving sigmoid; no clinical or operative proof of diverticulitis.</td>
+      <td>Absence of diverticulitis does not establish a normal abdomen</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R06</td>
+      <td>Appendicitis</td>
+      <td>Normal</td>
+      <td>0.9479</td>
+      <td>0.0231</td>
+      <td>5</td>
+      <td>Other disease / proposed exclusion</td>
+      <td>Malignancy-associated rectal obstruction, splenomegaly and ascites; no appendicitis.</td>
+      <td>Reviewer recommends exclusion</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R07</td>
+      <td>Cholezystitis</td>
+      <td>Normal</td>
+      <td>0.9188</td>
+      <td>0.0020</td>
+      <td>5</td>
+      <td>Likely error / uncertain reference</td>
+      <td>Cholecystitis likely but not proven; nearby postoperative stoma may mimic inflammation.</td>
+      <td>Reviewer retains case; model likely wrong</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R08</td>
+      <td>Sigmoid</td>
+      <td>Perforation</td>
+      <td>0.8934</td>
+      <td>0.1028</td>
+      <td>5</td>
+      <td>Overlapping target diagnoses</td>
+      <td>Acute and chronic sigmoid diverticulitis with perforation.</td>
+      <td>Single-label task conflates coexisting diagnoses</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R09</td>
+      <td>Cholezystitis</td>
+      <td>Normal</td>
+      <td>0.8738</td>
+      <td>0.0948</td>
+      <td>5</td>
+      <td>Confirmed model error</td>
+      <td>Subtle cholecystitis clinically proven, with cholestasis.</td>
+      <td>Recorded disease retained</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R10</td>
+      <td>Cholezystitis</td>
+      <td>Normal</td>
+      <td>0.8702</td>
+      <td>0.0661</td>
+      <td>5</td>
+      <td>Confirmed model error</td>
+      <td>Proven cholecystitis with complex anatomy, displaced kidney, hernias, sarcopenia and chronic inflammation.</td>
+      <td>Recorded disease retained</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R11</td>
+      <td>Normal</td>
+      <td>Appendicitis</td>
+      <td>0.8670</td>
+      <td>0.1269</td>
+      <td>5</td>
+      <td>Confirmed model error</td>
+      <td>No pathology on either review.</td>
+      <td>Recorded Normal label retained</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R12</td>
+      <td>Cholezystitis</td>
+      <td>Normal</td>
+      <td>0.8334</td>
+      <td>0.0461</td>
+      <td>5</td>
+      <td>Target diagnosis not supported</td>
+      <td>Urosepsis and gallbladder hydrops; initial noncontrast CT diagnosis of cholecystitis was not supported.</td>
+      <td>Absence of cholecystitis does not establish a normal abdomen</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R13</td>
+      <td>Normal</td>
+      <td>Sigmoid</td>
+      <td>0.7918</td>
+      <td>0.2050</td>
+      <td>5</td>
+      <td>Confirmed model error</td>
+      <td>No pathology on two reviews; a dense sigmoid clip is a proposed mimic.</td>
+      <td>Clip explanation is a reviewer hypothesis</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R14</td>
+      <td>Perforation</td>
+      <td>Normal</td>
+      <td>0.7697</td>
+      <td>0.0148</td>
+      <td>5</td>
+      <td>Confirmed model error</td>
+      <td>Operatively confirmed covered duodenal perforation with large air/fluid collection and atypical anatomy.</td>
+      <td>Normal prediction is a true miss on reread</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R15</td>
+      <td>Normal</td>
+      <td>Cholezystitis</td>
+      <td>0.7111</td>
+      <td>0.2859</td>
+      <td>4</td>
+      <td>Likely error / uncertain reference</td>
+      <td>Gallstones, chronic wall changes and symptoms improving with antibiotics; no definitive reference diagnosis.</td>
+      <td>Reviewer considers both labels defensible</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R16</td>
+      <td>Appendicitis</td>
+      <td>Normal</td>
+      <td>0.6185</td>
+      <td>0.3724</td>
+      <td>4</td>
+      <td>Confirmed model error</td>
+      <td>Clear uncomplicated appendicitis; renal transplant changes anatomy.</td>
+      <td>Anatomical explanation is a reviewer hypothesis</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R17</td>
+      <td>Appendicitis</td>
+      <td>Normal</td>
+      <td>0.5901</td>
+      <td>0.0803</td>
+      <td>3</td>
+      <td>Other disease / proposed exclusion</td>
+      <td>Extensive ulcerative colitis with secondary appendiceal enhancement rather than primary appendicitis.</td>
+      <td>Reviewer recommends exclusion</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R18</td>
+      <td>Normal</td>
+      <td>Sigmoid</td>
+      <td>0.5591</td>
+      <td>0.4260</td>
+      <td>3</td>
+      <td>Reference-label discrepancy</td>
+      <td>Bacterial colitis with focal sigmoid inflammation and diverticula; diverticulitis considered likely.</td>
+      <td>Reread supports model class provisionally</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R19</td>
+      <td>Sigmoid</td>
+      <td>Perforation</td>
+      <td>0.5506</td>
+      <td>0.4426</td>
+      <td>3</td>
+      <td>Overlapping target diagnoses</td>
+      <td>Sigmoid diverticulitis with perforation.</td>
+      <td>Single-label task conflates coexisting diagnoses</td>
+      <td>exact_id</td>
+    </tr>
+    <tr>
+      <td>R20</td>
+      <td>Perforation</td>
+      <td>Cholezystitis</td>
+      <td>0.3844</td>
+      <td>0.2677</td>
+      <td>2</td>
+      <td>Likely error / uncertain reference</td>
+      <td>Reviewer describes pyloric perforation with minimal free air and gallbladder hydrops mimicking cholecystitis; exclusion or discussion suggested.</td>
+      <td>Provisional linkage: original correspondence identifier differs</td>
+      <td>provisional_user_inference</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,132 @@
+<!doctype html><meta charset="utf-8"><style>body{font-family:Arial;margin:32px;color:#172b3a}table{border-collapse:collapse;font-size:12px}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}th{background:#eef3f7}caption{text-align:left;font-size:16px;padding:12px 0}</style><h2>Table 2 methods</h2><p>Planned model/adaptation methods, initialization and available CV-ensemble coverage.</p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>method</th>
+      <th>initialization</th>
+      <th>available_ensemble_percentages</th>
+      <th>parameter_origins</th>
+      <th>comparison_group</th>
+      <th>evidence_note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3DINO</td>
+      <td>Frozen features</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Reference pipeline</td>
+      <td>Publication-derived frozen-encoder linear probe: native 52-candidate search over learning rate and feature readout; development-only selection; five-class endpoint is a task adaptation</td>
+    </tr>
+    <tr>
+      <td>3DINO</td>
+      <td>LoRA</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>default</td>
+      <td>Reference pipeline</td>
+      <td>Project-adapted 3DINO LoRA classification; pretrained backbone with adapters, not full-network fine-tuning</td>
+    </tr>
+    <tr>
+      <td>COLIPRI</td>
+      <td>Frozen + native pooling</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Foundation-model pipeline</td>
+      <td>Publication-derived native pooling search; learned pooling is not uniformly a strict linear probe</td>
+    </tr>
+    <tr>
+      <td>COLIPRI</td>
+      <td>Final block</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Foundation-model pipeline</td>
+      <td>Publication-anchored downstream schedule/LR; final-block scope and five-class head are task adaptations</td>
+    </tr>
+    <tr>
+      <td>FlexiCT</td>
+      <td>Frozen features</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Foundation-model pipeline</td>
+      <td>Publication-derived frozen projected features and model-native classifier search</td>
+    </tr>
+    <tr>
+      <td>FlexiCT</td>
+      <td>Final block</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Foundation-model pipeline</td>
+      <td>Publication-anchored optimizer/LR/scheduler; final-block classification scope and stopping are task adaptations</td>
+    </tr>
+    <tr>
+      <td>Merlin</td>
+      <td>Frozen features</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Foundation-model pipeline</td>
+      <td>Publication-derived frozen image encoder with a task-adapted five-class linear head</td>
+    </tr>
+    <tr>
+      <td>Merlin</td>
+      <td>ConvLoRA + LLRD</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Foundation-model pipeline</td>
+      <td>Publication-inspired image-only ConvLoRA with layer-wise learning-rate decay; task-adapted supervised protocol</td>
+    </tr>
+    <tr>
+      <td>Merlin</td>
+      <td>Full fine-tuning</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Foundation-model pipeline</td>
+      <td>Retrospective publication-derived full-network addition, FullFineTune CV_2; distinct from corrected ConvLoRA_LLRD CV_2 and historical FullFineTune CV_1</td>
+    </tr>
+    <tr>
+      <td>Pillar0</td>
+      <td>Frozen features</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Foundation-model pipeline</td>
+      <td>Publication-derived frozen-feature linear head; five-class loss and labels are task adaptations</td>
+    </tr>
+    <tr>
+      <td>Pillar0</td>
+      <td>Final block</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Foundation-model pipeline</td>
+      <td>Publication-anchored optimizer/training budget; final Atlas block and five-class head are task adaptations</td>
+    </tr>
+    <tr>
+      <td>MedicalNet</td>
+      <td>Full fine-tuning</td>
+      <td>Pretrained encoder</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Reference pipeline</td>
+      <td>Full-network transfer from official pretrained weights; five-class task adaptation</td>
+    </tr>
+    <tr>
+      <td>DenseNet</td>
+      <td>3D DenseNet121 from scratch</td>
+      <td>Random initialization</td>
+      <td>20, 40, 60, 80, 100</td>
+      <td>publication</td>
+      <td>Reference pipeline</td>
+      <td>All parameters trained from random initialization; full-network training, not pretrained-weight fine-tuning</td>
+    </tr>
+  </tbody>
+</table>

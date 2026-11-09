@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "model_family": "DenseNet",
+  "method": "FromScratch",
+  "classes": [
+    "Appendicitis",
+    "Cholezystitis",
+    "Normal",
+    "Perforation",
+    "Sigmoid"
+  ],
+  "checkpoint_sha256": "2dafb30b676b6b5a77327ecdfe289fa256a6191bd862be8bfbaac1d08e262f44",
+  "source_checkpoint_sha256": "d16e6bdbc9710f87af28f1f7ac493568da4af72351a4fda276f6302e8fa531bf",
+  "model_tensor_sha256": "85927d267e82c39c6ba53b272cd6a95832c4c6fb9378808156327307d58f1785",
+  "model_tensor_count": 727,
+  "checkpoint_scope": "inference_only",
+  "parameters": {
+    "epochs": 90,
+    "effective_batch_size": 4,
+    "eval_batch_size": 1,
+    "validation_interval_epochs": 1,
+    "early_stopping_patience_epochs": 0,
+    "early_stopping_min_delta": 0.0,
+    "class_weight_beta": 0.999,
+    "gradient_clip_norm": 1.0,
+    "dropout": 0.0,
+    "augmentation": "none",
+    "canvas_xyz": [
+      256,
+      256,
+      256
+    ],
+    "warmup_steps": 0,
+    "minimum_lr_ratio": 0.0,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "optimizer": "sgd",
+    "learning_rate": 0.01,
+    "momentum": 0.9,
+    "nesterov": true,
+    "weight_decay": 0.0001,
+    "scheduler": "multistep",
+    "milestone_epochs": [
+      30,
+      60
+    ],
+    "lr_gamma": 0.1,
+    "candidate_id": "879e21dbb761"
+  },
+  "model_identity": {
+    "schema_version": "supervised-adaptation-v1",
+    "model": "DenseNet",
+    "method": "FromScratch",
+    "method_id": "densenet121_3d_scratch",
+    "pretrained_model": {
+      "name": "DenseNet",
+      "pretrained": false,
+      "runtime": {
+        "python": "3.11.7",
+        "platform": "Linux-5.14.0-427.13.1.el9_4.x86_64-x86_64-with-glibc2.34",
+        "torch": "2.8.0+cu128",
+        "numpy": "2.2.6",
+        "scikit_learn": "1.7.2",
+        "device_requested": "cuda",
+        "training_precision_resolved": "bf16",
+        "cuda_runtime": "12.8",
+        "cudnn": 91002,
+        "cuda_device_name": "NVIDIA H100 80GB HBM3",
+        "cuda_device_capability": [
+          9,
+          0
+        ]
+      },
+      "packages": {
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "nibabel": "5.3.2",
+        "monai": "1.5.1",
+        "filelock": "3.19.1"
+      },
+      "micro_batch_size": 4,
+      "cpu_threads": 8,
+      "torch_math": {
+        "cudnn_benchmark": false,
+        "cudnn_deterministic": true,
+        "matmul_tf32": false,
+        "cudnn_tf32": false
+      },
+      "monai_densenet_source_sha256": "d0b66a594dc735f9c490d2813f0560d861687881d00796817cfdbf539e1bbfc8"
+    },
+    "representation": {
+      "kind": "whole_volume_3d",
+      "layout": "N,C,S,A,R",
+      "rationale": {
+        "input": "Existing unsplit NIfTI and patient manifests; no new split or DICOM series selection.",
+        "orientation": "Axis-aligned RAS physical coordinates for consistent anatomy; use the full affine, including obliquity.",
+        "reference_spacing": "Per-axis median of training-patient native spacings (Med3D section 3.1). Validation/test do not fit statistics.",
+        "working_spacing": "Per-axis max(reference median, largest training scan world-coordinate span/(canvas-1)). Fit whole training volumes without organ/lesion crops; coarsening is a task adaptation to memory constraints.",
+        "canvas": "Fixed, GPU-benchmarked voxel box; dimensions are a project resource choice, not a published CT optimum.",
+        "oversize": "Keep the fitted spacing unchanged for every validation/test patient. Expand the centered canvas to multiples of 32 when needed for full coverage; evaluate one patient at a time and log dimensions. Never silently coarsen or crop on memory failure.",
+        "interpolation": "Physical-space linear interpolation, preceded by Gaussian anti-alias filtering on axes being downsampled. Single geometric interpolation avoids a second arbitrary resize.",
+        "hu_window": "Clip to [-200,250] HU, the Med3D LiTS abdominal precedent, then map to [0,1]. Mapping and transfer to five-class classification/DenseNet are adaptations; other HU ranges may contain useful information.",
+        "padding": "Center the full scan in the physical canvas; outside-acquisition fill -1000 HU becomes zero after windowing. No anatomy crop or mask.",
+        "augmentation": "No geometric augmentation in the baseline. Preserve laterality and complete field of view without lesion boxes; this differs from Med3D pretraining and is explicitly adapted.",
+        "limits": "Coverage is geometric, not proof that small diagnostic findings survive downsampling. Resolution sensitivity uses development folds only."
+      },
+      "sources": {
+        "med3d": "https://arxiv.org/pdf/1904.00625",
+        "nnunet": "https://doi.org/10.1038/s41592-020-01008-z",
+        "leakage": "https://doi.org/10.1016/j.patter.2023.100804",
+        "antialias": "https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize"
+      },
+      "fit_scope": "each fold's training patients; refit uses selected development pool"
+    },
+    "implementation": {
+      "sha256": "ab6da6b988cf5bac6affa2edd4b616e780fadc2e68fa565f1c2f4e3b094f228d"
+    }
+  },
+  "study": {
+    "cv_id": "CV_1",
+    "development_percentage": 100,
+    "partition": "fold_01",
+    "reported_test_routes": [
+      "DenseNet/FromScratch/Test/CV_1/cv_ensemble/100_percent"
+    ]
+  },
+  "requires_external_pretrained_backbone": false,
+  "runtime_assets": {},
+  "preprocessing_plan": {
+    "schema_version": 1,
+    "training_patient_count": 863,
+    "training_rows_sha256": "d6ca8c157254d10ac90dcebca93d34010a2000355e878e76fa94f604ac374675",
+    "training_geometry_sha256": "31267f43cc3853aa86e6b390101b239d2d19e8b4b30d964a706099fe8fcd93ca",
+    "reference_spacing_xyz_mm": [
+      0.755859375,
+      0.755859375,
+      3.0
+    ],
+    "training_max_span_xyz_mm": [
+      504.36432337760925,
+      500.0,
+      714.0
+    ],
+    "spacing_quantiles_mm": {
+      "0": [
+        0.42317578101234854,
+        0.4231757602129106,
+        0.6000000238418579
+      ],
+      "10": [
+        0.6687398433685303,
+        0.6687395691871643,
+        1.0
+      ],
+      "50": [
+        0.755859375,
+        0.755859375,
+        3.0
+      ],
+      "90": [
+        0.8826335906982422,
+        0.8826334595680237,
+        3.0
+      ],
+      "100": [
+        0.9765625,
+        0.9765625,
+        5.0
+      ]
+    },
+    "span_quantiles_mm": {
+      "0": [
+        261.0,
+        218.72030149275088,
+        197.0
+      ],
+      "50": [
+        395.0,
+        387.0,
+        450.0
+      ],
+      "95": [
+        479.9852949798107,
+        472.0,
+        525.0
+      ],
+      "100": [
+        504.36432337760925,
+        500.0,
+        714.0
+      ]
+    },
+    "numeric": {
+      "schema_version": 1,
+      "canvas_xyz": [
+        256,
+        256,
+        256
+      ],
+      "working_spacing_xyz_mm": [
+        1.9778993073631734,
+        1.9607843137254901,
+        3.0
+      ],
+      "hu_window": [
+        -200.0,
+        250.0
+      ],
+      "outside_hu": -1000.0,
+      "interpolation_order": 1,
+      "antialias": "native-axis Gaussian sigma=max((target/native-1)/2,0)",
+      "orientation": "axis_aligned_RAS",
+      "oversize_policy": "expand_canvas_keep_spacing"
+    },
+    "numeric_sha256": "da9c378e0c97adfef305f8760f0bd033eda743ea6787294c320d08ead8d8c525",
+    "rationale": {
+      "input": "Existing unsplit NIfTI and patient manifests; no new split or DICOM series selection.",
+      "orientation": "Axis-aligned RAS physical coordinates for consistent anatomy; use the full affine, including obliquity.",
+      "reference_spacing": "Per-axis median of training-patient native spacings (Med3D section 3.1). Validation/test do not fit statistics.",
+      "working_spacing": "Per-axis max(reference median, largest training scan world-coordinate span/(canvas-1)). Fit whole training volumes without organ/lesion crops; coarsening is a task adaptation to memory constraints.",
+      "canvas": "Fixed, GPU-benchmarked voxel box; dimensions are a project resource choice, not a published CT optimum.",
+      "oversize": "Keep the fitted spacing unchanged for every validation/test patient. Expand the centered canvas to multiples of 32 when needed for full coverage; evaluate one patient at a time and log dimensions. Never silently coarsen or crop on memory failure.",
+      "interpolation": "Physical-space linear interpolation, preceded by Gaussian anti-alias filtering on axes being downsampled. Single geometric interpolation avoids a second arbitrary resize.",
+      "hu_window": "Clip to [-200,250] HU, the Med3D LiTS abdominal precedent, then map to [0,1]. Mapping and transfer to five-class classification/DenseNet are adaptations; other HU ranges may contain useful information.",
+      "padding": "Center the full scan in the physical canvas; outside-acquisition fill -1000 HU becomes zero after windowing. No anatomy crop or mask.",
+      "augmentation": "No geometric augmentation in the baseline. Preserve laterality and complete field of view without lesion boxes; this differs from Med3D pretraining and is explicitly adapted.",
+      "limits": "Coverage is geometric, not proof that small diagnostic findings survive downsampling. Resolution sensitivity uses development folds only."
+    },
+    "sources": {
+      "med3d": "https://arxiv.org/pdf/1904.00625",
+      "nnunet": "https://doi.org/10.1038/s41592-020-01008-z",
+      "leakage": "https://doi.org/10.1016/j.patter.2023.100804",
+      "antialias": "https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize"
+    }
+  }
+}

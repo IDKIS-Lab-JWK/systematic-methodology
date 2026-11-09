@@ -1,11 +1,19 @@
-# Dataset utilities
+# Dataset Code
 
-The public `python run.py split` command generates patient-group-safe splits
-for new labeled NIfTI manifests. It supports a training/validation split or
-cross-validation and an independent held-out test partition. Supplied splits
-are validated by the same contract. Read `docs/DATA.md` from the repository root.
+Dataset-related executable code lives in this directory:
 
-`prepare_dataset.py` is an optional image conversion utility. Its original
-merge-existing helper assumes the historical folder layout; new users should
-supply source locations explicitly. No clinical data is bundled. The fixed
-cohort-count split generator belongs only to the experimental repository.
+- `prepare_dataset.py` copies or converts imaging data into
+  `Systematic_Methodology/Dataset/`.
+- `generate_split_manifests.py` reads the class-wise dataset and writes JSON
+  manifests into `Systematic_Methodology/Dataset/Splits/`.
+
+From the `Systematic_Methodology` directory:
+
+```powershell
+python Code\Dataset\prepare_dataset.py merge-existing
+python Code\Dataset\generate_split_manifests.py
+```
+
+Both scripts derive their default locations from the repository structure, so
+no path arguments are required for the standard layout.
+

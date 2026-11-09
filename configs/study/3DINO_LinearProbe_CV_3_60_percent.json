@@ -1,0 +1,50 @@
+{
+  "model": "3DINO",
+  "method": "LinearProbe",
+  "cv_id": "CV_3",
+  "development_percentage": 60,
+  "parameters": {
+    "autocast_dtype": "float16",
+    "batch_size": 32,
+    "candidate_id": "4bd92e767699",
+    "class_weighting": "none",
+    "drop_last": true,
+    "encoder_frozen": true,
+    "evaluation_interval_iterations": 50,
+    "input_shape_dhw": [
+      112,
+      112,
+      112
+    ],
+    "intensity_percentiles": [
+      0.05,
+      99.95
+    ],
+    "intensity_range": [
+      -1.0,
+      1.0
+    ],
+    "learning_rate_scale_rule": "global_batch_over_256",
+    "loss": "cross_entropy",
+    "lr": 0.025,
+    "max_iterations": 12500,
+    "mixed_precision": true,
+    "momentum": 0.9,
+    "n_last_blocks": 4,
+    "nominal_lr": 0.2,
+    "optimizer": "sgd",
+    "resize_prefix_shape_dhw": [
+      144,
+      144,
+      112
+    ],
+    "sampler": "sharded_infinite",
+    "scheduler": "cosine",
+    "scheduler_eta_min": 0.0,
+    "seed": 42,
+    "use_mean_patch_token": true,
+    "weight_decay": 0.0
+  },
+  "parameter_source": "publication",
+  "heldout_used_for_selection": false
+}

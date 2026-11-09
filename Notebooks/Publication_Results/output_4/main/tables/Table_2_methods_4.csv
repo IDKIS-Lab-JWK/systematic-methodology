@@ -1,0 +1,14 @@
+model,method,initialization,available_ensemble_percentages,parameter_origins,comparison_group,evidence_note
+3DINO,Frozen features,Pretrained encoder,"20, 40, 60, 80, 100",publication,Reference pipeline,Publication-derived frozen-encoder linear probe: native 52-candidate search over learning rate and feature readout; development-only selection; five-class endpoint is a task adaptation
+3DINO,LoRA,Pretrained encoder,"20, 40, 60, 80, 100",default,Reference pipeline,"Project-adapted 3DINO LoRA classification; pretrained backbone with adapters, not full-network fine-tuning"
+COLIPRI,Frozen + native pooling,Pretrained encoder,"20, 40, 60, 80, 100",publication,Foundation-model pipeline,Publication-derived native pooling search; learned pooling is not uniformly a strict linear probe
+COLIPRI,Final block,Pretrained encoder,"20, 40, 60, 80, 100",publication,Foundation-model pipeline,Publication-anchored downstream schedule/LR; final-block scope and five-class head are task adaptations
+FlexiCT,Frozen features,Pretrained encoder,"20, 40, 60, 80, 100",publication,Foundation-model pipeline,Publication-derived frozen projected features and model-native classifier search
+FlexiCT,Final block,Pretrained encoder,"20, 40, 60, 80, 100",publication,Foundation-model pipeline,Publication-anchored optimizer/LR/scheduler; final-block classification scope and stopping are task adaptations
+Merlin,Frozen features,Pretrained encoder,"20, 40, 60, 80, 100",publication,Foundation-model pipeline,Publication-derived frozen image encoder with a task-adapted five-class linear head
+Merlin,ConvLoRA + LLRD,Pretrained encoder,"20, 40, 60, 80, 100",publication,Foundation-model pipeline,Publication-inspired image-only ConvLoRA with layer-wise learning-rate decay; task-adapted supervised protocol
+Merlin,Full fine-tuning,Pretrained encoder,"20, 40, 60, 80, 100",publication,Foundation-model pipeline,"Retrospective publication-derived full-network addition, FullFineTune CV_2; distinct from corrected ConvLoRA_LLRD CV_2 and historical FullFineTune CV_1"
+Pillar0,Frozen features,Pretrained encoder,"20, 40, 60, 80, 100",publication,Foundation-model pipeline,Publication-derived frozen-feature linear head; five-class loss and labels are task adaptations
+Pillar0,Final block,Pretrained encoder,"20, 40, 60, 80, 100",publication,Foundation-model pipeline,Publication-anchored optimizer/training budget; final Atlas block and five-class head are task adaptations
+MedicalNet,Full fine-tuning,Pretrained encoder,"20, 40, 60, 80, 100",publication,Reference pipeline,Full-network transfer from official pretrained weights; five-class task adaptation
+DenseNet,3D DenseNet121 from scratch,Random initialization,"20, 40, 60, 80, 100",publication,Reference pipeline,"All parameters trained from random initialization; full-network training, not pretrained-weight fine-tuning"

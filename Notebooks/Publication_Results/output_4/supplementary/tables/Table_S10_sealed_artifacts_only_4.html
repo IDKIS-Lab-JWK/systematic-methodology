@@ -1,0 +1,136 @@
+<!doctype html><meta charset="utf-8"><style>body{font-family:Arial;margin:32px;color:#172b3a}table{border-collapse:collapse;font-size:12px}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}th{background:#eef3f7}caption{text-align:left;font-size:16px;padding:12px 0}</style><h2>Table S10 sealed artifacts only</h2><p>Descriptive main-analysis subset with verified completion seals; legacy runs remain explicitly identified elsewhere.</p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>method</th>
+      <th>percentage</th>
+      <th>source</th>
+      <th>cv_id</th>
+      <th>source_family</th>
+      <th>integrity</th>
+      <th>n_test</th>
+      <th>Macro F1 (95% CI)</th>
+      <th>Balanced accuracy (95% CI)</th>
+      <th>Macro average precision (95% CI)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3DINO</td>
+      <td>LinearProbe</td>
+      <td>100</td>
+      <td>cv_ensemble</td>
+      <td>CV_1</td>
+      <td>publication</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.489 (0.416, 0.557)</td>
+      <td>0.473 (0.408, 0.541)</td>
+      <td>0.522 (0.464, 0.597)</td>
+    </tr>
+    <tr>
+      <td>3DINO</td>
+      <td>LoRA</td>
+      <td>100</td>
+      <td>cv_ensemble</td>
+      <td>CV_1</td>
+      <td>default</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.403 (0.357, 0.449)</td>
+      <td>0.423 (0.377, 0.470)</td>
+      <td>0.543 (0.493, 0.620)</td>
+    </tr>
+    <tr>
+      <td>COLIPRI</td>
+      <td>PoolingOptimisedLinearProbe</td>
+      <td>100</td>
+      <td>cv_ensemble</td>
+      <td>CV_1</td>
+      <td>publication</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.548 (0.478, 0.613)</td>
+      <td>0.541 (0.472, 0.608)</td>
+      <td>0.595 (0.536, 0.671)</td>
+    </tr>
+    <tr>
+      <td>COLIPRI</td>
+      <td>PrimusMFinalBlockFineTune</td>
+      <td>100</td>
+      <td>cv_ensemble</td>
+      <td>CV_2</td>
+      <td>publication</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.665 (0.594, 0.728)</td>
+      <td>0.643 (0.574, 0.710)</td>
+      <td>0.737 (0.677, 0.801)</td>
+    </tr>
+    <tr>
+      <td>FlexiCT</td>
+      <td>LinearProbe</td>
+      <td>100</td>
+      <td>cv_ensemble</td>
+      <td>CV_1</td>
+      <td>publication</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.809 (0.750, 0.863)</td>
+      <td>0.802 (0.742, 0.860)</td>
+      <td>0.888 (0.842, 0.931)</td>
+    </tr>
+    <tr>
+      <td>FlexiCT</td>
+      <td>FinalBlockFineTune</td>
+      <td>100</td>
+      <td>cv_ensemble</td>
+      <td>CV_1</td>
+      <td>publication</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.920 (0.881, 0.954)</td>
+      <td>0.919 (0.876, 0.956)</td>
+      <td>0.957 (0.929, 0.980)</td>
+    </tr>
+    <tr>
+      <td>Pillar0</td>
+      <td>AtlasFinalBlockFineTune</td>
+      <td>100</td>
+      <td>cv_ensemble</td>
+      <td>CV_2</td>
+      <td>publication</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.771 (0.710, 0.828)</td>
+      <td>0.764 (0.704, 0.824)</td>
+      <td>0.823 (0.773, 0.887)</td>
+    </tr>
+    <tr>
+      <td>MedicalNet</td>
+      <td>FullFineTune</td>
+      <td>100</td>
+      <td>cv_ensemble</td>
+      <td>CV_1</td>
+      <td>publication</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.594 (0.526, 0.659)</td>
+      <td>0.591 (0.523, 0.659)</td>
+      <td>0.646 (0.586, 0.717)</td>
+    </tr>
+    <tr>
+      <td>DenseNet</td>
+      <td>FromScratch</td>
+      <td>100</td>
+      <td>cv_ensemble</td>
+      <td>CV_1</td>
+      <td>publication</td>
+      <td>hash_seal_verified</td>
+      <td>278</td>
+      <td>0.704 (0.636, 0.767)</td>
+      <td>0.687 (0.623, 0.752)</td>
+      <td>0.771 (0.713, 0.837)</td>
+    </tr>
+  </tbody>
+</table>

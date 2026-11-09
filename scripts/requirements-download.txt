@@ -1,0 +1,2 @@
+# Only needed for public Google Drive downloads; listing/verification use stdlib.
+gdown>=5.2.0,<6
