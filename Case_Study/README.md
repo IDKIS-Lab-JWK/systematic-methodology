@@ -1,5 +1,9 @@
 # Case study: the 20 FlexiCT disagreements
 
+The [21-page supplementary case atlas](Updated_Supplementary_Case_Atlas.pdf) is
+the PDF edition of the manuscript atlas, with all 20 cases and their review
+summaries, three-plane attribution panels and CT overviews.
+
 Start with [the complete 61-page report](FlexiCT_20_Case_Study.pdf). Each of the
 20 public cases (R01-R20) includes its radiologist interpretation, three-plane
 CT/Grad-CAM panel and 12-slice CT overview. The source figures are also supplied
